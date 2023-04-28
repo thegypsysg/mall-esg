@@ -1,0 +1,134 @@
+@media (min-width: 960px) {
+  header.v-sheet.v-app-bar {
+    height: 72px !important;
+  }
+  .v-toolbar__extension {
+    display: none !important;
+  }
+  .logo-img {
+    //border-right: 2px solid #c2c2c2;
+    //padding-right: 30px;
+  }
+  .desktop__app {
+    display: block;
+  }
+  .mobile__app {
+    display: none;
+  }
+}
+@media (max-width: 959px) {
+  .partners_box {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .header-title {
+    font-size: 24px !important;
+    font-weight: 700;
+    line-height: 33px !important;
+  }
+  .header-title-sub{
+    font-size: 16px !important;
+    font-weight: 700;
+    line-height: 22px !important;
+  }
+  .bg-image {
+    background-image: url("@/assets/mall-banner.png") !important;
+    margin-top: 185px;
+    min-height: calc(100vh - 185px);
+  }
+
+  .logo-img {
+    max-height: 40px !important;
+  }
+  .btn_sign__up {
+    font-size: 12px !important;
+    font-weight: 700;
+    line-height: 22px;
+    padding: 10px !important;
+  }
+  .v-toolbar__extension {
+    height: 95px !important;
+  }
+  header.v-sheet.v-app-bar {
+    height: 160px !important;
+  }
+  .mobile__app {
+    display: block;
+  }
+  .desktop__app {
+    display: none;
+  }
+  .navbar__search__desktop {
+    display: none;
+  }
+  .header__wrapper {
+    position: fixed;
+  }
+  .v-navigation-drawer {
+    //display: none;
+  }
+  .footer__content {
+    display: block !important;
+    font-family: Nunito;
+    font-size: 14px !important;
+    font-weight: 600;
+    line-height: 20px !important;
+    letter-spacing: 0;
+    text-align: left;
+
+  }
+  .trending__app .mobile__app {
+    text-align: center;
+    color: white !important;
+    position: absolute;
+    bottom: 12px;
+  }
+  .trending__app .mobile__app .text_title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19px;
+    color: white !important;
+    text-align: left;
+  }
+  .trending__app .mobile__app .text_subtitle {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 14px;
+    color: white !important;
+    text-align: left;
+  }
+  .trending__app .mobile__app .v-btn {
+    font-family: Nunito;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding: 10px 6px;
+    background-color: #FA2964; border-radius:50px; padding: 10px 16px;
+  }
+  .trending__app .tag {
+    display: none;
+  }
+  .trending__app .v-chip {
+    font-size: 11px !important;
+    line-height: 16px !important;
+  }
+  .footer__content .footer_text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+  .footer_lks {
+    padding: 16px 40px;
+  }
+  .jumbotron-text {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  .trending__app__wrapper .v-col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
