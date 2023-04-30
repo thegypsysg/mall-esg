@@ -6,7 +6,7 @@
     <v-container>
       <div v-if="!isSmall" class="d-flex justify-space-between">
         <h1>Other Promotion Types</h1>
-        <h1>View all</h1>
+        <h1 class="view-all">View all</h1>
       </div>
       <v-sheet v-if="!isSmall" class="mx-auto" elevation="0">
         <v-slide-group v-model="model2" class="pa-4 other-slide">
@@ -27,7 +27,7 @@
             class="other-item mx-4"
           >
             <v-card
-              :class="['mx-2 py-10 px-12 text-left']"
+              :class="['mx-2 py-8 px-5 text-left']"
               elevation="1"
               style="border-radius: 12px; padding: 22px"
               @click="toggle"
@@ -53,7 +53,9 @@
                   <p class="mb-2" style="font-size: 10px; font-weight: 500">
                     {{ promo.title }}
                   </p>
-                  <img :src="promo.img" height="60" />
+                  <div class="other-img-container">
+                    <img :src="promo.img" height="60" class="other-img" />
+                  </div>
                   <div
                     style="
                       font-weight: 600;
@@ -72,16 +74,17 @@
       </v-sheet>
       <div v-if="isSmall" class="px-2">
         <v-card
-          v-for="(item, index) in displayedCardMobile"
+          v-for="(item, index) in items"
           :key="index"
           elevation="0"
           class="mb-5"
         >
           <div
-            class="text-h6"
+            class="text-h6 d-flex justify-space-between"
             style="font-size: 20px; margin-bottom: 20px; line-height: 19.36px"
           >
-            Promotions {{ item.title }}
+            <h1>Promotions {{ item.title }}</h1>
+            <h1 class="view-all">View all</h1>
           </div>
           <v-slide-group class="slide-group">
             <v-slide-group-item
@@ -97,7 +100,9 @@
                 <p class="mb-2" style="font-size: 10px; font-weight: 500">
                   {{ promo.title }}
                 </p>
-                <img :src="promo.img" height="60" />
+                <div class="other-img-container">
+                  <img :src="promo.img" height="60" class="other-img" />
+                </div>
                 <div
                   style="
                     font-weight: 600;
@@ -111,13 +116,13 @@
             </v-slide-group-item>
           </v-slide-group>
         </v-card>
-        <v-btn
+        <!-- <v-btn
           v-if="showViewAllButton === true"
           class="other-btn"
           @click="showAllCards"
         >
           View All Promotions
-        </v-btn>
+        </v-btn> -->
       </div>
     </v-container>
   </div>
@@ -130,8 +135,6 @@ export default {
   data() {
     return {
       screenWidth: window.innerWidth,
-      displayedCardMobile: [],
-      showViewAllButton: true,
       maxCardMobile: 3,
     };
   },
@@ -143,17 +146,17 @@ export default {
   created() {
     window.addEventListener("resize", this.handleResize);
   },
-  mounted() {
-    this.displayedCardMobile = this.items.slice(0, this.maxCardMobile);
-  },
+  // mounted() {
+  //   this.displayedCardMobile = this.items.slice(0, this.maxCardMobile);
+  // },
   unmounted() {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
-    showAllCards() {
-      this.displayedCardMobile = this.items;
-      this.showViewAllButton = false;
-    },
+    // showAllCards() {
+    //   this.displayedCardMobile = this.items;
+    //   this.showViewAllButton = false;
+    // },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
@@ -211,6 +214,18 @@ export default {
   text-align: left;
 }
 
+.other-img-container {
+  width: 90px;
+  height: 60px;
+}
+
+.other-img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+
 @media screen and (max-width: 960px) {
   .slide-item {
     width: calc(
@@ -222,6 +237,10 @@ export default {
 @media screen and (max-width: 600px) {
   .slide-item {
     width: 100%;
+  }
+  .other-img-container {
+    width: 100px;
+    height: 70px;
   }
 }
 </style>
