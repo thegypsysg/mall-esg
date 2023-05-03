@@ -108,7 +108,6 @@
 
 <script>
 import OtherPromotion from "./OtherPromotion/OtherPromotion.vue";
-import otherImg from "@/assets/other-img-1.png";
 
 export default {
   name: "Promotions",
@@ -116,200 +115,174 @@ export default {
   data: () => ({
     model: null,
     model2: null,
-
-    screenWidth: window.innerWidth,
     otherPromotionData: [
       {
-        title: "By Meals",
+        title: "by Meals",
         items: [
           {
             title: "Chicken",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Durian",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Banana",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Chicken",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Durian",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Banana",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Chicken",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Durian",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Banana",
-            img: otherImg,
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
         ],
       },
       {
-        title: "By People",
+        title: "by People",
         items: [
           {
-            title: "Chicken",
-            img: otherImg,
-            quantity: 2,
+            title: "Everyone",
+            img: "src/assets/other-people-img-1.png",
+            quantity: 10,
           },
           {
-            title: "Durian",
-            img: otherImg,
-            quantity: 2,
+            title: "Men",
+            img: "src/assets/other-people-img-2.png",
+            quantity: 10,
           },
           {
-            title: "Banana",
-            img: otherImg,
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: otherImg,
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: otherImg,
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: otherImg,
-            quantity: 2,
+            title: "Senior Citizens",
+            img: "src/assets/other-people-img-3.png",
+            quantity: 10,
           },
         ],
       },
       {
-        title: "By Preferences",
+        title: "by Preference",
         items: [
           {
-            title: "Chicken",
-            img: otherImg,
-            quantity: 2,
+            title: "Oranges",
+            img: "src/assets/other-preference-img-1.png",
+            quantity: 5,
           },
           {
-            title: "Durian",
-            img: otherImg,
-            quantity: 2,
+            title: "Oranges",
+            img: "src/assets/other-preference-img-2.png",
+            quantity: 5,
           },
           {
-            title: "Banana",
-            img: otherImg,
-            quantity: 2,
+            title: "Oranges",
+            img: "src/assets/other-preference-img-3.png",
+            quantity: 5,
           },
           {
-            title: "Chicken",
-            img: otherImg,
-            quantity: 2,
+            title: "Oranges",
+            img: "src/assets/other-preference-img-4.png",
+            quantity: 5,
           },
           {
-            title: "Durian",
-            img: otherImg,
-            quantity: 2,
+            title: "Oranges",
+            img: "src/assets/other-preference-img-5.png",
+            quantity: 5,
           },
           {
-            title: "Banana",
-            img: otherImg,
-            quantity: 2,
+            title: "Oranges",
+            img: "src/assets/other-preference-img-6.png",
+            quantity: 5,
+          },
+          {
+            title: "Oranges",
+            img: "src/assets/other-preference-img-7.png",
+            quantity: 5,
+          },
+          {
+            title: "Oranges",
+            img: "src/assets/other-preference-img-8.png",
+            quantity: 5,
+          },
+          {
+            title: "Oranges",
+            img: "src/assets/other-preference-img-9.png",
+            quantity: 5,
           },
         ],
       },
       {
-        title: "By Meal",
+        title: "Other Types of ",
         items: [
           {
-            title: "Chicken",
-            img: otherImg,
-            quantity: 2,
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-types-img-1.png",
+            quantity: 5,
           },
           {
-            title: "Durian",
-            img: otherImg,
-            quantity: 2,
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-types-img-2.png",
+            quantity: 5,
           },
           {
-            title: "Banana",
-            img: otherImg,
-            quantity: 2,
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-types-img-3.png",
+            quantity: 5,
           },
           {
-            title: "Chicken",
-            img: otherImg,
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: otherImg,
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: otherImg,
-            quantity: 2,
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-types-img-4.png",
+            quantity: 5,
           },
         ],
       },
       {
-        title: "By Meal",
+        title: "Voucher ",
         items: [
           {
-            title: "Chicken",
-            img: otherImg,
-            quantity: 2,
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-voucher-img-1.png",
+            quantity: 5,
           },
           {
-            title: "Durian",
-            img: otherImg,
-            quantity: 2,
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-voucher-img-2.png",
+            quantity: 5,
           },
           {
-            title: "Banana",
-            img: otherImg,
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: otherImg,
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: otherImg,
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: otherImg,
-            quantity: 2,
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-voucher-img-3.png",
+            quantity: 5,
           },
         ],
       },
     ],
+    screenWidth: window.innerWidth,
   }),
   computed: {
     isSmall() {

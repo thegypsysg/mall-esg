@@ -80,13 +80,27 @@
           class="mb-5"
         >
           <div
+            :class="{
+              'mt-6':
+                item.title === 'Other Types of ' || item.title === 'Voucher ',
+            }"
             class="text-h6 d-flex justify-space-between"
             style="font-size: 20px; margin-bottom: 20px; line-height: 19.36px"
           >
-            <h1>Promotions {{ item.title }}</h1>
+            <h1
+              v-if="
+                item.title === 'Other Types of ' || item.title === 'Voucher '
+              "
+            >
+              {{ item.title }}Promotions
+            </h1>
+            <h1 v-else>Promotions {{ item.title }}</h1>
             <h1 class="view-all">View all</h1>
           </div>
-          <v-slide-group class="slide-group">
+          <v-slide-group
+            v-if="item.title === 'by Meals' || item.title === 'Voucher '"
+            class="slide-group"
+          >
             <v-slide-group-item
               v-for="(promo, i) in item.items"
               :key="i"
@@ -94,16 +108,26 @@
             >
               <v-card
                 :class="['text-left', 'mr-2']"
-                elevation="0"
+                :elevation="item.title === 'Voucher ' ? 2 : 0"
                 @click="toggle"
               >
-                <p class="mb-2" style="font-size: 10px; font-weight: 500">
+                <p
+                  v-if="item.title === 'by Meals'"
+                  class="mb-2"
+                  style="font-size: 10px; font-weight: 500"
+                >
                   {{ promo.title }}
                 </p>
-                <div class="other-img-container">
+                <div
+                  :class="{
+                    'other-img-container': item.title === 'Meals',
+                    'other-img-container-5': item.title === 'Voucher ',
+                  }"
+                >
                   <img :src="promo.img" height="60" class="other-img" />
                 </div>
                 <div
+                  v-if="item.title === 'by Meals'"
                   style="
                     font-weight: 600;
                     font-size: 10px;
@@ -112,9 +136,100 @@
                 >
                   <span class="text-red">{{ promo.quantity }}</span> Promos
                 </div>
+                <div v-if="item.title === 'Voucher '" class="px-4 py-3">
+                  <p style="font-size: 10px; font-weight: 500">
+                    {{ promo.title }}
+                  </p>
+                  <div
+                    style="
+                      font-weight: 600;
+                      font-size: 10px;
+                      line-height: 16.94px;
+                    "
+                  >
+                    <span class="text-red">{{ promo.quantity }}</span> Promos
+                  </div>
+                </div>
               </v-card>
             </v-slide-group-item>
           </v-slide-group>
+          <div
+            v-else-if="
+              item.title === 'by People' ||
+              item.title === 'by Preference' ||
+              item.title === 'Other Types of '
+            "
+            class="d-flex justify-space-between"
+            :class="{
+              'flex-wrap other-gap': item.title === 'by Preference',
+              'flex-column': item.title === 'Other Types of ',
+            }"
+          >
+            <v-card
+              v-for="(promo, i) in item.items"
+              :key="i"
+              class="mt-5"
+              :class="{ 'text-center': item.title === 'by Preference' }"
+              elevation="0"
+              @click="toggle"
+            >
+              <p
+                v-if="item.title === 'by People'"
+                class="mb-2"
+                style="font-size: 10px; font-weight: 600"
+              >
+                {{ promo.title }}
+              </p>
+              <div
+                v-if="item.title !== 'Other Types of '"
+                :class="{
+                  'other-img-container-2': item.title === 'by People',
+                  'other-img-container-3': item.title === 'by Preference',
+                }"
+              >
+                <img :src="promo.img" height="60" class="other-img" />
+              </div>
+              <p
+                v-if="item.title === 'by Preference'"
+                class="mb-1 mt-3"
+                style="font-size: 10px; font-weight: 600"
+              >
+                {{ promo.title }}
+              </p>
+              <div
+                v-if="item.title !== 'Other Types of '"
+                style="font-weight: 600; font-size: 10px; line-height: 16.94px"
+              >
+                <span class="text-red">{{ promo.quantity }}</span> Promos
+              </div>
+              <div
+                v-if="item.title === 'Other Types of '"
+                class="d-flex"
+                style="column-gap: 20px"
+              >
+                <div class="other-img-container-4">
+                  <img :src="promo.img" height="60" class="other-img" />
+                </div>
+                <div class="d-flex flex-column">
+                  <p
+                    class="mb-1 mt-3"
+                    style="font-size: 10px; font-weight: 600"
+                  >
+                    {{ promo.title }}
+                  </p>
+                  <div
+                    style="
+                      font-weight: 600;
+                      font-size: 10px;
+                      line-height: 16.94px;
+                    "
+                  >
+                    <span class="text-red">{{ promo.quantity }}</span> Promos
+                  </div>
+                </div>
+              </div>
+            </v-card>
+          </div>
         </v-card>
         <!-- <v-btn
           v-if="showViewAllButton === true"
@@ -218,12 +333,21 @@ export default {
   width: 90px;
   height: 60px;
 }
+.other-img-container-5 {
+  width: 150px;
+  height: 100px;
+}
 
 .other-img {
   object-fit: cover;
   object-position: center;
   width: 100%;
   height: 100%;
+}
+
+.other-gap {
+  column-gap: 25px;
+  row-gap: 15px;
 }
 
 @media screen and (max-width: 960px) {
@@ -240,6 +364,19 @@ export default {
   }
   .other-img-container {
     width: 100px;
+    height: 70px;
+  }
+  .other-img-container-2 {
+    width: 107px;
+    height: 150px;
+  }
+
+  .other-img-container-3 {
+    width: 70px;
+    height: 70px;
+  }
+  .other-img-container-4 {
+    width: 107px;
     height: 70px;
   }
 }

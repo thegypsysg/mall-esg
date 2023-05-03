@@ -1,7 +1,7 @@
 <template>
-  <Header/>
+  <Header />
   <Banner />
-  <Promotions/>
+  <Promotions />
   <Footer />
 </template>
 
@@ -18,17 +18,7 @@ export default {
   data() {
     return {
       drawer: false,
-    }
+    };
   },
 };
 </script>
-
-<style>
-@font-face {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: normal;
-  src: url('@/assets/font/nunito/Nunito-VariableFont_wght.ttf') format('opentype');
-}
-
-</style>
