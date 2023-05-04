@@ -40,7 +40,7 @@
                   line-height: 19.36px;
                 "
               >
-                {{ item.title }}
+                {{ capitalizeFirstLetter(item.title) }}
               </div>
               <div class="d-flex">
                 <v-card
@@ -268,10 +268,9 @@ export default {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
-    // showAllCards() {
-    //   this.displayedCardMobile = this.items;
-    //   this.showViewAllButton = false;
-    // },
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
