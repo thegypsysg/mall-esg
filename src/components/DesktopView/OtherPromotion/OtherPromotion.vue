@@ -1,5 +1,5 @@
 <template>
-  <div class="promotion-container mt-n10 other-grey">
+  <div class="promotion-container mt-n10">
     <v-container>
       <div class="d-flex justify-space-between">
         <h1>Other Promotion Types</h1>
@@ -24,8 +24,8 @@
             class="other-item mx-4"
           >
             <v-card
-              :class="['mx-2 py-8 px-5 text-left']"
-              elevation="0"
+              :class="['mx-2 py-8 px-5 text-left my-2']"
+              elevation="1"
               style="border-radius: 12px; padding: 22px"
               @click="toggle"
             >
