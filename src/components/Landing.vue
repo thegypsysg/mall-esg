@@ -1,24 +1,24 @@
 <template>
-  <Header />
-  <Banner />
-  <Promotions />
-  <Footer />
+  <DesktopView v-if="isDesktop" />
+  <MobileView v-else />
 </template>
 
 <script setup>
-import Header from "@/components/Header.vue";
-import Banner from "@/components/Banner.vue";
-import Footer from "@/components/Footer.vue";
-import Promotions from "@/components/Promotions.vue";
+import DesktopView from "./DesktopView/DesktopView.vue";
+import MobileView from "./MobileView/MobileView.vue";
 </script>
 
 <script>
 export default {
   name: "App",
+  components: { DesktopView, MobileView },
   data() {
     return {
-      drawer: false,
+      isDesktop: true,
     };
+  },
+  mounted() {
+    this.isDesktop = window.innerWidth >= 768;
   },
 };
 </script>
