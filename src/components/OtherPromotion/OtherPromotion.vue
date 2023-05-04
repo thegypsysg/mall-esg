@@ -54,7 +54,11 @@
                     {{ promo.title }}
                   </p>
                   <div class="other-img-container">
-                    <img :src="promo.img" height="60" class="other-img" />
+                    <img
+                      src="@/assets/other-img-1.png"
+                      height="60"
+                      class="other-img"
+                    />
                   </div>
                   <div
                     style="
