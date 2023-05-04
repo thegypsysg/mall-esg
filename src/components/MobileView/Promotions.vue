@@ -15,8 +15,7 @@
         <v-slide-group-item v-for="n in 15" :key="n" v-slot="{ toggle }">
           <div>
             <v-card
-              class="my-4 pa-4"
-              :class="{ 'mx-3': !isSmall, 'mx-2': isSmall }"
+              class="my-4 pa-4 mx-2"
               elevation="1"
               variant="outlined"
               @click="toggle"
@@ -38,18 +37,11 @@
   </v-container>
   <div class="promotion-container">
     <v-container>
-      <div
-        class="d-flex justify-space-between"
-        :class="{ 'mt-5': !isSmall, 'mt-n10': isSmall }"
-      >
+      <div class="d-flex justify-space-between mt-n10">
         <h1>Promotions by Category</h1>
         <h1 class="view-all">View all</h1>
       </div>
-      <v-sheet
-        class="mx-auto"
-        elevation="0"
-        :class="{ 'mt-5': !isSmall, 'mt-n3': isSmall }"
-      >
+      <v-sheet class="mx-auto mt-n3" elevation="0">
         <v-slide-group v-model="model2" class="pa-4">
           <template #prev="{ on, attrs }">
             <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
@@ -68,8 +60,7 @@
             class="mx-4"
           >
             <v-card
-              class="my-4 text-center"
-              :class="{ 'mx-3': !isSmall, 'mx-2': isSmall }"
+              class="my-4 text-center mx-2"
               height="160"
               width="120"
               elevation="1"
@@ -121,47 +112,47 @@ export default {
         items: [
           {
             title: "Chicken",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Durian",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Banana",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Chicken",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Durian",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Banana",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Chicken",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Durian",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
           {
             title: "Banana",
-            img: "assets/other-img-1.png",
+            img: "src/assets/other-img-1.png",
             quantity: 2,
           },
         ],
@@ -171,17 +162,17 @@ export default {
         items: [
           {
             title: "Everyone",
-            img: "assets/other-people-img-1.png",
+            img: "src/assets/other-people-img-1.png",
             quantity: 10,
           },
           {
             title: "Men",
-            img: "assets/other-people-img-2.png",
+            img: "src/assets/other-people-img-2.png",
             quantity: 10,
           },
           {
             title: "Senior Citizens",
-            img: "assets/other-people-img-3.png",
+            img: "src/assets/other-people-img-3.png",
             quantity: 10,
           },
         ],
@@ -191,47 +182,47 @@ export default {
         items: [
           {
             title: "Oranges",
-            img: "assets/other-preference-img-1.png",
+            img: "src/assets/other-preference-img-1.png",
             quantity: 5,
           },
           {
             title: "Oranges",
-            img: "assets/other-preference-img-2.png",
+            img: "src/assets/other-preference-img-2.png",
             quantity: 5,
           },
           {
             title: "Oranges",
-            img: "assets/other-preference-img-3.png",
+            img: "src/assets/other-preference-img-3.png",
             quantity: 5,
           },
           {
             title: "Oranges",
-            img: "assets/other-preference-img-4.png",
+            img: "src/assets/other-preference-img-4.png",
             quantity: 5,
           },
           {
             title: "Oranges",
-            img: "assets/other-preference-img-5.png",
+            img: "src/assets/other-preference-img-5.png",
             quantity: 5,
           },
           {
             title: "Oranges",
-            img: "assets/other-preference-img-6.png",
+            img: "src/assets/other-preference-img-6.png",
             quantity: 5,
           },
           {
             title: "Oranges",
-            img: "assets/other-preference-img-7.png",
+            img: "src/assets/other-preference-img-7.png",
             quantity: 5,
           },
           {
             title: "Oranges",
-            img: "assets/other-preference-img-8.png",
+            img: "src/assets/other-preference-img-8.png",
             quantity: 5,
           },
           {
             title: "Oranges",
-            img: "assets/other-preference-img-9.png",
+            img: "src/assets/other-preference-img-9.png",
             quantity: 5,
           },
         ],
@@ -241,22 +232,22 @@ export default {
         items: [
           {
             title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-1.png",
+            img: "src/assets/other-types-img-1.png",
             quantity: 5,
           },
           {
             title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-2.png",
+            img: "src/assets/other-types-img-2.png",
             quantity: 5,
           },
           {
             title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-3.png",
+            img: "src/assets/other-types-img-3.png",
             quantity: 5,
           },
           {
             title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-4.png",
+            img: "src/assets/other-types-img-4.png",
             quantity: 5,
           },
         ],
@@ -266,40 +257,33 @@ export default {
         items: [
           {
             title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-1.png",
+            img: "src/assets/other-voucher-img-1.png",
             quantity: 5,
           },
           {
             title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-2.png",
+            img: "src/assets/other-voucher-img-2.png",
             quantity: 5,
           },
           {
             title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-3.png",
+            img: "src/assets/other-voucher-img-3.png",
+            quantity: 5,
+          },
+          {
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-voucher-img-1.png",
+            quantity: 5,
+          },
+          {
+            title: "Buy 1 Get 1 Free",
+            img: "src/assets/other-voucher-img-2.png",
             quantity: 5,
           },
         ],
       },
     ],
-    screenWidth: window.innerWidth,
   }),
-  computed: {
-    isSmall() {
-      return this.screenWidth < 640;
-    },
-  },
-  created() {
-    window.addEventListener("resize", this.handleResize);
-  },
-  unmounted() {
-    window.removeEventListener("resize", this.handleResize);
-  },
-  methods: {
-    handleResize() {
-      this.screenWidth = window.innerWidth;
-    },
-  },
 };
 </script>
 

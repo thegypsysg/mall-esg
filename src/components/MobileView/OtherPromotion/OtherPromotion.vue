@@ -1,82 +1,7 @@
 <template>
-  <div
-    class="promotion-container mt-n10"
-    :class="{ 'other-grey': !isSmall, 'other-white': isSmall }"
-  >
+  <div class="promotion-container mt-n10 other-white">
     <v-container>
-      <div v-if="!isSmall" class="d-flex justify-space-between">
-        <h1>Other Promotion Types</h1>
-        <h1 class="view-all">View all</h1>
-      </div>
-      <v-sheet v-if="!isSmall" class="mx-auto" elevation="0">
-        <v-slide-group v-model="model2" class="pa-4 other-slide">
-          <template #prev="{ on, attrs }">
-            <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
-              <v-icon>mdi-arrow-left</v-icon>
-            </v-btn>
-          </template>
-          <template #next="{ on, attrs }">
-            <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
-              <v-icon>mdi-arrow-right</v-icon>
-            </v-btn>
-          </template>
-          <v-slide-group-item
-            v-for="(item, index) in items"
-            :key="index"
-            v-slot="{ toggle }"
-            class="other-item mx-4"
-          >
-            <v-card
-              :class="['mx-2 py-8 px-5 text-left']"
-              elevation="1"
-              style="border-radius: 12px; padding: 22px"
-              @click="toggle"
-            >
-              <div
-                class="text-h6"
-                style="
-                  font-size: 20px;
-                  margin-bottom: 20px;
-                  line-height: 19.36px;
-                "
-              >
-                {{ capitalizeFirstLetter(item.title) }}
-              </div>
-              <div class="d-flex">
-                <v-card
-                  v-for="(promo, i) in item.items.slice(0, 3)"
-                  :key="i"
-                  :class="['text-left', 'mr-2']"
-                  elevation="0"
-                  @click="toggle"
-                >
-                  <p class="mb-2" style="font-size: 10px; font-weight: 500">
-                    {{ promo.title }}
-                  </p>
-                  <div class="other-img-container">
-                    <img
-                      src="@/assets/other-img-1.png"
-                      height="60"
-                      class="other-img"
-                    />
-                  </div>
-                  <div
-                    style="
-                      font-weight: 600;
-                      font-size: 10px;
-                      line-height: 16.94px;
-                    "
-                  >
-                    <span class="text-red">{{ promo.quantity }}</span> Promos
-                  </div>
-                </v-card>
-              </div>
-              <v-btn class="other-btn"> View All Promotions </v-btn>
-            </v-card>
-          </v-slide-group-item>
-        </v-slide-group>
-      </v-sheet>
-      <div v-if="isSmall" class="px-2">
+      <div class="px-2">
         <v-card
           v-for="(item, index) in items"
           :key="index"
@@ -111,8 +36,9 @@
               class="slide-item"
             >
               <v-card
-                :class="['text-left', 'mr-2']"
+                class="text-left mx-2 mb-5"
                 :elevation="item.title === 'Voucher ' ? 2 : 0"
+                :class="{ 'shadow-card': item.title === 'Voucher ' }"
                 @click="toggle"
               >
                 <p
@@ -124,7 +50,7 @@
                 </p>
                 <div
                   :class="{
-                    'other-img-container': item.title === 'Meals',
+                    'other-img-container': item.title === 'by Meals',
                     'other-img-container-5': item.title === 'Voucher ',
                   }"
                 >
@@ -253,31 +179,8 @@ export default {
   props: ["items"],
   data() {
     return {
-      screenWidth: window.innerWidth,
       maxCardMobile: 3,
     };
-  },
-  computed: {
-    isSmall() {
-      return this.screenWidth < 640;
-    },
-  },
-  created() {
-    window.addEventListener("resize", this.handleResize);
-  },
-  // mounted() {
-  //   this.displayedCardMobile = this.items.slice(0, this.maxCardMobile);
-  // },
-  unmounted() {
-    window.removeEventListener("resize", this.handleResize);
-  },
-  methods: {
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-    handleResize() {
-      this.screenWidth = window.innerWidth;
-    },
   },
 };
 </script>
@@ -351,6 +254,10 @@ export default {
 .other-gap {
   column-gap: 25px;
   row-gap: 15px;
+}
+
+.shadow-card {
+  box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.43) !important;
 }
 
 @media screen and (max-width: 960px) {

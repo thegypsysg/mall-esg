@@ -25,7 +25,7 @@
           >
             <v-card
               :class="['mx-2 py-8 px-5 text-left']"
-              elevation="1"
+              elevation="0"
               style="border-radius: 12px; padding: 22px"
               @click="toggle"
             >
