@@ -56,7 +56,7 @@
               </div>
               <v-card
                 class="my-4 mx-3 featured-card"
-                width="400"
+                width="380"
                 elevation="1"
                 @click="toggle"
               >
@@ -71,7 +71,7 @@
                   </div>
                   <span class="text-red card-title-right">1.20 kms</span>
                 </div>
-                <img src="@/assets/featured-card-img.png" height="200" />
+                <img src="@/assets/featured-card-img.png" height="230" />
                 <div
                   v-if="!isDiff"
                   style="font-weight: 400; font-size: 14px; position: relative"
@@ -152,7 +152,15 @@
                   </v-btn>
                 </div>
 
-                <div v-if="isDiff" class="card-tag">Featured</div>
+                <div
+                  class="card-tag"
+                  :class="{
+                    'card-tag-1': isDiff,
+                    'card-tag-2': !isDiff,
+                  }"
+                >
+                  Featured
+                </div>
                 <div v-if="isDiff" class="card-distance">
                   <v-icon color="#808080"> mdi-map-marker </v-icon>
                   <span class="text-red">10.20 kms</span
@@ -164,8 +172,7 @@
         </v-slide-group>
       </v-sheet>
       <div
-        v-if="!isDiff"
-        class="card-footer d-flex justify-center align-center mt-5"
+        class="card-footer d-flex justify-center align-center mt-16 mb-10"
         style="gap: 10px"
       >
         <div class="line-divider" />
@@ -197,6 +204,7 @@ export default {
 <style scoped>
 .section-title h1 {
   font-weight: 700;
+  color: black;
   font-size: 48px;
   text-align: center;
 }
@@ -217,11 +225,12 @@ export default {
 .section-content h1 {
   font-weight: 500;
   font-size: 48px;
-  width: 75% !important;
+  color: black;
+  width: 100% !important;
 }
 
 .card-container {
-  width: 420px !important;
+  width: 400px !important;
 }
 
 .featured-card {
@@ -271,10 +280,17 @@ export default {
   background: #e99820;
   color: #ffffff;
   position: absolute;
+
+  padding: 5px 25px;
+  font-size: 11px;
+}
+.card-tag-1 {
   top: 20px;
   left: 10px;
-  padding: 1px 25px;
-  font-size: 11px;
+}
+.card-tag-2 {
+  top: 105px;
+  left: 10px;
 }
 .card-distance {
   background: #fff;
