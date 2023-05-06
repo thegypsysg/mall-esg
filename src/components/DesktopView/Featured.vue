@@ -56,7 +56,7 @@
               </div>
               <v-card
                 class="my-4 mx-3 featured-card"
-                width="380"
+                width="370"
                 elevation="1"
                 @click="toggle"
               >
@@ -71,7 +71,9 @@
                   </div>
                   <span class="text-red card-title-right">1.20 kms</span>
                 </div>
-                <img src="@/assets/featured-card-img.png" height="230" />
+                <div class="featured-card-img">
+                  <img src="@/assets/featured-card-img.png" height="230" />
+                </div>
                 <div
                   v-if="!isDiff"
                   style="font-weight: 400; font-size: 14px; position: relative"
@@ -230,11 +232,28 @@ export default {
 }
 
 .card-container {
-  width: 400px !important;
+  width: 390px !important;
 }
 
 .featured-card {
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.43) !important;
+}
+.featured-card:hover {
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.43) !important;
+}
+
+.featured-card-img {
+  overflow: hidden;
+  height: 225px;
+}
+
+.featured-card-img img {
+  transition: all 0.3s;
+  transform: scale(1);
+}
+
+.featured-card:hover .featured-card-img img {
+  transform: scale(1.1);
 }
 
 .card-title h4 {
@@ -258,11 +277,11 @@ export default {
 }
 
 .card-btn-container-1 {
-  bottom: 40px;
+  bottom: 35px;
   right: 30px;
 }
 .card-btn-container-2 {
-  top: 185px;
+  top: 210px;
   right: 30px;
 }
 
@@ -295,7 +314,7 @@ export default {
 .card-distance {
   background: #fff;
   position: absolute;
-  top: 150px;
+  top: 175px;
   left: 10px;
   padding: 5px 10px;
   font-size: 13px;
