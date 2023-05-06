@@ -46,7 +46,12 @@
         </v-list>
       </v-menu>
     </div>
-    <v-btn elevation="0" class="btn_sign__up"> Sign up / Register </v-btn>
+    <div class="btn_sign__up-cont">
+      <v-btn elevation="0" class="btn_sign__up">
+        <span> Sign up / Register</span>
+      </v-btn>
+      <div class="btn_sign__up-hover" />
+    </div>
     <v-btn icon @click="drawer = !drawer">
       <img
         src="@/assets/images/icons/user_icon.png"
@@ -195,5 +200,29 @@ export default {
 <style scoped>
 .v-app-bar.v-toolbar {
   max-width: 100%;
+}
+
+.btn_sign__up-cont {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn_sign__up span {
+  z-index: 1000;
+}
+.btn_sign__up-hover {
+  position: absolute;
+  border-radius: 50%;
+  bottom: -50px;
+  height: 50px;
+  width: 100%;
+  background: #002e41;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.btn_sign__up-cont:hover .btn_sign__up-hover {
+  bottom: 0px;
+  border-radius: 0px;
 }
 </style>
