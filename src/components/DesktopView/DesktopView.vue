@@ -2,6 +2,7 @@
   <Header />
   <Banner />
   <Promotions />
+  <Happening />
   <Featured
     title="Featured Malls"
     desc="Check out promotions that are happening in malls around you"
@@ -26,12 +27,13 @@ import Banner from "@/components/Banner.vue";
 import Footer from "@/components/Footer.vue";
 import Promotions from "@/components/DesktopView/Promotions.vue";
 import Featured from "./Featured.vue";
+import Happening from "./Happening.vue";
 </script>
 
 <script>
 export default {
   name: "DesktopView",
-  components: { Featured },
+  components: { Featured, Happening },
   data() {
     return {
       drawer: false,
