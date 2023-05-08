@@ -9,7 +9,7 @@
           you.
         </p>
       </div>
-      <v-card class="happening-item d-flex ml-n4" elevation="0">
+      <v-card class="happening-item d-flex ml-n4 mb-1" elevation="0">
         <div class="happening-item-img">
           <img src="@/assets/happening-mobile-img-1.png" />
         </div>

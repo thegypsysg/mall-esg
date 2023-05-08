@@ -8,10 +8,10 @@
       <h1 class="view-all">View all</h1>
     </div>
     <div class="section-content">
-      <h1 class="my-n3">
+      <!-- <h1 class="my-n3">
         {{ desc }}
-      </h1>
-      <v-sheet class="ml-n6 mr-n4 mt-5" elevation="0">
+      </h1> -->
+      <v-sheet class="ml-n6 mr-n4 mt-n8" elevation="0">
         <v-slide-group v-model="model2" class="py-2 px-6">
           <template #prev="{ on, attrs }">
             <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
@@ -217,9 +217,9 @@ export default {
 }
 
 .section-title h1 {
-  font-weight: 500;
+  font-weight: 700;
   color: black;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .title-line {
@@ -245,7 +245,8 @@ export default {
 }
 
 .view-all {
-  color: #9747ff !important;
+  color: #00cdcd !important;
+  font-size: 16px !important;
 }
 
 .card-container {
