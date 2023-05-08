@@ -20,9 +20,7 @@
               variant="outlined"
               @click="toggle"
             >
-              <div
-                class="d-flex fill-height align-center justify-space-between"
-              >
+              <div class="d-flex fill-height align-center justify-space-around">
                 <img src="@/assets/images/icons/off-20.png" height="40" />
                 <div class="text-h6 mb-1">20% off</div>
               </div>
@@ -61,10 +59,10 @@
           >
             <v-card
               class="my-4 text-center mx-3"
-              height="160"
-              width="120"
+              height="180"
+              width="140"
               elevation="1"
-              style="border-radius: 12px; padding: 22px"
+              style="border-radius: 12px; padding: 20px"
               @click="toggle"
             >
               <div
@@ -77,7 +75,7 @@
               >
                 Cakes
               </div>
-              <img src="@/assets/images/cakes.png" height="60" />
+              <img src="@/assets/images/cakes.png" height="80" />
               <div
                 style="
                   font-weight: 600;
