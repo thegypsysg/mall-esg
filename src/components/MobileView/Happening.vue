@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <div class="happening d-flex align-center flex-column mb-8 mx-auto">
-      <div class="happening-title mb-6">
+      <div class="happening-title mb-6 text-center">
         <h1>Mall Happenings</h1>
-        <div class="line-divider my-4" />
-        <p>
+        <div class="line-divider my-4 mx-auto" />
+        <p class="text-left">
           Discover all Events, Promotions & Parking in a specific Mall around
           you.
         </p>
@@ -79,7 +79,7 @@ export default {};
 
 .line-divider {
   height: 4px;
-  width: 150px;
+  width: 175px;
   background: #f9bc06;
   border-radius: 100%;
 }

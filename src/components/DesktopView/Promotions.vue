@@ -28,7 +28,7 @@
               </div>
             </v-card>
             <div class="text-center" style="font-weight: 600">
-              20% Promotion
+              32 Promotions
             </div>
           </div>
         </v-slide-group-item>

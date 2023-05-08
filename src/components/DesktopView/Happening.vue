@@ -55,7 +55,7 @@ export default {};
 
 .line-divider {
   height: 6px;
-  width: 180px;
+  width: 240px;
   background: #f9bc06;
   border-radius: 100%;
 }
