@@ -9,7 +9,7 @@
           you.
         </p>
       </div>
-      <v-card class="happening-item d-flex" elevation="0">
+      <v-card class="happening-item d-flex ml-n4" elevation="0">
         <div class="happening-item-img">
           <img src="@/assets/happening-mobile-img-1.png" />
         </div>
@@ -23,7 +23,7 @@
           </div>
         </div>
       </v-card>
-      <v-card class="happening-item d-flex" elevation="0">
+      <v-card class="happening-item d-flex ml-n4" elevation="0">
         <div class="happening-item-img">
           <img src="@/assets/happening-mobile-img-2.png" />
         </div>
@@ -37,7 +37,7 @@
           </div>
         </div>
       </v-card>
-      <v-card class="happening-item d-flex" elevation="0">
+      <v-card class="happening-item d-flex ml-n4" elevation="0">
         <div class="happening-item-img">
           <img src="@/assets/happening-mobile-img-3.png" />
         </div>
@@ -89,8 +89,8 @@ export default {};
 }
 
 .happening-item-img {
-  width: 130px;
-  height: 74px;
+  width: 135px;
+  height: 80px;
   overflow: hidden;
   border-radius: 5px !important;
 }
@@ -110,20 +110,20 @@ export default {};
 }
 
 .happening-item-info {
-  height: 74px;
+  height: 80px;
 }
 
 .happening-item-info h2 {
   font-weight: 500;
   font-size: 20px;
-  margin-bottom: 2px;
+  margin-bottom: 7px;
 }
 
 .happening-item-info p {
   font-weight: 400;
   font-size: 11px;
   line-height: 12px;
-  margin-bottom: 1.7px;
+  margin-bottom: 5px;
 
   color: #bababa;
 }
