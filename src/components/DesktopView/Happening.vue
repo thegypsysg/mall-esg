@@ -54,9 +54,10 @@ export default {};
 }
 
 .line-divider {
-  height: 1.2px;
-  width: 170px;
-  background: #969696;
+  height: 6px;
+  width: 180px;
+  background: #f9bc06;
+  border-radius: 100%;
 }
 
 .happening-item {
