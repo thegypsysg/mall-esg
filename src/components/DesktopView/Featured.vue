@@ -177,9 +177,9 @@
         class="card-footer d-flex justify-center align-center mt-16 mb-10"
         style="gap: 10px"
       >
-        <div class="line-divider" />
+        <!-- <div class="line-divider" /> -->
         <v-btn
-          class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 v-size--default text-white"
+          class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 text-white d-flex align-center py-8 px-16"
           style="
             background-color: #008d00;
             border-color: #008d00;
@@ -188,9 +188,9 @@
             border-radius: 50px;
           "
         >
-          View All Featured Malls
+          <span>View All Featured Malls</span>
         </v-btn>
-        <div class="line-divider" />
+        <!-- <div class="line-divider" /> -->
       </div>
     </div>
   </v-container>
