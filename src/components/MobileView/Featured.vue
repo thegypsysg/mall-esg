@@ -1,27 +1,17 @@
 <template>
-  <v-container class="mb-8">
-    <div class="section-title mb-5">
-      <h1>{{ title }}</h1>
-      <div class="title-line" />
-      <v-select
-        label="--Select Mall--"
-        :items="[
-          'California',
-          'Colorado',
-          'Florida',
-          'Georgia',
-          'Texas',
-          'Wyoming',
-        ]"
-        variant="outlined"
-        class="section-select"
-      />
+  <v-container class="mb-2">
+    <div class="section-title text-h6 d-flex justify-space-between mx-auto">
+      <div>
+        <h1>{{ title }}</h1>
+        <div class="title-line" />
+      </div>
+      <h1 class="view-all">View all</h1>
     </div>
     <div class="section-content">
-      <h1 class="ml-2">
+      <h1 class="my-n3">
         {{ desc }}
       </h1>
-      <v-sheet class="mx-n10 mt-5" elevation="0">
+      <v-sheet class="ml-n6 mr-n4 mt-5" elevation="0">
         <v-slide-group v-model="model2" class="py-2 px-6">
           <template #prev="{ on, attrs }">
             <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
@@ -42,21 +32,21 @@
             <div class="card-container d-flex flex-column">
               <div
                 v-if="isDiff"
-                style="width: 85% !important; gap: 5px"
+                style="gap: 5px"
                 class="card-info ml-3 d-flex flex-column"
               >
-                <p style="font-weight: 600; font-size: 16px">
+                <p style="font-weight: 600; font-size: 12px">
                   Hainan Chicken Rice with steamed Chicken topped with Soya
                   Sauce
                 </p>
-                <div style="font-weight: 600; font-size: 14px">
+                <div style="font-weight: 600; font-size: 11px">
                   32 <span class="text-muted">Purchased</span> 50
                   <span class="text-muted">Views</span>
                 </div>
               </div>
               <v-card
                 class="my-4 mx-3 featured-card"
-                width="370"
+                width="270"
                 elevation="1"
                 @click="toggle"
               >
@@ -65,38 +55,51 @@
                   class="card-title-container d-flex justify-space-between align-center pa-4"
                 >
                   <img src="@/assets/featured-logo-img.png" height="50" />
-                  <div class="card-title">
+                  <div class="card-title d-flex flex-column">
                     <h4>Great World City</h4>
                     <span>River Valley</span>
                   </div>
                   <span class="text-red card-title-right">1.20 kms</span>
                 </div>
-                <div class="featured-card-img">
+                <div
+                  class="featured-card-img"
+                  :class="{ 'featured-card-img-2': isDiff }"
+                >
                   <img src="@/assets/featured-card-img.png" height="230" />
                 </div>
                 <div
                   v-if="!isDiff"
                   style="font-weight: 400; font-size: 14px; position: relative"
-                  class="px-2 pt-5 pb-2"
+                  class="px-2 pt-5 pb-12"
                 >
                   15 Merchants | 12 Promotions
                 </div>
                 <div
                   v-if="isDiff"
-                  class="card-description pa-2 d-flex flex-column"
+                  class="card-description pa-2 d-flex flex-column mt-1"
                   style="position: relative; gap: 10px"
                 >
                   <div class="card-rating">
-                    <v-icon color="#F63F17"> mdi-star </v-icon>
-                    <v-icon color="#F63F17"> mdi-star </v-icon>
-                    <v-icon color="#F63F17"> mdi-star </v-icon>
-                    <v-icon color="#F63F17"> mdi-star </v-icon>
-                    <v-icon color="#F63F17"> mdi-star-outline </v-icon>
-                    <span class="ml-2">( 132 rates )</span>
+                    <v-icon class="mr-1" size="20" color="#F63F17">
+                      mdi-star
+                    </v-icon>
+                    <v-icon class="mr-1" size="20" color="#F63F17">
+                      mdi-star
+                    </v-icon>
+                    <v-icon class="mr-1" size="20" color="#F63F17">
+                      mdi-star
+                    </v-icon>
+                    <v-icon class="mr-1" size="20" color="#F63F17">
+                      mdi-star
+                    </v-icon>
+                    <v-icon class="mr-1" size="20" color="#F63F17">
+                      mdi-star-outline
+                    </v-icon>
+                    <span>( 132 rates )</span>
                   </div>
-                  <div class="card-price">
+                  <div class="card-price d-flex align-center">
                     <img src="@/assets/featured-price-img.png" height="15" />
-                    <span class="ml-5">$80</span>
+                    <span class="ml-3">$80</span>
                   </div>
                   <div class="card-time">
                     <v-icon color="#ABABAB"> mdi-clock-outline </v-icon
@@ -105,7 +108,7 @@
                     >
                   </div>
                   <div
-                    class="card-address d-flex align-center"
+                    class="card-address d-flex align-center my-2"
                     style="gap: 25px"
                   >
                     <img
@@ -120,8 +123,8 @@
                     </div>
                   </div>
                   <div
-                    class="card-offer py-5 d-flex align-center"
-                    style="background: #f3f3f3; gap: 20px; color: #5e5e5e"
+                    class="card-offer py-2 d-flex align-center"
+                    style="background: #f3f3f3; gap: 10px; color: #5e5e5e"
                   >
                     <img src="@/assets/featured-offer-img.png" />
                     <span>Flat 50% on all Stores</span>
@@ -138,23 +141,28 @@
                     variant="outlined"
                     color="black"
                     class="card-btn"
-                    width="32"
-                    height="32"
+                    width="24"
+                    height="24"
                     icon="mdi-share-variant-outline"
-                  />
+                  >
+                    <v-icon color="black" size="18">
+                      mdi-share-variant-outline
+                    </v-icon>
+                  </v-btn>
                   <v-btn
                     class="card-btn"
                     variant="outlined"
                     color="black"
                     icon="mdi-heart"
-                    width="32"
-                    height="32"
+                    width="24"
+                    height="24"
                   >
-                    <v-icon color="red"> mdi-heart </v-icon>
+                    <v-icon color="red" size="18"> mdi-heart </v-icon>
                   </v-btn>
                 </div>
 
                 <div
+                  v-if="isDiff"
                   class="card-tag"
                   :class="{
                     'card-tag-1': isDiff,
@@ -165,7 +173,7 @@
                 </div>
                 <div v-if="isDiff" class="card-distance">
                   <v-icon color="#808080"> mdi-map-marker </v-icon>
-                  <span class="text-red">10.20 kms</span
+                  <span class="text-red ml-2">10.20 kms</span
                   ><span class="text-muted"> away</span>
                 </div>
               </v-card>
@@ -173,7 +181,7 @@
           </v-slide-group-item>
         </v-slide-group>
       </v-sheet>
-      <div
+      <!-- <div
         class="card-footer d-flex justify-center align-center mt-16 mb-10"
         style="gap: 10px"
       >
@@ -191,7 +199,7 @@
           View All Featured Malls
         </v-btn>
         <div class="line-divider" />
-      </div>
+      </div> -->
     </div>
   </v-container>
 </template>
@@ -204,18 +212,21 @@ export default {
 </script>
 
 <style scoped>
+.section-title {
+  width: 95%;
+}
+
 .section-title h1 {
-  font-weight: 700;
+  font-weight: 500;
   color: black;
-  font-size: 48px;
-  text-align: center;
+  font-size: 16px;
 }
 
 .title-line {
-  width: 150px;
-  background: #e1c530;
+  width: inherit;
+  background: #000;
   height: 1px;
-  margin: -5px auto 40px;
+  margin: 0px auto 40px;
 }
 
 .section-select {
@@ -225,14 +236,20 @@ export default {
 }
 
 .section-content h1 {
-  font-weight: 500;
-  font-size: 48px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
   color: black;
-  width: 100% !important;
+  width: 95% !important;
+  margin: auto;
+}
+
+.view-all {
+  color: #9747ff !important;
 }
 
 .card-container {
-  width: 390px !important;
+  width: 290px !important;
 }
 
 .featured-card {
@@ -244,7 +261,12 @@ export default {
 
 .featured-card-img {
   overflow: hidden;
-  height: 225px;
+  height: 180px;
+}
+
+.featured-card-img-2 {
+  overflow: hidden;
+  height: 154px;
 }
 
 .featured-card-img img {
@@ -256,14 +278,18 @@ export default {
   transform: scale(1.1);
 }
 
+.card-title {
+  gap: -10px;
+}
+
 .card-title h4 {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .card-title span {
   font-weight: 500;
-  font-size: 14px;
+  font-size: 11px;
 }
 
 .card-title-right {
@@ -273,15 +299,15 @@ export default {
 
 .card-btn-container {
   position: absolute;
-  gap: 10px;
+  gap: 20px;
 }
 
 .card-btn-container-1 {
-  bottom: 35px;
+  bottom: 75px;
   right: 30px;
 }
 .card-btn-container-2 {
-  top: 210px;
+  top: 142px;
   right: 30px;
 }
 
@@ -300,11 +326,11 @@ export default {
   color: #ffffff;
   position: absolute;
 
-  padding: 5px 25px;
+  padding: 2px 25px;
   font-size: 11px;
 }
 .card-tag-1 {
-  top: 20px;
+  top: 12px;
   left: 10px;
 }
 .card-tag-2 {
@@ -314,9 +340,34 @@ export default {
 .card-distance {
   background: #fff;
   position: absolute;
-  top: 175px;
+  top: 115px;
   left: 10px;
-  padding: 5px 10px;
-  font-size: 13px;
+  padding: 5px 8px;
+  font-size: 10px;
+}
+
+.card-rating span {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.card-price {
+  font-weight: 500;
+  font-size: 11px;
+}
+
+.card-time {
+  font-size: 11px;
+}
+
+.card-address-info {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.card-offer {
+  font-weight: 400;
+  font-size: 12px;
 }
 </style>
