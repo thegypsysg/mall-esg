@@ -51,6 +51,7 @@
             class="my-4 pa-4 mx-2 d-flex align-center justify-center"
             elevation="1"
             variant="outlined"
+            to="/discount-types"
             @click="toggle"
           >
             <div
@@ -65,6 +66,7 @@
               rounded
               icon
               v-bind="attrs"
+              to="/discount-types"
               v-on="on"
             >
               <v-icon color="white"> mdi-arrow-right </v-icon>
