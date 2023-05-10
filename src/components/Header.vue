@@ -1,11 +1,18 @@
 <template>
-  <v-app-bar color="white" elevation="1" fixed>
+  <v-app-bar :class="{ 'px-6': isHeader }" color="white" elevation="1" fixed>
+    <!-- <div class="d-flex justify-start"> -->
     <img
       class="logo-img"
       src="@/assets/images/logo/mall-E-original-final-2.jpg"
       height="90"
     />
-    <form class="navbar__search navbar__search__desktop">
+    <div v-if="isHeader" class="ml-6 d-flex flex-row navbar-header">
+      <div class="divider" />
+      <h1>{{ titleHeader }}</h1>
+    </div>
+    <!-- </div> -->
+    <v-spacer v-if="isHeader" />
+    <form v-if="!isHeader" class="navbar__search navbar__search__desktop">
       <input
         id="product_name"
         class="form-control mr-sm-2"
@@ -18,7 +25,7 @@
         <v-icon color="white"> mdi-magnify </v-icon>
       </button>
     </form>
-    <div class="desktop__app">
+    <div v-if="!isHeader" class="desktop__app">
       <v-menu>
         <template #activator="{ props }">
           <v-btn
@@ -46,7 +53,7 @@
         </v-list>
       </v-menu>
     </div>
-    <div class="btn_sign__up-cont">
+    <div v-if="!isHeader" class="btn_sign__up-cont">
       <v-btn elevation="0" class="btn_sign__up">
         <span> Sign up / Register</span>
       </v-btn>
@@ -184,6 +191,7 @@
 <script>
 export default {
   name: "Header",
+  props: ["titleHeader", "isHeader"],
   data() {
     return {
       drawer: false,
@@ -200,6 +208,20 @@ export default {
 <style scoped>
 .v-app-bar.v-toolbar {
   max-width: 100%;
+}
+
+.divider {
+  background: black;
+  width: 2px;
+  height: 80px;
+}
+
+.navbar-header {
+  align-items: center;
+  gap: 25px;
+  font-size: 20px;
+  color: black;
+  font-weight: 700;
 }
 
 .btn_sign__up-cont {

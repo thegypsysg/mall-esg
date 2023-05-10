@@ -47,19 +47,29 @@
           </div>
         </v-slide-group-item>
         <v-slide-group-item v-slot="{ toggle }">
-          <div>
-            <v-card
-              class="my-4 pa-4 mx-2 d-flex align-center justify-center"
-              elevation="1"
-              variant="outlined"
-              @click="toggle"
+          <v-card
+            class="my-4 pa-4 mx-2 d-flex align-center justify-center"
+            elevation="1"
+            variant="outlined"
+            @click="toggle"
+          >
+            <div
+              class="text-left mr-2"
+              style="font-weight: 600; font-size: 12px"
             >
-              <v-btn color="#0197d5" rounded icon v-bind="attrs" v-on="on">
-                <v-icon color="white"> mdi-arrow-right </v-icon>
-              </v-btn>
-            </v-card>
-            <div class="text-center" style="font-weight: 600">View All</div>
-          </div>
+              <p>View all Discount Types</p>
+            </div>
+            <v-btn
+              size="35"
+              color="#0197d5"
+              rounded
+              icon
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon color="white"> mdi-arrow-right </v-icon>
+            </v-btn>
+          </v-card>
         </v-slide-group-item>
       </v-slide-group>
     </v-sheet>
