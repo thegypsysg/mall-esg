@@ -1,11 +1,13 @@
 <template>
   <v-app-bar :class="{ 'px-6': isHeader }" color="white" elevation="1" fixed>
     <!-- <div class="d-flex justify-start"> -->
-    <img
-      class="logo-img"
-      src="@/assets/images/logo/mall-E-original-final-2.jpg"
-      height="90"
-    />
+    <router-link to="/">
+      <img
+        class="logo-img"
+        src="@/assets/images/logo/mall-E-original-final-2.jpg"
+        height="90"
+      />
+    </router-link>
     <div v-if="isHeader" class="ml-6 d-flex flex-row navbar-header">
       <div class="divider" />
       <h1>{{ titleHeader }}</h1>
