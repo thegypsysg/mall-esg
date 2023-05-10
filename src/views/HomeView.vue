@@ -4,8 +4,8 @@
 </template>
 
 <script setup>
-import DesktopView from "./DesktopView/DesktopView.vue";
-import MobileView from "./MobileView/MobileView.vue";
+import DesktopView from "@/components/DesktopView/DesktopView.vue";
+import MobileView from "@/components/MobileView/MobileView.vue";
 </script>
 
 <script>

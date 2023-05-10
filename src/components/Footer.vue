@@ -157,7 +157,8 @@
 
 <script>
 export default {
-  name: "Footer",
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Footer',
 };
 </script>
 

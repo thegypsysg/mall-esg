@@ -98,186 +98,187 @@
 </template>
 
 <script>
-import OtherPromotion from "./OtherPromotion/OtherPromotion.vue";
+import OtherPromotion from './OtherPromotion/OtherPromotion.vue';
 
 export default {
-  name: "Promotions",
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Promotions',
   components: { OtherPromotion },
   data: () => ({
     model: null,
     model2: null,
     otherPromotionData: [
       {
-        title: "by Meals",
+        title: 'by Meals',
         items: [
           {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
+            title: 'Chicken',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
           {
-            title: "Durian",
-            img: "assets/other-img-1.png",
+            title: 'Durian',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
           {
-            title: "Banana",
-            img: "assets/other-img-1.png",
+            title: 'Banana',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
           {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
+            title: 'Chicken',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
           {
-            title: "Durian",
-            img: "assets/other-img-1.png",
+            title: 'Durian',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
           {
-            title: "Banana",
-            img: "assets/other-img-1.png",
+            title: 'Banana',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
           {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
+            title: 'Chicken',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
           {
-            title: "Durian",
-            img: "assets/other-img-1.png",
+            title: 'Durian',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
           {
-            title: "Banana",
-            img: "assets/other-img-1.png",
+            title: 'Banana',
+            img: 'assets/other-img-1.png',
             quantity: 2,
           },
         ],
       },
       {
-        title: "by People",
+        title: 'by People',
         items: [
           {
-            title: "Everyone",
-            img: "assets/other-people-img-1.png",
+            title: 'Everyone',
+            img: 'assets/other-people-img-1.png',
             quantity: 10,
           },
           {
-            title: "Men",
-            img: "assets/other-people-img-2.png",
+            title: 'Men',
+            img: 'assets/other-people-img-2.png',
             quantity: 10,
           },
           {
-            title: "Senior Citizens",
-            img: "assets/other-people-img-3.png",
+            title: 'Senior Citizens',
+            img: 'assets/other-people-img-3.png',
             quantity: 10,
           },
         ],
       },
       {
-        title: "by Preference",
+        title: 'by Preference',
         items: [
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-1.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-1.png',
             quantity: 5,
           },
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-2.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-2.png',
             quantity: 5,
           },
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-3.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-3.png',
             quantity: 5,
           },
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-4.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-4.png',
             quantity: 5,
           },
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-5.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-5.png',
             quantity: 5,
           },
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-6.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-6.png',
             quantity: 5,
           },
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-7.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-7.png',
             quantity: 5,
           },
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-8.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-8.png',
             quantity: 5,
           },
           {
-            title: "Oranges",
-            img: "assets/other-preference-img-9.png",
+            title: 'Oranges',
+            img: 'assets/other-preference-img-9.png',
             quantity: 5,
           },
         ],
       },
       {
-        title: "Other Types of ",
+        title: 'Other Types of ',
         items: [
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-1.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-types-img-1.png',
             quantity: 5,
           },
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-2.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-types-img-2.png',
             quantity: 5,
           },
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-3.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-types-img-3.png',
             quantity: 5,
           },
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-4.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-types-img-4.png',
             quantity: 5,
           },
         ],
       },
       {
-        title: "Voucher ",
+        title: 'Voucher ',
         items: [
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-1.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-voucher-img-1.png',
             quantity: 5,
           },
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-2.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-voucher-img-2.png',
             quantity: 5,
           },
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-3.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-voucher-img-3.png',
             quantity: 5,
           },
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-1.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-voucher-img-1.png',
             quantity: 5,
           },
           {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-2.png",
+            title: 'Buy 1 Get 1 Free',
+            img: 'assets/other-voucher-img-2.png',
             quantity: 5,
           },
         ],

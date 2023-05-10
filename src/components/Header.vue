@@ -205,6 +205,7 @@ export default {
 .btn_sign__up-cont {
   position: relative;
   overflow: hidden;
+  background: #0197d5;
 }
 
 .btn_sign__up span {

@@ -198,8 +198,9 @@
 
 <script>
 export default {
-  name: "Featured",
-  props: ["title", "desc", "isDiff"],
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Featured',
+  props: ['title', 'desc', 'isDiff'],
 };
 </script>
 
