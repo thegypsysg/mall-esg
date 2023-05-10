@@ -1,15 +1,15 @@
 <template>
   <v-container>
     <v-sheet class="mx-auto discount-sheet" elevation="0">
-      <v-slide-group v-model="activeIndex">
+      <v-slide-group>
         <template #prev="{ on, attrs }">
           <v-btn
-            v-if="activeIndex > 0"
+            v-if="activeIndex > 1"
             color="white"
             rounded
             icon
             v-bind="attrs"
-            @click="on"
+            @click="previousSlide"
             v-on="on"
           >
             <v-icon>mdi-arrow-left</v-icon>
@@ -17,12 +17,12 @@
         </template>
         <template #next="{ on, attrs }">
           <v-btn
-            v-if="activeIndex < totalData.length - 1"
+            v-if="activeIndex + 1 <= totalData / 5"
             color="white"
             rounded
             icon
             v-bind="attrs"
-            @click="on"
+            @click="nextSlide"
             v-on="on"
           >
             <v-icon>mdi-arrow-right</v-icon>
@@ -44,6 +44,21 @@
             <div class="text-center" style="font-weight: 600">
               32 Promotions
             </div>
+          </div>
+        </v-slide-group-item>
+        <v-slide-group-item v-slot="{ toggle }">
+          <div>
+            <v-card
+              class="my-4 pa-4 mx-2 d-flex align-center justify-center"
+              elevation="1"
+              variant="outlined"
+              @click="toggle"
+            >
+              <v-btn color="#0197d5" rounded icon v-bind="attrs" v-on="on">
+                <v-icon color="white"> mdi-arrow-right </v-icon>
+              </v-btn>
+            </v-card>
+            <div class="text-center" style="font-weight: 600">View All</div>
           </div>
         </v-slide-group-item>
       </v-slide-group>
@@ -112,364 +127,364 @@
 </template>
 
 <script>
-import OtherPromotion from './OtherPromotion/OtherPromotion.vue';
+import OtherPromotion from "./OtherPromotion/OtherPromotion.vue";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Promotions',
+  name: "Promotions",
   components: { OtherPromotion },
   data: () => ({
     model: null,
     model2: null,
-    activeIndex: 0,
-    totalData: 15,
+    activeIndex: 1,
+    totalData: 20,
     otherPromotionData: [
       {
-        title: 'By Meals',
+        title: "By Meals",
         items: [
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
         ],
       },
       {
-        title: 'By Meals',
+        title: "By Meals",
         items: [
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
         ],
       },
       {
-        title: 'By Meals',
+        title: "By Meals",
         items: [
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
         ],
       },
       {
-        title: 'By Meals',
+        title: "By Meals",
         items: [
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
         ],
       },
       {
-        title: 'By Meals',
+        title: "By Meals",
         items: [
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
         ],
       },
       {
-        title: 'By Meals',
+        title: "By Meals",
         items: [
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
         ],
       },
       {
-        title: 'By Meals',
+        title: "By Meals",
         items: [
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Chicken',
-            img: 'assets/other-img-1.png',
+            title: "Chicken",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Durian',
-            img: 'assets/other-img-1.png',
+            title: "Durian",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: 'Banana',
-            img: 'assets/other-img-1.png',
+            title: "Banana",
+            img: "assets/other-img-1.png",
             quantity: 2,
           },
         ],
