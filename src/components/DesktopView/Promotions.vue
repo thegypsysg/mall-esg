@@ -1,18 +1,34 @@
 <template>
   <v-container>
     <v-sheet class="mx-auto discount-sheet" elevation="0">
-      <v-slide-group v-model="model">
+      <v-slide-group v-model="activeIndex">
         <template #prev="{ on, attrs }">
-          <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
+          <v-btn
+            v-if="activeIndex > 0"
+            color="white"
+            rounded
+            icon
+            v-bind="attrs"
+            @click="on"
+            v-on="on"
+          >
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
         </template>
         <template #next="{ on, attrs }">
-          <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
+          <v-btn
+            v-if="activeIndex < totalData.length - 1"
+            color="white"
+            rounded
+            icon
+            v-bind="attrs"
+            @click="on"
+            v-on="on"
+          >
             <v-icon>mdi-arrow-right</v-icon>
           </v-btn>
         </template>
-        <v-slide-group-item v-for="n in 15" :key="n" v-slot="{ toggle }">
+        <v-slide-group-item v-for="n in totalData" :key="n" v-slot="{ toggle }">
           <div>
             <v-card
               class="my-4 pa-4 mx-3"
@@ -52,7 +68,7 @@
             </v-btn>
           </template>
           <v-slide-group-item
-            v-for="n in 15"
+            v-for="n in totalData"
             :key="n"
             v-slot="{ toggle }"
             class="mx-4"
@@ -104,6 +120,8 @@ export default {
   data: () => ({
     model: null,
     model2: null,
+    activeIndex: 0,
+    totalData: 15,
     otherPromotionData: [
       {
         title: "By Meals",
@@ -457,6 +475,14 @@ export default {
       },
     ],
   }),
+  methods: {
+    previousSlide() {
+      this.activeIndex--;
+    },
+    nextSlide() {
+      this.activeIndex++;
+    },
+  },
 };
 </script>
 
