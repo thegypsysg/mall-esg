@@ -4,12 +4,12 @@
       <v-slide-group>
         <template #prev="{ on, attrs }">
           <v-btn
-            v-if="activeIndex > 1"
+            v-if="activeIndexDiscount > 1"
             color="white"
             rounded
             icon
             v-bind="attrs"
-            @click="previousSlide"
+            @click="previousSlideDiscount"
             v-on="on"
           >
             <v-icon>mdi-arrow-left</v-icon>
@@ -17,12 +17,12 @@
         </template>
         <template #next="{ on, attrs }">
           <v-btn
-            v-if="activeIndex + 1 <= totalData / 5"
+            v-if="activeIndexDiscount + 1 <= totalData / 5"
             color="white"
             rounded
             icon
             v-bind="attrs"
-            @click="nextSlide"
+            @click="nextSlideDiscount"
             v-on="on"
           >
             <v-icon>mdi-arrow-right</v-icon>
@@ -80,17 +80,35 @@
     <v-container>
       <div class="d-flex justify-space-between mt-5">
         <h1>Promotions by Category</h1>
-        <h1 class="view-all">View all</h1>
+        <router-link to="/category" class="text-decoration-none">
+          <h1 class="view-all">View all</h1>
+        </router-link>
       </div>
       <v-sheet class="mx-auto mt-5" elevation="0">
         <v-slide-group v-model="model2" class="pa-4">
           <template #prev="{ on, attrs }">
-            <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
+            <v-btn
+              v-if="activeIndexCategory > 1"
+              color="white"
+              rounded
+              icon
+              v-bind="attrs"
+              v-on="on"
+              @click="previousSlideCategory"
+            >
               <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
           </template>
           <template #next="{ on, attrs }">
-            <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
+            <v-btn
+              v-if="activeIndexCategory + 1 <= totalData / 5"
+              color="white"
+              rounded
+              icon
+              v-bind="attrs"
+              @click="nextSlideCategory"
+              v-on="on"
+            >
               <v-icon>mdi-arrow-right</v-icon>
             </v-btn>
           </template>
@@ -131,6 +149,32 @@
               </div>
             </v-card>
           </v-slide-group-item>
+          <v-slide-group-item v-slot="{ toggle }">
+            <v-card
+              class="my-4 text-center mx-3 d-flex flex-column align-center justify-center px-auto pa-10"
+              height="180"
+              width="140"
+              elevation="1"
+              to="/category"
+              style="border-radius: 12px; gap: 20px"
+              @click="toggle"
+            >
+              <div class="text-left" style="font-weight: 600; font-size: 12px">
+                <p>View All Category</p>
+              </div>
+              <v-btn
+                size="40"
+                color="#0197d5"
+                rounded
+                icon
+                v-bind="attrs"
+                to="/category"
+                v-on="on"
+              >
+                <v-icon color="white"> mdi-arrow-right </v-icon>
+              </v-btn>
+            </v-card>
+          </v-slide-group-item>
         </v-slide-group>
       </v-sheet>
     </v-container>
@@ -148,7 +192,8 @@ export default {
   data: () => ({
     model: null,
     model2: null,
-    activeIndex: 1,
+    activeIndexDiscount: 1,
+    activeIndexCategory: 1,
     totalData: 20,
     otherPromotionData: [
       {
@@ -504,11 +549,17 @@ export default {
     ],
   }),
   methods: {
-    previousSlide() {
-      this.activeIndex--;
+    previousSlideDiscount() {
+      this.activeIndexDiscount--;
     },
-    nextSlide() {
-      this.activeIndex++;
+    nextSlideDiscount() {
+      this.activeIndexDiscount++;
+    },
+    previousSlideCategory() {
+      this.activeIndexCategory--;
+    },
+    nextSlideCategory() {
+      this.activeIndexCategory++;
     },
   },
 };

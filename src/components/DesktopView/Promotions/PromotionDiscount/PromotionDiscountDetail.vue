@@ -2,7 +2,7 @@
   <Header title-header="Promotions by Discount" is-header="true" />
   <v-container>
     <div class="banner-container">
-      <img src="@/assets/promotion-detail-img.jpg" />
+      <img src="@/assets/promotion-discount-detail-img.jpg" />
     </div>
     <v-select
       label="--- Discount Type ---"
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import Footer from "../Footer.vue";
-import Header from "../Header.vue";
+import Footer from "../../../Footer.vue";
+import Header from "../../../Header.vue";
 
 export default {
   // eslint-disable-next-line vue/no-reserved-component-names
