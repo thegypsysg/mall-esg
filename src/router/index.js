@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
-import PromotionDiscountDetail from "@/components/DesktopView/Promotions/PromotionDiscount/PromotionDiscountDetail.vue";
-import PromotionCategoryDetail from "@/components/DesktopView/Promotions/PromotionCategory/PromotionCategoryDetail.vue";
+import PromotionDiscountDetailDesktop from "@/components/DesktopView/Promotions/PromotionDiscount/PromotionDiscountDetail.vue";
+import PromotionDiscountDetailMobile from "@/components/MobileView/Promotions/PromotionDiscount/PromotionDiscountDetail.vue";
+import PromotionCategoryDetailDesktop from "@/components/DesktopView/Promotions/PromotionCategory/PromotionCategoryDetail.vue";
+import PromotionCategoryDetailMobile from "@/components/MobileView/Promotions/PromotionCategory/PromotionCategoryDetail.vue";
 
 const routes = [
   {
@@ -11,12 +13,24 @@ const routes = [
   {
     path: "/discount-types",
     name: "Promotion Discount Types",
-    component: PromotionDiscountDetail,
+    component: () => {
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        return PromotionDiscountDetailMobile;
+      } else {
+        return PromotionDiscountDetailDesktop;
+      }
+    },
   },
   {
     path: "/category",
     name: "Promotion Category",
-    component: PromotionCategoryDetail,
+    component: () => {
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        return PromotionCategoryDetailMobile;
+      } else {
+        return PromotionCategoryDetailDesktop;
+      }
+    },
   },
 ];
 

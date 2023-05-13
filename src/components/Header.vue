@@ -1,5 +1,11 @@
 <template>
-  <v-app-bar :class="{ 'px-6': isHeader }" color="white" elevation="1" fixed>
+  <v-app-bar
+    v-if="isDesktop || !isHeader"
+    :class="{ 'px-8': isHeader }"
+    color="white"
+    elevation="1"
+    fixed
+  >
     <!-- <div class="d-flex justify-start"> -->
     <router-link to="/">
       <img
@@ -114,7 +120,12 @@
       </div>
     </template>
   </v-app-bar>
-  <v-navigation-drawer v-model="drawer" temporary location="right">
+  <v-navigation-drawer
+    v-if="isDesktop || !isHeader"
+    v-model="drawer"
+    temporary
+    location="right"
+  >
     <div class="drawer__top">
       <a style="font-size: 1.125rem; color: white">Sign up / Register</a>
     </div>
@@ -193,7 +204,7 @@
 <script>
 export default {
   name: "Header",
-  props: ["titleHeader", "isHeader"],
+  props: ["titleHeader", "isHeader", "isDesktop"],
   data() {
     return {
       drawer: false,
