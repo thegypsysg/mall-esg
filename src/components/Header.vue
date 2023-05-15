@@ -234,6 +234,12 @@ export default {
   min-height: 50px; /* set to whatever value suits your needs */
   min-width: 100px; /* set to whatever value suits your needs */
 }
+@media (max-width: 599px) {
+  .logo-img-container {
+    min-height: 50px; /* set to whatever value suits your needs */
+    min-width: 50px; /* set to whatever value suits your needs */
+  }
+}
 .logo-img {
   width: 100%;
   height: 100%;
