@@ -157,7 +157,7 @@
                   transition="fade-transition"
                 >
                   <template #placeholder>
-                    <div class="skeleton skeleton-category" />
+                    <div class="skeleton skeleton-category ml-2" />
                   </template>
                 </v-img>
                 <div
@@ -607,7 +607,7 @@ export default {
   width: 40px;
 }
 .skeleton-category {
-  width: 80px;
+  width: 100px;
 }
 
 @keyframes skeleton {
