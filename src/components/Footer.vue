@@ -63,37 +63,85 @@
           <v-col cols="4">
             <p style="margin-bottom: 10px">Mall-e</p>
             <div class="our-apps">
-              <img src="@/assets/gypsi-1.png" />
+              <v-img
+                class="our-apps-img"
+                transition="fade-transition"
+                src="@/assets/gypsi-1.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
             </div>
           </v-col>
           <v-col cols="4">
             <p style="margin-bottom: 10px">Boozards</p>
             <div class="our-apps">
-              <img src="@/assets/gypsy-2.png" />
+              <v-img
+                class="our-apps-img"
+                transition="fade-transition"
+                src="@/assets/gypsy-2.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
             </div>
           </v-col>
           <v-col cols="4">
             <p style="margin-bottom: 10px">Flea</p>
             <div class="our-apps">
-              <img src="@/assets/gypsy-3.png" />
+              <v-img
+                class="our-apps-img"
+                transition="fade-transition"
+                src="@/assets/gypsy-3.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
             </div>
           </v-col>
           <v-col cols="4">
             <p style="margin-bottom: 10px">Mendesliga</p>
             <div class="our-apps">
-              <img src="@/assets/gypsy-4.png" />
+              <v-img
+                class="our-apps-img"
+                transition="fade-transition"
+                src="@/assets/gypsy-4.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
             </div>
           </v-col>
           <v-col cols="4">
             <p style="margin-bottom: 10px">Cake run</p>
             <div class="our-apps">
-              <img src="@/assets/gypsy-5.png" />
+              <v-img
+                class="our-apps-img"
+                transition="fade-transition"
+                src="@/assets/gypsy-5.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
             </div>
           </v-col>
           <v-col cols="4">
             <p style="margin-bottom: 10px">Cafe run</p>
             <div class="our-apps">
-              <img src="@/assets/gypsy-6.png" />
+              <v-img
+                class="our-apps-img"
+                transition="fade-transition"
+                src="@/assets/gypsy-6.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
             </div>
           </v-col>
           <v-col>
@@ -158,7 +206,7 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Footer',
+  name: "Footer",
 };
 </script>
 
@@ -167,7 +215,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.our-apps img {
+.our-apps-img {
   max-width: 100%;
   transition: all 0.3s;
   display: block;
@@ -176,7 +224,7 @@ export default {
   transform: scale(1);
 }
 
-.our-apps:hover img {
+.our-apps:hover .our-apps-img {
   transform: scale(1.2);
 }
 .footer-btn-cont {
@@ -207,5 +255,23 @@ export default {
 .footer-btn-cont:hover .footer-btn-hover {
   bottom: 0px;
   border-radius: 0px;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 </style>
