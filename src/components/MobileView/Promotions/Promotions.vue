@@ -29,51 +29,59 @@
           </v-btn>
         </template>
         <v-slide-group-item v-for="n in totalData" :key="n" v-slot="{ toggle }">
-          <div>
+          <v-lazy :options="{ threshold: 0.5 }" min-height="50">
+            <div>
+              <v-card
+                class="my-4 pa-4 mx-2"
+                elevation="1"
+                variant="outlined"
+                @click="toggle"
+              >
+                <div
+                  class="d-flex fill-height align-center justify-space-between"
+                >
+                  <v-img src="@/assets/images/icons/off-20.png" height="40">
+                    <template #placeholder>
+                      <div class="skeleton skeleton-discount ml-2" />
+                    </template>
+                  </v-img>
+                  <div class="text-h6 mb-1">20% off</div>
+                </div>
+              </v-card>
+              <div class="text-center" style="font-weight: 600">
+                32 Promotions
+              </div>
+            </div>
+          </v-lazy>
+        </v-slide-group-item>
+        <v-slide-group-item v-slot="{ toggle }">
+          <v-lazy :options="{ threshold: 0.5 }" min-height="50">
             <v-card
-              class="my-4 pa-4 mx-2"
+              class="my-4 pa-2 mx-2 d-flex align-center justify-center"
               elevation="1"
               variant="outlined"
+              to="/discount-types"
               @click="toggle"
             >
               <div
-                class="d-flex fill-height align-center justify-space-between"
+                class="text-left mr-1"
+                style="font-weight: 600; font-size: 10px"
               >
-                <img src="@/assets/images/icons/off-20.png" height="40" />
-                <div class="text-h6 mb-1">20% off</div>
+                <p>View all Discount Types</p>
               </div>
+              <v-btn
+                size="35"
+                color="#0197d5"
+                rounded
+                icon
+                v-bind="attrs"
+                to="/discount-types"
+                v-on="on"
+              >
+                <v-icon color="white"> mdi-arrow-right </v-icon>
+              </v-btn>
             </v-card>
-            <div class="text-center" style="font-weight: 600">
-              32 Promotions
-            </div>
-          </div>
-        </v-slide-group-item>
-        <v-slide-group-item v-slot="{ toggle }">
-          <v-card
-            class="my-4 pa-2 mx-2 d-flex align-center justify-center"
-            elevation="1"
-            variant="outlined"
-            to="/discount-types"
-            @click="toggle"
-          >
-            <div
-              class="text-left mr-1"
-              style="font-weight: 600; font-size: 10px"
-            >
-              <p>View all Discount Types</p>
-            </div>
-            <v-btn
-              size="35"
-              color="#0197d5"
-              rounded
-              icon
-              v-bind="attrs"
-              to="/discount-types"
-              v-on="on"
-            >
-              <v-icon color="white"> mdi-arrow-right </v-icon>
-            </v-btn>
-          </v-card>
+          </v-lazy>
         </v-slide-group-item>
       </v-slide-group>
     </v-sheet>
@@ -120,62 +128,73 @@
             v-slot="{ toggle }"
             class="mx-4"
           >
-            <v-card
-              class="my-4 text-center mx-2"
-              height="160"
-              width="120"
-              elevation="1"
-              style="border-radius: 12px; padding: 22px"
-              @click="toggle"
-            >
-              <div
-                class="text-h6"
-                style="
-                  font-size: 16px;
-                  margin-bottom: 10px;
-                  line-height: 19.36px;
-                "
+            <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+              <v-card
+                class="my-4 text-center mx-2"
+                height="160"
+                width="120"
+                elevation="1"
+                style="border-radius: 12px; padding: 22px"
+                @click="toggle"
               >
-                Cakes
-              </div>
-              <img src="@/assets/images/cakes.png" height="60" />
-              <div
-                style="
-                  font-weight: 600;
-                  font-size: 14px;
-                  margin-top: 10px;
-                  line-height: 16.94px;
-                "
-              >
-                <span class="text-red">32</span> Promos
-              </div>
-            </v-card>
+                <div
+                  class="text-h6"
+                  style="
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                    line-height: 19.36px;
+                  "
+                >
+                  Cakes
+                </div>
+                <v-img src="@/assets/images/cakes.png" height="60">
+                  <template #placeholder>
+                    <div class="skeleton skeleton-category ml-2" />
+                  </template>
+                </v-img>
+                <div
+                  style="
+                    font-weight: 600;
+                    font-size: 14px;
+                    margin-top: 10px;
+                    line-height: 16.94px;
+                  "
+                >
+                  <span class="text-red">32</span> Promos
+                </div>
+              </v-card>
+            </v-lazy>
           </v-slide-group-item>
           <v-slide-group-item v-slot="{ toggle }">
-            <v-card
-              class="my-4 text-center mx-2 d-flex flex-column align-center justify-center px-auto pa-10"
-              height="160"
-              width="120"
-              elevation="1"
-              to="/category"
-              style="border-radius: 12px; gap: 20px"
-              @click="toggle"
-            >
-              <div class="text-left" style="font-weight: 600; font-size: 12px">
-                <p>View All Category</p>
-              </div>
-              <v-btn
-                size="40"
-                color="#0197d5"
-                rounded
-                icon
-                v-bind="attrs"
+            <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+              <v-card
+                class="my-4 text-center mx-2 d-flex flex-column align-center justify-center px-auto pa-10"
+                height="160"
+                width="120"
+                elevation="1"
                 to="/category"
-                v-on="on"
+                style="border-radius: 12px; gap: 20px"
+                @click="toggle"
               >
-                <v-icon color="white"> mdi-arrow-right </v-icon>
-              </v-btn>
-            </v-card>
+                <div
+                  class="text-left"
+                  style="font-weight: 600; font-size: 12px"
+                >
+                  <p>View All Category</p>
+                </div>
+                <v-btn
+                  size="40"
+                  color="#0197d5"
+                  rounded
+                  icon
+                  v-bind="attrs"
+                  to="/category"
+                  v-on="on"
+                >
+                  <v-icon color="white"> mdi-arrow-right </v-icon>
+                </v-btn>
+              </v-card>
+            </v-lazy>
           </v-slide-group-item>
         </v-slide-group>
       </v-sheet>
@@ -392,4 +411,28 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.skeleton {
+  height: 100%;
+  border-radius: 100%;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+.skeleton-discount {
+  width: 35px;
+}
+.skeleton-category {
+  width: 60px;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+</style>
