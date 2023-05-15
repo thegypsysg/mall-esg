@@ -9,48 +9,79 @@
           you.
         </p>
       </div>
-      <v-card class="happening-item d-flex ml-n4 mb-1" elevation="0">
-        <div class="happening-item-img">
-          <img src="@/assets/happening-mobile-img-1.png" />
-        </div>
-        <div class="happening-item-info d-flex flex-column">
-          <h2>Events</h2>
-          <p>Explore all the Events that are currently happening in Malls</p>
-          <div>
-            <span class="text-red">2</span> Events
-            <span class="text-muted">&#x2022;</span>
-            <span class="text-red"> 5</span> Malls
+
+      <v-lazy :options="{ threshold: 0.5 }" min-height="80">
+        <v-card class="happening-item d-flex ml-n4 mb-1" elevation="0">
+          <div class="happening-item-img-cont">
+            <v-img
+              class="happening-item-img"
+              transition="fade-transition"
+              src="@/assets/happening-mobile-img-1.png"
+            >
+              <template #placeholder>
+                <div class="skeleton" />
+              </template>
+            </v-img>
           </div>
-        </div>
-      </v-card>
-      <v-card class="happening-item d-flex ml-n4" elevation="0">
-        <div class="happening-item-img">
-          <img src="@/assets/happening-mobile-img-2.png" />
-        </div>
-        <div class="happening-item-info d-flex flex-column">
-          <h2>Events</h2>
-          <p>Explore all the Events that are currently happening in Malls</p>
-          <div>
-            <span class="text-red">2</span> Events
-            <span class="text-muted">&#x2022;</span>
-            <span class="text-red"> 5</span> Malls
+          <div class="happening-item-info d-flex flex-column">
+            <h2>Events</h2>
+            <p>Explore all the Events that are currently happening in Malls</p>
+            <div>
+              <span class="text-red">2</span> Events
+              <span class="text-muted">&#x2022;</span>
+              <span class="text-red"> 5</span> Malls
+            </div>
           </div>
-        </div>
-      </v-card>
-      <v-card class="happening-item d-flex ml-n4" elevation="0">
-        <div class="happening-item-img">
-          <img src="@/assets/happening-mobile-img-3.png" />
-        </div>
-        <div class="happening-item-info d-flex flex-column">
-          <h2>Events</h2>
-          <p>Explore all the Events that are currently happening in Malls</p>
-          <div>
-            <span class="text-red">2</span> Events
-            <span class="text-muted">&#x2022;</span>
-            <span class="text-red"> 5</span> Malls
+        </v-card>
+      </v-lazy>
+      <v-lazy :options="{ threshold: 0.5 }" min-height="80">
+        <v-card class="happening-item d-flex ml-n4" elevation="0">
+          <div class="happening-item-img-cont">
+            <v-img
+              class="happening-item-img"
+              transition="fade-transition"
+              src="@/assets/happening-mobile-img-2.png"
+            >
+              <template #placeholder>
+                <div class="skeleton" />
+              </template>
+            </v-img>
           </div>
-        </div>
-      </v-card>
+          <div class="happening-item-info d-flex flex-column">
+            <h2>Events</h2>
+            <p>Explore all the Events that are currently happening in Malls</p>
+            <div>
+              <span class="text-red">2</span> Events
+              <span class="text-muted">&#x2022;</span>
+              <span class="text-red"> 5</span> Malls
+            </div>
+          </div>
+        </v-card>
+      </v-lazy>
+      <v-lazy :options="{ threshold: 0.5 }" min-height="80">
+        <v-card class="happening-item d-flex ml-n4" elevation="0">
+          <div class="happening-item-img-cont">
+            <v-img
+              class="happening-item-img"
+              transition="fade-transition"
+              src="@/assets/happening-mobile-img-3.png"
+            >
+              <template #placeholder>
+                <div class="skeleton" />
+              </template>
+            </v-img>
+          </div>
+          <div class="happening-item-info d-flex flex-column">
+            <h2>Events</h2>
+            <p>Explore all the Events that are currently happening in Malls</p>
+            <div>
+              <span class="text-red">2</span> Events
+              <span class="text-muted">&#x2022;</span>
+              <span class="text-red"> 5</span> Malls
+            </div>
+          </div>
+        </v-card>
+      </v-lazy>
     </div>
   </v-container>
 </template>
@@ -58,7 +89,7 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Happening',
+  name: "Happening",
 };
 </script>
 
@@ -91,14 +122,14 @@ export default {
   gap: 10px;
 }
 
-.happening-item-img {
+.happening-item-img-cont {
   width: 135px;
   height: 80px;
   overflow: hidden;
   border-radius: 5px !important;
 }
 
-.happening-item-img img {
+.happening-item-img {
   transition: all 0.3s;
   display: block;
   object-fit: cover;
@@ -108,7 +139,7 @@ export default {
   transform: scale(1);
 }
 
-.happening-item-img:hover img {
+.happening-item-img-cont:hover .happening-item-img {
   transform: scale(1.1);
 }
 
@@ -162,5 +193,23 @@ export default {
 
 .happening-item:hover .happening-link {
   bottom: 0;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px !important;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 </style>

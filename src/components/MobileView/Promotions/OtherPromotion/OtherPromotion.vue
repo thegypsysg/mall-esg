@@ -35,42 +35,40 @@
               :key="i"
               class="slide-item"
             >
-              <v-card
-                class="text-left mx-2 mb-5"
-                :elevation="item.title === 'Voucher ' ? 2 : 0"
-                :class="{ 'shadow-card': item.title === 'Voucher ' }"
-                @click="toggle"
-              >
-                <p
-                  v-if="item.title === 'by Meals'"
-                  class="mb-2"
-                  style="font-size: 10px; font-weight: 500"
+              <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+                <v-card
+                  class="text-left mx-2 mb-5"
+                  :elevation="item.title === 'Voucher ' ? 2 : 0"
+                  :class="{ 'shadow-card': item.title === 'Voucher ' }"
+                  @click="toggle"
                 >
-                  {{ promo.title }}
-                </p>
-                <div
-                  :class="{
-                    'other-img-container': item.title === 'by Meals',
-                    'other-img-container-5': item.title === 'Voucher ',
-                  }"
-                >
-                  <img :src="promo.img" height="60" class="other-img" />
-                </div>
-                <div
-                  v-if="item.title === 'by Meals'"
-                  style="
-                    font-weight: 600;
-                    font-size: 10px;
-                    line-height: 16.94px;
-                  "
-                >
-                  <span class="text-red">{{ promo.quantity }}</span> Promos
-                </div>
-                <div v-if="item.title === 'Voucher '" class="px-4 py-3">
-                  <p style="font-size: 10px; font-weight: 500">
+                  <p
+                    v-if="item.title === 'by Meals'"
+                    class="mb-2"
+                    style="font-size: 10px; font-weight: 500"
+                  >
                     {{ promo.title }}
                   </p>
                   <div
+                    :class="{
+                      'other-img-container': item.title === 'by Meals',
+                      'other-img-container-5': item.title === 'Voucher ',
+                    }"
+                  >
+                    <v-img
+                      :src="promo.img"
+                      height="60"
+                      class="other-img"
+                      :class="{ 'other-img-meals': item.title === 'by Meals' }"
+                      transition="fade-transition"
+                    >
+                      <template #placeholder>
+                        <div class="skeleton" />
+                      </template>
+                    </v-img>
+                  </div>
+                  <div
+                    v-if="item.title === 'by Meals'"
                     style="
                       font-weight: 600;
                       font-size: 10px;
@@ -79,8 +77,22 @@
                   >
                     <span class="text-red">{{ promo.quantity }}</span> Promos
                   </div>
-                </div>
-              </v-card>
+                  <div v-if="item.title === 'Voucher '" class="px-4 py-3">
+                    <p style="font-size: 10px; font-weight: 500">
+                      {{ promo.title }}
+                    </p>
+                    <div
+                      style="
+                        font-weight: 600;
+                        font-size: 10px;
+                        line-height: 16.94px;
+                      "
+                    >
+                      <span class="text-red">{{ promo.quantity }}</span> Promos
+                    </div>
+                  </div>
+                </v-card>
+              </v-lazy>
             </v-slide-group-item>
           </v-slide-group>
           <div
@@ -95,59 +107,48 @@
               'flex-column': item.title === 'Other Types of ',
             }"
           >
-            <v-card
-              v-for="(promo, i) in item.items"
-              :key="i"
-              class="mt-5"
-              :class="{ 'text-center': item.title === 'by Preference' }"
-              elevation="0"
-              @click="toggle"
-            >
-              <p
-                v-if="item.title === 'by People'"
-                class="mb-2"
-                style="font-size: 10px; font-weight: 600"
-              >
-                {{ promo.title }}
-              </p>
-              <div
-                v-if="item.title !== 'Other Types of '"
-                :class="{
-                  'other-img-container-2': item.title === 'by People',
-                  'other-img-container-3': item.title === 'by Preference',
-                }"
-              >
-                <img :src="promo.img" height="60" class="other-img" />
-              </div>
-              <p
-                v-if="item.title === 'by Preference'"
-                class="mb-1 mt-3"
-                style="font-size: 10px; font-weight: 600"
-              >
-                {{ promo.title }}
-              </p>
-              <div
-                v-if="item.title !== 'Other Types of '"
-                style="font-weight: 600; font-size: 10px; line-height: 16.94px"
-              >
-                <span class="text-red">{{ promo.quantity }}</span> Promos
-              </div>
-              <div
-                v-if="item.title === 'Other Types of '"
-                class="d-flex"
-                style="column-gap: 20px"
-              >
-                <div class="other-img-container-4">
-                  <img :src="promo.img" height="60" class="other-img" />
-                </div>
-                <div class="d-flex flex-column">
+            <template v-for="(promo, i) in item.items" :key="i">
+              <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+                <v-card
+                  class="mt-5"
+                  :class="{ 'text-center': item.title === 'by Preference' }"
+                  elevation="0"
+                  @click="toggle"
+                >
                   <p
+                    v-if="item.title === 'by People'"
+                    class="mb-2"
+                    style="font-size: 10px; font-weight: 600"
+                  >
+                    {{ promo.title }}
+                  </p>
+                  <div
+                    v-if="item.title !== 'Other Types of '"
+                    :class="{
+                      'other-img-container-2': item.title === 'by People',
+                      'other-img-container-3': item.title === 'by Preference',
+                    }"
+                  >
+                    <v-img
+                      :src="promo.img"
+                      height="60"
+                      class="other-img"
+                      transition="fade-transition"
+                    >
+                      <template #placeholder>
+                        <div class="skeleton" />
+                      </template>
+                    </v-img>
+                  </div>
+                  <p
+                    v-if="item.title === 'by Preference'"
                     class="mb-1 mt-3"
                     style="font-size: 10px; font-weight: 600"
                   >
                     {{ promo.title }}
                   </p>
                   <div
+                    v-if="item.title !== 'Other Types of '"
                     style="
                       font-weight: 600;
                       font-size: 10px;
@@ -156,9 +157,36 @@
                   >
                     <span class="text-red">{{ promo.quantity }}</span> Promos
                   </div>
-                </div>
-              </div>
-            </v-card>
+                  <div
+                    v-if="item.title === 'Other Types of '"
+                    class="d-flex"
+                    style="column-gap: 20px"
+                  >
+                    <div class="other-img-container-4">
+                      <img :src="promo.img" height="60" class="other-img" />
+                    </div>
+                    <div class="d-flex flex-column">
+                      <p
+                        class="mb-1 mt-3"
+                        style="font-size: 10px; font-weight: 600"
+                      >
+                        {{ promo.title }}
+                      </p>
+                      <div
+                        style="
+                          font-weight: 600;
+                          font-size: 10px;
+                          line-height: 16.94px;
+                        "
+                      >
+                        <span class="text-red">{{ promo.quantity }}</span>
+                        Promos
+                      </div>
+                    </div>
+                  </div>
+                </v-card>
+              </v-lazy>
+            </template>
           </div>
         </v-card>
         <!-- <v-btn
@@ -236,10 +264,12 @@ export default {
 }
 
 .other-img-container {
+  overflow: hidden;
   width: 90px;
   height: 60px;
 }
 .other-img-container-5 {
+  overflow: hidden;
   width: 150px;
   height: 100px;
 }
@@ -251,6 +281,10 @@ export default {
   height: 100%;
 }
 
+.other-img-meals {
+  scale: 1.65;
+}
+
 .other-gap {
   column-gap: 25px;
   row-gap: 15px;
@@ -258,6 +292,24 @@ export default {
 
 .shadow-card {
   box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.43) !important;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 @media screen and (max-width: 960px) {
@@ -277,6 +329,7 @@ export default {
     height: 70px;
   }
   .other-img-container-2 {
+    overflow: hidden;
     width: 107px;
     height: 150px;
   }

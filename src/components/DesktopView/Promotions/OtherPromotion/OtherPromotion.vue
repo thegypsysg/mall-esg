@@ -56,6 +56,7 @@
                         src="@/assets/other-img-1.png"
                         height="60"
                         class="other-img"
+                        transition="fade-transition"
                       >
                         <template #placeholder>
                           <div class="skeleton" />
