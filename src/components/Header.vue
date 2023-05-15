@@ -8,11 +8,18 @@
   >
     <!-- <div class="d-flex justify-start"> -->
     <router-link to="/">
-      <img
-        class="logo-img"
-        src="@/assets/images/logo/mall-E-original-final-2.jpg"
-        height="90"
-      />
+      <div class="logo-img-container">
+        <v-img
+          class="logo-img"
+          src="@/assets/images/logo/mall-E-original-final-2.jpg"
+          height="90"
+          transition="fade-transition"
+        >
+          <template #placeholder>
+            <div class="skeleton" />
+          </template>
+        </v-img>
+      </div>
     </router-link>
     <div v-if="isHeader" class="ml-6 d-flex flex-row navbar-header">
       <div class="divider" />
@@ -223,6 +230,15 @@ export default {
   max-width: 100%;
 }
 
+.logo-img-container {
+  min-height: 50px; /* set to whatever value suits your needs */
+  min-width: 100px; /* set to whatever value suits your needs */
+}
+.logo-img {
+  width: 100%;
+  height: 100%;
+}
+
 .divider {
   background: black;
   width: 2px;
@@ -260,5 +276,23 @@ export default {
 .btn_sign__up-cont:hover .btn_sign__up-hover {
   bottom: 0px;
   border-radius: 0px;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 </style>
