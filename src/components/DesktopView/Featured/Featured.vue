@@ -54,121 +54,136 @@
                   <span class="text-muted">Views</span>
                 </div>
               </div>
-              <v-card
-                class="my-4 mx-3 featured-card"
-                width="370"
-                elevation="1"
-                @click="toggle"
-              >
-                <div
-                  v-if="!isDiff"
-                  class="card-title-container d-flex justify-space-between align-center pa-4"
+              <v-lazy :options="{ threshold: 0.5 }" min-height="370">
+                <v-card
+                  class="my-4 mx-3 featured-card"
+                  width="370"
+                  elevation="1"
+                  @click="toggle"
                 >
-                  <img src="@/assets/featured-logo-img.png" height="50" />
-                  <div class="card-title">
-                    <h4>Great World City</h4>
-                    <span>River Valley</span>
+                  <div
+                    v-if="!isDiff"
+                    class="card-title-container d-flex justify-space-between align-center pa-4"
+                  >
+                    <img src="@/assets/featured-logo-img.png" height="50" />
+                    <div class="card-title">
+                      <h4>Great World City</h4>
+                      <span>River Valley</span>
+                    </div>
+                    <span class="text-red card-title-right">1.20 kms</span>
                   </div>
-                  <span class="text-red card-title-right">1.20 kms</span>
-                </div>
-                <div class="featured-card-img">
-                  <img src="@/assets/featured-card-img.png" height="230" />
-                </div>
-                <div
-                  v-if="!isDiff"
-                  style="font-weight: 400; font-size: 14px; position: relative"
-                  class="px-2 pt-5 pb-2"
-                >
-                  15 Merchants | 12 Promotions
-                </div>
-                <div
-                  v-if="isDiff"
-                  class="card-description pa-2 d-flex flex-column"
-                  style="position: relative; gap: 10px"
-                >
-                  <div class="card-rating">
-                    <v-icon color="#F63F17"> mdi-star </v-icon>
-                    <v-icon color="#F63F17"> mdi-star </v-icon>
-                    <v-icon color="#F63F17"> mdi-star </v-icon>
-                    <v-icon color="#F63F17"> mdi-star </v-icon>
-                    <v-icon color="#F63F17"> mdi-star-outline </v-icon>
-                    <span class="ml-2">( 132 rates )</span>
-                  </div>
-                  <div class="card-price">
-                    <img src="@/assets/featured-price-img.png" height="15" />
-                    <span class="ml-5">$80</span>
-                  </div>
-                  <div class="card-time">
-                    <v-icon color="#ABABAB"> mdi-clock-outline </v-icon
-                    ><span class="ml-4" style="color: #ababab"
-                      >Ends in 18 Days (15/03/2023)</span
+                  <div class="featured-card-img-cont">
+                    <v-img
+                      class="featured-card-img"
+                      src="@/assets/featured-card-img.png"
+                      transition="fade-transition"
                     >
+                      <template #placeholder>
+                        <div class="skeleton" />
+                      </template>
+                    </v-img>
+                    <!-- <div class="skeleton" /> -->
                   </div>
                   <div
-                    class="card-address d-flex align-center"
-                    style="gap: 25px"
+                    v-if="!isDiff"
+                    style="
+                      font-weight: 400;
+                      font-size: 14px;
+                      position: relative;
+                    "
+                    class="px-2 pt-5 pb-2"
                   >
-                    <img
-                      src="@/assets/featured-address-img.png"
-                      width="24"
-                      height="28"
-                    />
-                    <div class="card-address-info">
-                      <h4>Papa Rich</h4>
-                      <h4>Parkway Parade, #01-23</h4>
-                      <h4>Marine Parade</h4>
+                    15 Merchants | 12 Promotions
+                  </div>
+                  <div
+                    v-if="isDiff"
+                    class="card-description pa-2 d-flex flex-column"
+                    style="position: relative; gap: 10px"
+                  >
+                    <div class="card-rating">
+                      <v-icon color="#F63F17"> mdi-star </v-icon>
+                      <v-icon color="#F63F17"> mdi-star </v-icon>
+                      <v-icon color="#F63F17"> mdi-star </v-icon>
+                      <v-icon color="#F63F17"> mdi-star </v-icon>
+                      <v-icon color="#F63F17"> mdi-star-outline </v-icon>
+                      <span class="ml-2">( 132 rates )</span>
+                    </div>
+                    <div class="card-price">
+                      <img src="@/assets/featured-price-img.png" height="15" />
+                      <span class="ml-5">$80</span>
+                    </div>
+                    <div class="card-time">
+                      <v-icon color="#ABABAB"> mdi-clock-outline </v-icon
+                      ><span class="ml-4" style="color: #ababab"
+                        >Ends in 18 Days (15/03/2023)</span
+                      >
+                    </div>
+                    <div
+                      class="card-address d-flex align-center"
+                      style="gap: 25px"
+                    >
+                      <img
+                        src="@/assets/featured-address-img.png"
+                        width="24"
+                        height="28"
+                      />
+                      <div class="card-address-info">
+                        <h4>Papa Rich</h4>
+                        <h4>Parkway Parade, #01-23</h4>
+                        <h4>Marine Parade</h4>
+                      </div>
+                    </div>
+                    <div
+                      class="card-offer py-5 d-flex align-center"
+                      style="background: #f3f3f3; gap: 20px; color: #5e5e5e"
+                    >
+                      <img src="@/assets/featured-offer-img.png" />
+                      <span>Flat 50% on all Stores</span>
                     </div>
                   </div>
                   <div
-                    class="card-offer py-5 d-flex align-center"
-                    style="background: #f3f3f3; gap: 20px; color: #5e5e5e"
+                    class="card-btn-container d-flex justify-space-between"
+                    :class="{
+                      'card-btn-container-1': !isDiff,
+                      'card-btn-container-2': isDiff,
+                    }"
                   >
-                    <img src="@/assets/featured-offer-img.png" />
-                    <span>Flat 50% on all Stores</span>
+                    <v-btn
+                      variant="outlined"
+                      color="black"
+                      class="card-btn"
+                      width="32"
+                      height="32"
+                      icon="mdi-share-variant-outline"
+                    />
+                    <v-btn
+                      class="card-btn"
+                      variant="outlined"
+                      color="black"
+                      icon="mdi-heart"
+                      width="32"
+                      height="32"
+                    >
+                      <v-icon color="red"> mdi-heart </v-icon>
+                    </v-btn>
                   </div>
-                </div>
-                <div
-                  class="card-btn-container d-flex justify-space-between"
-                  :class="{
-                    'card-btn-container-1': !isDiff,
-                    'card-btn-container-2': isDiff,
-                  }"
-                >
-                  <v-btn
-                    variant="outlined"
-                    color="black"
-                    class="card-btn"
-                    width="32"
-                    height="32"
-                    icon="mdi-share-variant-outline"
-                  />
-                  <v-btn
-                    class="card-btn"
-                    variant="outlined"
-                    color="black"
-                    icon="mdi-heart"
-                    width="32"
-                    height="32"
-                  >
-                    <v-icon color="red"> mdi-heart </v-icon>
-                  </v-btn>
-                </div>
 
-                <div
-                  class="card-tag"
-                  :class="{
-                    'card-tag-1': isDiff,
-                    'card-tag-2': !isDiff,
-                  }"
-                >
-                  Featured
-                </div>
-                <div v-if="isDiff" class="card-distance">
-                  <v-icon color="#808080"> mdi-map-marker </v-icon>
-                  <span class="text-red">10.20 kms</span
-                  ><span class="text-muted"> away</span>
-                </div>
-              </v-card>
+                  <div
+                    class="card-tag"
+                    :class="{
+                      'card-tag-1': isDiff,
+                      'card-tag-2': !isDiff,
+                    }"
+                  >
+                    Featured
+                  </div>
+                  <div v-if="isDiff" class="card-distance">
+                    <v-icon color="#808080"> mdi-map-marker </v-icon>
+                    <span class="text-red">10.20 kms</span
+                    ><span class="text-muted"> away</span>
+                  </div>
+                </v-card>
+              </v-lazy>
             </div>
           </v-slide-group-item>
         </v-slide-group>
@@ -199,8 +214,8 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Featured',
-  props: ['title', 'desc', 'isDiff'],
+  name: "Featured",
+  props: ["title", "desc", "isDiff"],
 };
 </script>
 
@@ -243,18 +258,22 @@ export default {
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.43) !important;
 }
 
+.featured-card-img-cont {
+  overflow: hidden !important;
+  height: 225px !important;
+}
+
 .featured-card-img {
-  overflow: hidden;
-  height: 225px;
-}
-
-.featured-card-img img {
   transition: all 0.3s;
-  transform: scale(1);
+  transform: scale(1.4);
+  object-fit: cover !important;
+  object-position: center !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
 }
 
-.featured-card:hover .featured-card-img img {
-  transform: scale(1.1);
+.featured-card:hover .featured-card-img {
+  transform: scale(1.5);
 }
 
 .card-title h4 {
@@ -319,5 +338,22 @@ export default {
   left: 10px;
   padding: 5px 10px;
   font-size: 13px;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 </style>

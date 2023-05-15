@@ -9,21 +9,63 @@
           you.
         </p>
       </div>
-      <v-card class="happening-item" elevation="0">
-        <img src="@/assets/happening-img-1.png" />
-        <span class="happening-info">Events</span>
-        <div class="happening-link" />
-      </v-card>
-      <v-card class="happening-item" elevation="0">
-        <img src="@/assets/happening-img-2.png" />
-        <span class="happening-info">Parking Info</span>
-        <div class="happening-link" />
-      </v-card>
-      <v-card class="happening-item" elevation="0">
-        <img src="@/assets/happening-img-3.png" />
-        <div class="happening-info">Promotions</div>
-        <div class="happening-link" />
-      </v-card>
+      <v-lazy :options="{ threshold: 0.5 }" min-height="270">
+        <v-card class="happening-item" elevation="0">
+          <v-img
+            min-width="270"
+            min-height="370"
+            class="happening-item-img"
+            src="@/assets/happening-img-1.png"
+            transition="fade-transition"
+          >
+            <template #placeholder>
+              <div class="skeleton" />
+            </template>
+          </v-img>
+          <span class="happening-info">Events</span>
+          <div class="happening-link" />
+        </v-card>
+      </v-lazy>
+      <v-lazy :options="{ threshold: 0.5 }" min-height="130">
+        <v-card class="happening-item" elevation="0">
+          <v-img
+            min-width="270"
+            min-height="370"
+            class="happening-item-img"
+            src="@/assets/happening-img-2.png"
+            transition="fade-transition"
+          >
+            <template #placeholder>
+              <!-- <v-row align="center" class="fill-height ma-0" justify="center">
+                <v-skeleton-loader />
+              </v-row> -->
+              <div class="skeleton" />
+            </template>
+          </v-img>
+          <span class="happening-info">Parking Info</span>
+          <div class="happening-link" />
+        </v-card>
+      </v-lazy>
+      <v-lazy :options="{ threshold: 0.5 }" min-height="130">
+        <v-card class="happening-item" elevation="0">
+          <v-img
+            min-width="270"
+            min-height="370"
+            class="happening-item-img"
+            src="@/assets/happening-img-3.png"
+            transition="fade-transition"
+          >
+            <template #placeholder>
+              <!-- <v-row align="center" class="fill-height ma-0" justify="center">
+                <v-skeleton-loader type="image" />
+              </v-row> -->
+              <div class="skeleton" />
+            </template>
+          </v-img>
+          <div class="happening-info">Promotions</div>
+          <div class="happening-link" />
+        </v-card>
+      </v-lazy>
     </div>
   </v-container>
 </template>
@@ -31,7 +73,7 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Happening',
+  name: "Happening",
 };
 </script>
 
@@ -68,7 +110,7 @@ export default {
   overflow: hidden;
   border-radius: 20px !important;
 }
-.happening-item img {
+.happening-item-img {
   max-width: 100%;
   transition: all 0.3s;
   display: block;
@@ -77,7 +119,7 @@ export default {
   transform: scale(1);
 }
 
-.happening-item:hover img {
+.happening-item:hover .happening-item-img {
   transform: scale(1.1);
 }
 
@@ -108,5 +150,22 @@ export default {
 
 .happening-item:hover .happening-link {
   bottom: 0;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 </style>
