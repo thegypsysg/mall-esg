@@ -23,53 +23,59 @@
             v-slot="{ toggle }"
             class="other-item mx-4"
           >
-            <v-card
-              :class="['mx-2 py-8 px-5 text-left my-2']"
-              elevation="1"
-              style="border-radius: 12px; padding: 22px"
-              @click="toggle"
-            >
-              <div
-                class="text-h6"
-                style="
-                  font-size: 20px;
-                  margin-bottom: 20px;
-                  line-height: 19.36px;
-                "
+            <v-lazy :options="{ threshold: 0.5 }" min-height="370">
+              <v-card
+                :class="['mx-2 py-8 px-5 text-left my-2']"
+                elevation="1"
+                style="border-radius: 12px; padding: 22px"
+                @click="toggle"
               >
-                {{ item.title }}
-              </div>
-              <div class="d-flex">
-                <v-card
-                  v-for="(promo, i) in item.items.slice(0, 3)"
-                  :key="i"
-                  :class="['text-left', 'mr-2']"
-                  elevation="0"
-                  @click="toggle"
+                <div
+                  class="text-h6"
+                  style="
+                    font-size: 20px;
+                    margin-bottom: 20px;
+                    line-height: 19.36px;
+                  "
                 >
-                  <p class="mb-2" style="font-size: 10px; font-weight: 500">
-                    {{ promo.title }}
-                  </p>
-                  <div class="other-img-container">
-                    <img
-                      src="@/assets/other-img-1.png"
-                      height="60"
-                      class="other-img"
-                    />
-                  </div>
-                  <div
-                    style="
-                      font-weight: 600;
-                      font-size: 10px;
-                      line-height: 16.94px;
-                    "
+                  {{ item.title }}
+                </div>
+                <div class="d-flex">
+                  <v-card
+                    v-for="(promo, i) in item.items.slice(0, 3)"
+                    :key="i"
+                    :class="['text-left', 'mr-2']"
+                    elevation="0"
+                    @click="toggle"
                   >
-                    <span class="text-red">{{ promo.quantity }}</span> Promos
-                  </div>
-                </v-card>
-              </div>
-              <v-btn class="other-btn"> View All Promotions </v-btn>
-            </v-card>
+                    <p class="mb-2" style="font-size: 10px; font-weight: 500">
+                      {{ promo.title }}
+                    </p>
+                    <div class="other-img-container">
+                      <v-img
+                        src="@/assets/other-img-1.png"
+                        height="60"
+                        class="other-img"
+                      >
+                        <template #placeholder>
+                          <div class="skeleton" />
+                        </template>
+                      </v-img>
+                    </div>
+                    <div
+                      style="
+                        font-weight: 600;
+                        font-size: 10px;
+                        line-height: 16.94px;
+                      "
+                    >
+                      <span class="text-red">{{ promo.quantity }}</span> Promos
+                    </div>
+                  </v-card>
+                </div>
+                <v-btn class="other-btn"> View All Promotions </v-btn>
+              </v-card>
+            </v-lazy>
           </v-slide-group-item>
         </v-slide-group>
       </v-sheet>
@@ -142,6 +148,7 @@ export default {
 .other-img-container {
   width: 90px;
   height: 60px;
+  overflow: hidden !important;
 }
 .other-img-container-5 {
   width: 150px;
@@ -149,15 +156,34 @@ export default {
 }
 
 .other-img {
-  object-fit: cover;
-  object-position: center;
-  width: 100%;
-  height: 100%;
+  scale: 1.5;
+  object-fit: cover !important;
+  object-position: center !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .other-gap {
   column-gap: 25px;
   row-gap: 15px;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 @media screen and (max-width: 960px) {
