@@ -604,10 +604,10 @@ export default {
 }
 
 .skeleton-discount {
-  width: 40px;
+  width: 40px !important;
 }
 .skeleton-category {
-  width: 100px;
+  width: 80px !important;
 }
 
 @keyframes skeleton {
