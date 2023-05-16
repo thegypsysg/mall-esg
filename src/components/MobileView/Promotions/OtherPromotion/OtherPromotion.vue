@@ -57,9 +57,8 @@
                   >
                     <v-img
                       :src="promo.img"
-                      height="60"
+                      :height="item.title === 'by Meals' ? 60 : 100"
                       class="other-img"
-                      :class="{ 'other-img-meals': item.title === 'by Meals' }"
                       transition="fade-transition"
                     >
                       <template #placeholder>
@@ -131,7 +130,7 @@
                   >
                     <v-img
                       :src="promo.img"
-                      height="60"
+                      :height="item.title === 'by People' ? 150 : 70"
                       class="other-img"
                       transition="fade-transition"
                     >
@@ -163,7 +162,11 @@
                     style="column-gap: 20px"
                   >
                     <div class="other-img-container-4">
-                      <img :src="promo.img" height="60" class="other-img" />
+                      <v-img :src="promo.img" height="70" class="other-img">
+                        <template #placeholder>
+                          <div class="skeleton" />
+                        </template>
+                      </v-img>
                     </div>
                     <div class="d-flex flex-column">
                       <p
@@ -280,9 +283,8 @@ export default {
   width: 100%;
   height: 100%;
 }
-
-.other-img-meals {
-  scale: 1.65;
+.other-img-typeof {
+  scale: 1.5;
 }
 
 .other-gap {
@@ -325,6 +327,7 @@ export default {
     width: 100%;
   }
   .other-img-container {
+    overflow: hidden;
     width: 100px;
     height: 70px;
   }
@@ -335,10 +338,12 @@ export default {
   }
 
   .other-img-container-3 {
+    overflow: hidden;
     width: 70px;
     height: 70px;
   }
   .other-img-container-4 {
+    overflow: hidden;
     width: 107px;
     height: 70px;
   }
