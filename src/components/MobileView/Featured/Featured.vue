@@ -44,6 +44,7 @@
                   <span class="text-muted">Views</span>
                 </div>
               </div>
+              <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
               <v-card
                 class="my-4 mx-3 featured-card"
                 width="270"
@@ -62,10 +63,19 @@
                   <span class="text-red card-title-right">1.20 kms</span>
                 </div>
                 <div
-                  class="featured-card-img"
-                  :class="{ 'featured-card-img-2': isDiff }"
+                  class="featured-card-img-cont"
+                  :class="{ 'featured-card-img-cont-2': isDiff }"
                 >
-                  <img src="@/assets/featured-card-img.png" height="230" />
+                  <v-img
+                    class="featured-card-img"
+                    src="@/assets/featured-card-img.png"
+                    transition="fade-transition"
+                    :height="isDiff ? 154 : 180"
+                  >
+                    <template #placeholder>
+                      <div class="skeleton" />
+                    </template>
+                  </v-img>
                 </div>
                 <div
                   v-if="!isDiff"
@@ -177,6 +187,7 @@
                   ><span class="text-muted"> away</span>
                 </div>
               </v-card>
+              <!-- </v-lazy> -->
             </div>
           </v-slide-group-item>
         </v-slide-group>
@@ -207,8 +218,8 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Featured',
-  props: ['title', 'desc', 'isDiff'],
+  name: "Featured",
+  props: ["title", "desc", "isDiff"],
 };
 </script>
 
@@ -261,23 +272,27 @@ export default {
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.43) !important;
 }
 
-.featured-card-img {
+.featured-card-img-cont {
   overflow: hidden;
   height: 180px;
 }
 
-.featured-card-img-2 {
+.featured-card-img-cont-2 {
   overflow: hidden;
   height: 154px;
 }
 
-.featured-card-img img {
+.featured-card-img {
   transition: all 0.3s;
-  transform: scale(1);
+  transform: scale(1.4);
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
 }
 
-.featured-card:hover .featured-card-img img {
-  transform: scale(1.1);
+.featured-card:hover .featured-card-img {
+  transform: scale(1.5);
 }
 
 .card-title {
@@ -371,5 +386,23 @@ export default {
 .card-offer {
   font-weight: 400;
   font-size: 12px;
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
+  background-size: 400% 400%;
+  animation: skeleton 1.6s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 </style>

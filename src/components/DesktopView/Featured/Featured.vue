@@ -266,10 +266,10 @@ export default {
 .featured-card-img {
   transition: all 0.3s;
   transform: scale(1.4);
-  object-fit: cover !important;
-  object-position: center !important;
-  min-width: 100% !important;
-  min-height: 100% !important;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
 }
 
 .featured-card:hover .featured-card-img {
@@ -343,6 +343,7 @@ export default {
 .skeleton {
   width: 100%;
   height: 100%;
+  border-radius: 0;
   background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
   background-size: 400% 400%;
   animation: skeleton 1.6s ease infinite;

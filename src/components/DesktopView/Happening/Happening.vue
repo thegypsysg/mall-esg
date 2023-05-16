@@ -155,6 +155,7 @@ export default {
 .skeleton {
   width: 100%;
   height: 100%;
+  border-radius: 20px;
   background: linear-gradient(-90deg, #f2f2f2 0%, #e1e1e1 50%, #f2f2f2 100%);
   background-size: 400% 400%;
   animation: skeleton 1.6s ease infinite;

@@ -283,9 +283,6 @@ export default {
   width: 100%;
   height: 100%;
 }
-.other-img-typeof {
-  scale: 1.5;
-}
 
 .other-gap {
   column-gap: 25px;
