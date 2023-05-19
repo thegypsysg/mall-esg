@@ -229,54 +229,54 @@ export default {
         title: "By Meals",
         items: [
           {
-            title: "Chicken",
+            title: "Breakfast",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: "Durian",
+            title: "Lunch",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: "Banana",
+            title: "Dinner",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
         ],
       },
       {
-        title: "By Meals",
+        title: "By Preference",
         items: [
           {
             title: "Chicken",
@@ -284,17 +284,7 @@ export default {
             quantity: 2,
           },
           {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
+            title: "Orange",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
@@ -303,276 +293,186 @@ export default {
             img: "assets/other-img-1.png",
             quantity: 2,
           },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
         ],
       },
       {
-        title: "By Meals",
+        title: "By People",
         items: [
           {
-            title: "Chicken",
+            title: "Kids",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: "Durian",
+            title: "Teens",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: "Banana",
+            title: "Men",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
         ],
       },
       {
-        title: "By Meals",
+        title: "By Days",
         items: [
           {
-            title: "Chicken",
+            title: "Monday",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: "Durian",
+            title: "Tuesday",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: "Banana",
+            title: "Wednesday",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
         ],
       },
       {
-        title: "By Meals",
+        title: "By Others",
         items: [
           {
-            title: "Chicken",
+            title: "1 for 1",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: "Durian",
+            title: "Buy 2 Get 1",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
           {
-            title: "Banana",
+            title: "Free with Buy",
             img: "assets/other-img-1.png",
             quantity: 2,
           },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-        ],
-      },
-      {
-        title: "By Meals",
-        items: [
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-        ],
-      },
-      {
-        title: "By Meals",
-        items: [
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Chicken",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Durian",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
+          // {
+          //   title: "Banana",
+          //   img: "assets/other-img-1.png",
+          //   quantity: 2,
+          // },
         ],
       },
     ],
