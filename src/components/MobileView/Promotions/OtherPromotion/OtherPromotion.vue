@@ -11,7 +11,7 @@
           <div
             :class="{
               'mt-6':
-                item.title === 'Other Types of ' || item.title === 'Voucher ',
+                item.title === 'Other Types of ' || item.title === 'by Day',
             }"
             class="text-h6 d-flex justify-space-between"
             style="font-size: 20px; margin-bottom: 20px; line-height: 19.36px"
@@ -27,7 +27,11 @@
             <h1 class="view-all">View all</h1>
           </div>
           <v-slide-group
-            v-if="item.title === 'by Meals' || item.title === 'Voucher '"
+            v-if="
+              item.title === 'by Meals' ||
+              item.title === 'by Day' ||
+              item.title === 'Voucher '
+            "
             class="slide-group"
           >
             <v-slide-group-item
@@ -38,8 +42,13 @@
               <v-lazy :options="{ threshold: 0.5 }" min-height="100">
                 <v-card
                   class="text-left mx-2 mb-5"
-                  :elevation="item.title === 'Voucher ' ? 2 : 0"
-                  :class="{ 'shadow-card': item.title === 'Voucher ' }"
+                  :elevation="
+                    item.title === 'Voucher ' || item.title === 'by Day' ? 2 : 0
+                  "
+                  :class="{
+                    'shadow-card':
+                      item.title === 'Voucher ' || item.title === 'by Day',
+                  }"
                   @click="toggle"
                 >
                   <p
@@ -52,7 +61,8 @@
                   <div
                     :class="{
                       'other-img-container': item.title === 'by Meals',
-                      'other-img-container-5': item.title === 'Voucher ',
+                      'other-img-container-5':
+                        item.title === 'Voucher ' || item.title === 'by Day',
                     }"
                   >
                     <v-img
@@ -76,7 +86,10 @@
                   >
                     <span class="text-red">{{ promo.quantity }}</span> Promos
                   </div>
-                  <div v-if="item.title === 'Voucher '" class="px-4 py-3">
+                  <div
+                    v-if="item.title === 'Voucher ' || item.title === 'by Day'"
+                    class="px-4 py-3"
+                  >
                     <p style="font-size: 10px; font-weight: 500">
                       {{ promo.title }}
                     </p>

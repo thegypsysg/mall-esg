@@ -8,15 +8,17 @@
       </router-view> -->
       <Header
         :is-header="
-          currentRoute === '/discount-types' || currentRoute === '/category'
+          currentRoute === '/discount-types' ||
+          currentRoute === '/category' ||
+          currentRoute === '/meal-promo' ||
+          currentRoute === '/people-promo' ||
+          currentRoute === '/preference-promo' ||
+          currentRoute === '/others-promo' ||
+          currentRoute === '/day-promo'
             ? true
             : false
         "
-        :title-header="
-          currentRoute === '/discount-types'
-            ? 'Promotions by Discount'
-            : 'Promotions by Category'
-        "
+        :title-header="titleHeader"
         :is-desktop="isDesktop"
       />
       <RouterView v-slot="{ Component }">
@@ -41,6 +43,27 @@ export default {
       currentRoute: this.$route.path,
       isDesktop: true,
     };
+  },
+  computed: {
+    titleHeader() {
+      let title = "";
+      if (this.currentRoute === "/discount-types") {
+        title = "Promotions by Discount";
+      } else if (this.currentRoute === "/category") {
+        title = "Promotions by Category";
+      } else if (this.currentRoute === "/meal-promo") {
+        title = "Promotions by Meals";
+      } else if (this.currentRoute === "/people-promo") {
+        title = "Promotions by People";
+      } else if (this.currentRoute === "/preference-promo") {
+        title = "Promotions by Preference";
+      } else if (this.currentRoute === "/others-promo") {
+        title = "Promotions by Others";
+      } else if (this.currentRoute === "/day-promo") {
+        title = "Promotions by Day";
+      }
+      return title;
+    },
   },
   watch: {
     $route: function () {
