@@ -220,6 +220,11 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Featured",
   props: ["title", "desc", "isDiff"],
+  data() {
+    return {
+      data: null,
+    };
+  },
 };
 </script>
 
