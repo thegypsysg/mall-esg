@@ -24,7 +24,9 @@
               {{ item.title }}Promotions
             </h1>
             <h1 v-else>Promotions {{ item.title }}</h1>
-            <h1 class="view-all">View all</h1>
+            <router-link :to="{ name: item.name }" class="text-decoration-none">
+              <h1 class="view-all">View all</h1>
+            </router-link>
           </div>
           <v-slide-group
             v-if="

@@ -219,6 +219,7 @@ export default {
     otherPromotionData: [
       {
         title: "by Meals",
+        name: "Promotion Meals",
         items: [
           {
             title: "Chicken",
@@ -269,6 +270,7 @@ export default {
       },
       {
         title: "by People",
+        name: "Promotion People",
         items: [
           {
             title: "Everyone",
@@ -289,6 +291,7 @@ export default {
       },
       {
         title: "by Preference",
+        name: "Promotion Preference",
         items: [
           {
             title: "Oranges",
@@ -339,6 +342,7 @@ export default {
       },
       {
         title: "Other Types of ",
+        name: "Promotion Others",
         items: [
           {
             title: "Buy 1 Get 1 Free",
@@ -364,6 +368,7 @@ export default {
       },
       {
         title: "by Day",
+        name: "Promotion Day",
         items: [
           {
             title: "Mondays",
