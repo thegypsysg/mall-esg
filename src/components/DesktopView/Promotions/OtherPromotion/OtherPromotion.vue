@@ -74,7 +74,9 @@
                     </div>
                   </v-card>
                 </div>
-                <v-btn class="other-btn"> View All Promotions </v-btn>
+                <v-btn :to="item.link" class="other-btn">
+                  <span>View All Promotions</span>
+                </v-btn>
               </v-card>
             </v-lazy>
           </v-slide-group-item>
@@ -119,8 +121,11 @@ export default {
 }
 
 .other-btn {
+  width: 70%;
   margin-top: 20px;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 400;
   font-size: 14px;
   color: #ef1f43;

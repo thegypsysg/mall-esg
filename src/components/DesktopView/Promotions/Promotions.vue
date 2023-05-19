@@ -227,6 +227,7 @@ export default {
     otherPromotionData: [
       {
         title: "By Meals",
+        link: "/meal-promo",
         items: [
           {
             title: "Breakfast",
@@ -277,6 +278,7 @@ export default {
       },
       {
         title: "By Preference",
+        link: "/preference-promo",
         items: [
           {
             title: "Chicken",
@@ -327,6 +329,7 @@ export default {
       },
       {
         title: "By People",
+        link: "/people-promo",
         items: [
           {
             title: "Kids",
@@ -377,6 +380,7 @@ export default {
       },
       {
         title: "By Days",
+        link: "/day-promo",
         items: [
           {
             title: "Monday",
@@ -427,6 +431,7 @@ export default {
       },
       {
         title: "By Others",
+        link: "/others-promo",
         items: [
           {
             title: "1 for 1",
