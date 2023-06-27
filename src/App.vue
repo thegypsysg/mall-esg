@@ -8,6 +8,7 @@
       </router-view> -->
       <Header
         :is-header="
+          currentRoute === '/my-profile' ||
           currentRoute === '/discount-types' ||
           currentRoute === '/category' ||
           currentRoute === '/meal-promo' ||
@@ -47,7 +48,9 @@ export default {
   computed: {
     titleHeader() {
       let title = "";
-      if (this.currentRoute === "/discount-types") {
+      if (this.currentRoute === "/my-profile") {
+        title = "My Profile";
+      } else if (this.currentRoute === "/discount-types") {
         title = "Promotions by Discount";
       } else if (this.currentRoute === "/category") {
         title = "Promotions by Category";

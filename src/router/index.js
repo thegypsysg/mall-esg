@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
+import MyProfile from "@/views/MyProfileView.vue";
 import PromotionDiscountDetail from "@/components/PromotionDetail/PromotionDiscountDetail.vue";
 import PromotionCategoryDetail from "@/components/PromotionDetail/PromotionCategoryDetail.vue";
 import PromotionMealsDetail from "@/components/PromotionDetail/PromotionMealsDetail.vue";
@@ -12,6 +13,11 @@ const routes = [
   {
     path: "/",
     component: Home,
+  },
+  {
+    path: "/my-profile",
+    name: "My Profile",
+    component: MyProfile,
   },
   {
     path: "/discount-types",
