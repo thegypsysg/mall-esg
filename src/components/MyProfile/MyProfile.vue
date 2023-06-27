@@ -6,14 +6,16 @@
           <v-card class="first-section px-16 py-10">
             <div class="image-container w-100 mb-4">
               <v-img
-                src="@/assets/images/icons/menu-shopper.png"
+                lazy-src="@/assets/images/icons/menu-shopper.png"
+                height="160"
+                :src="input.image_path"
                 class="avatar mx-auto"
               />
               <div class="mt-2 w-100 d-flex justify-center">
                 <v-btn
                   color="blue"
                   variant="outlined"
-                  @click="showCropper = true"
+                  @click="$refs.fileuploadinput.click()"
                 >
                   Upload Image
                 </v-btn>
@@ -386,7 +388,265 @@
           </v-card>
         </div>
       </template>
+      <template v-if="isSmall">
+        <div class="mobile-container">
+          <div class="image-container w-100 mb-4">
+            <v-img
+              lazy-src="@/assets/images/icons/menu-shopper.png"
+              height="90"
+              :src="input.image_path"
+              class="avatar mx-auto"
+              :class="{ 'avatar-mobile': isSmall }"
+            />
+            <div class="mt-2 w-100 d-flex justify-center">
+              <v-btn
+                color="blue"
+                variant="outlined"
+                @click="$refs.fileuploadinput.click()"
+              >
+                Upload Image
+              </v-btn>
+            </div>
+          </div>
+          <v-row>
+            <v-col>
+              <label>Name</label>
+              <v-text-field
+                v-model="input.name"
+                :rules="rules.nameRules"
+                :counter="20"
+                class="mt-2"
+                variant="outlined"
+                placeholder="Enter Name"
+                density="compact"
+                required
+                single-line
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <label
+                >Email
+                <span
+                  :class="{
+                    'text-red': !isEmailVerified,
+                    'text-green': isEmailVerified,
+                  }"
+                  >{{ isEmailVerified ? "(Verified)" : "(Not Verified)" }}</span
+                ></label
+              >
+              <v-text-field
+                v-model="input.email"
+                :rules="rules.emailRules"
+                placeholder="Enter Email"
+                type="email"
+                class="mt-2"
+                hint="example@email.com"
+                density="compact"
+                variant="outlined"
+                required
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <label
+                >Contact Number
+                <span
+                  :class="{
+                    'text-red': !isPhoneVerified,
+                    'text-green': isPhoneVerified,
+                  }"
+                  >{{ isPhoneVerified ? "(Verified)" : "(Not Verified)" }}</span
+                ></label
+              >
+              <div class="d-flex">
+                <v-text-field
+                  v-model="input.phone"
+                  :counter="phoneNumberCounter"
+                  required
+                  disabled
+                  class="mt-2"
+                  type="number"
+                  density="compact"
+                  placeholder="Phone Number"
+                  variant="outlined"
+                />
+                <v-btn
+                  class="text-none text-subtitle-1 mt-2"
+                  color="blue"
+                  size="x-large"
+                  variant="flat"
+                  @click="isChangePhone = !isChangePhone"
+                >
+                  Change
+                </v-btn>
+              </div>
+              <template v-if="isChangePhone">
+                <div class="d-flex mt-2">
+                  <v-autocomplete
+                    v-model="input.countryCode"
+                    :items="resource.countryCodes"
+                    label="Country Code"
+                    item-text="name"
+                    item-value="code"
+                    density="compact"
+                    outlined
+                  />
+
+                  <v-text-field
+                    v-model="input.phoneNew"
+                    :counter="phoneNumberCounter"
+                    required
+                    type="number"
+                    density="compact"
+                    placeholder="Phone Number"
+                    variant="outlined"
+                  />
+                </div>
+                <v-btn
+                  class="text-none text-subtitle-1 w-100 mt-3"
+                  color="orange"
+                  size="x-large"
+                  variant="flat"
+                >
+                  Send OTP
+                </v-btn>
+              </template>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <label>Password </label>
+              <div class="d-flex align-center">
+                <v-text-field
+                  v-model="input.password"
+                  :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="showPassword ? 'text' : 'password'"
+                  variant="outlined"
+                  placeholder="Enter Password"
+                  class="my-2 custom-input"
+                  density="compact"
+                  :disabled="!isChangePassword"
+                  :rules="rules.passwordRules"
+                  @click:append-inner="showPassword = !showPassword"
+                />
+                <v-btn
+                  v-if="!isChangePassword"
+                  class="text-none text-subtitle-1"
+                  color="blue"
+                  size="x-large"
+                  variant="flat"
+                  @click="changePassword"
+                >
+                  Change
+                </v-btn>
+                <v-btn
+                  v-if="isChangePassword"
+                  class="text-none text-subtitle-1"
+                  color="success"
+                  size="x-large"
+                  variant="flat"
+                >
+                  Save Changes
+                </v-btn>
+              </div>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6">
+              <label
+                >Birth Date (<span>{{ age }} Years</span>)</label
+              >
+              <v-text-field
+                v-model="input.date"
+                :rules="rules.dateRules"
+                density="compact"
+                variant="outlined"
+                required
+                class="mt-2"
+                type="date"
+                @input="onDateInput"
+              />
+            </v-col>
+            <v-col cols="6">
+              <div class="w-100 text-center">
+                <label class="mx-auto">Gender</label>
+              </div>
+
+              <v-radio-group
+                v-model="input.gender"
+                :rules="rules.genderRules"
+                inline
+                class="mt-3 ml-n4"
+                style="font-size: 12px !important"
+              >
+                <v-radio
+                  style="font-size: 10px !important"
+                  label="Male"
+                  value="male"
+                />
+                <v-radio
+                  style="font-size: 10px !important"
+                  label="Female"
+                  value="female"
+                />
+              </v-radio-group>
+            </v-col>
+          </v-row>
+          <v-row class="mt-n6">
+            <v-col>
+              <label>Nationality</label>
+              <v-select
+                v-model="input.nationality"
+                :items="resource.nationality"
+                placeholder="Select Nationality"
+                variant="outlined"
+                clearable
+                class="mt-2"
+                density="compact"
+                :rules="rules.nationalityRules"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <label>Marital Status</label>
+              <v-select
+                v-model="input.marital"
+                :items="resource.marital"
+                variant="outlined"
+                placeholder="Select Marital Status"
+                clearable
+                class="mt-2"
+                density="compact"
+                :rules="rules.maritalRules"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-btn
+                class="text-none text-subtitle-1 w-100"
+                color="success"
+                size="large"
+                variant="flat"
+              >
+                Save Changes
+              </v-btn>
+            </v-col>
+          </v-row>
+        </div>
+      </template>
     </v-container>
+    <input
+      ref="fileuploadinput"
+      style="opacity: 0; filter: alpha(opacity=0)"
+      type="file"
+      accept="image/png, image/jpeg"
+      @change="onFileChangeInput"
+    />
   </div>
 </template>
 
@@ -407,6 +667,8 @@ export default {
       menuOpen: false,
 
       input: {
+        image_path: "",
+        image: null,
         gender: null,
         marital: null,
         nationality: null,
@@ -524,6 +786,12 @@ export default {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
+    onFileChangeInput(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      this.input.image = files[0];
+      this.input.image_path = URL.createObjectURL(files[0]);
+      // console.log(this.input);
+    },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
@@ -583,9 +851,16 @@ export default {
   width: 160px;
   border-radius: 6px;
 }
+.avatar-mobile {
+  width: 90px;
+}
 
 .title-card {
   font-size: 20px;
   font-weight: 600;
+}
+
+.mobile-container {
+  margin-top: 80px;
 }
 </style>

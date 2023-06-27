@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
     v-if="isDesktop || !isHeader"
-    :class="{ 'px-8': isHeader }"
+    :class="{ 'px-8': isHeader || isProfile }"
     color="white"
     elevation="1"
     fixed
@@ -21,13 +21,20 @@
         </v-img>
       </div>
     </router-link>
-    <div v-if="isHeader" class="ml-6 d-flex flex-row navbar-header">
-      <div class="divider" />
+    <div
+      v-if="isHeader || isProfile"
+      class="ml-6 d-flex flex-row navbar-header"
+      :class="{ 'navbar-header-mobile': !isDesktop && isProfile }"
+    >
+      <div class="divider" :class="{ 'd-none': !isDesktop && isProfile }" />
       <h1>{{ titleHeader }}</h1>
     </div>
     <!-- </div> -->
-    <v-spacer v-if="isHeader" />
-    <form v-if="!isHeader" class="navbar__search navbar__search__desktop">
+    <v-spacer v-if="isHeader || isProfile" />
+    <form
+      v-if="!isHeader && !isProfile"
+      class="navbar__search navbar__search__desktop"
+    >
       <input
         id="product_name"
         class="form-control mr-sm-2"
@@ -40,7 +47,7 @@
         <v-icon color="white"> mdi-magnify </v-icon>
       </button>
     </form>
-    <div v-if="!isHeader" class="desktop__app">
+    <div v-if="!isHeader && !isProfile" class="desktop__app">
       <v-menu>
         <template #activator="{ props }">
           <v-btn
@@ -68,7 +75,7 @@
         </v-list>
       </v-menu>
     </div>
-    <div v-if="!isHeader" class="btn_sign__up-cont">
+    <div v-if="!isHeader && !isProfile" class="btn_sign__up-cont">
       <v-btn elevation="0" class="btn_sign__up">
         <span> Sign up / Register</span>
       </v-btn>
@@ -81,7 +88,7 @@
       />
     </v-btn>
 
-    <template #extension>
+    <template v-if="!isProfile" #extension>
       <div class="mobile__app text-center">
         <div style="margin-bottom: 8px; margin-top: -16px">
           <v-menu>
@@ -222,7 +229,7 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names, vue/no-reserved-component-names
   name: "Header",
-  props: ["titleHeader", "isHeader", "isDesktop"],
+  props: ["titleHeader", "isHeader", "isDesktop", "isProfile"],
   data() {
     return {
       drawer: false,
@@ -268,6 +275,10 @@ export default {
   font-size: 20px;
   color: black;
   font-weight: 700;
+}
+
+.navbar-header-mobile {
+  font-size: 12px;
 }
 
 .btn_sign__up-cont {

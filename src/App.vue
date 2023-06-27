@@ -8,7 +8,6 @@
       </router-view> -->
       <Header
         :is-header="
-          currentRoute === '/my-profile' ||
           currentRoute === '/discount-types' ||
           currentRoute === '/category' ||
           currentRoute === '/meal-promo' ||
@@ -21,6 +20,7 @@
         "
         :title-header="titleHeader"
         :is-desktop="isDesktop"
+        :is-profile="isProfile"
       />
       <RouterView v-slot="{ Component }">
         <Transition name="page-opacity" mode="out-in">
@@ -66,6 +66,9 @@ export default {
         title = "Promotions by Day";
       }
       return title;
+    },
+    isProfile() {
+      return this.currentRoute === "/my-profile";
     },
   },
   watch: {
