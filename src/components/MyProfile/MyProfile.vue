@@ -26,6 +26,7 @@
                 <v-select
                   v-model="input.gender"
                   :items="resource.gender"
+                  placeholder="Select Gender"
                   variant="outlined"
                   clearable
                   class="mt-2"
@@ -41,6 +42,7 @@
                   v-model="input.marital"
                   :items="resource.marital"
                   variant="outlined"
+                  placeholder="Select Marital Status"
                   clearable
                   class="mt-2"
                   density="compact"
@@ -54,6 +56,7 @@
                 <v-select
                   v-model="input.nationality"
                   :items="resource.nationality"
+                  placeholder="Select Nationality"
                   variant="outlined"
                   clearable
                   class="mt-2"
@@ -91,6 +94,7 @@
                       placeholder="Enter Name"
                       density="compact"
                       required
+                      single-line
                     />
                   </v-col>
                   <v-col cols="6">
@@ -197,6 +201,7 @@
                         "
                         :type="showPassword ? 'text' : 'password'"
                         variant="outlined"
+                        placeholder="Enter Password"
                         class="my-2 custom-input"
                         density="compact"
                         :disabled="!isChangePassword"
