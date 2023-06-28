@@ -6,9 +6,12 @@
           <v-card class="first-section px-16 py-10">
             <div class="image-container w-100 mb-4">
               <v-img
-                lazy-src="@/assets/images/icons/menu-shopper.png"
                 height="160"
-                :src="input.image_path"
+                :src="
+                  input.image_path != ''
+                    ? input.image_path
+                    : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                "
                 class="avatar mx-auto"
               />
               <div class="mt-2 w-100 d-flex justify-center">
@@ -392,9 +395,12 @@
         <div class="mobile-container">
           <div class="image-container w-100 mb-4">
             <v-img
-              lazy-src="@/assets/images/icons/menu-shopper.png"
               height="90"
-              :src="input.image_path"
+              :src="
+                input.image_path != ''
+                  ? input.image_path
+                  : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+              "
               class="avatar mx-auto"
               :class="{ 'avatar-mobile': isSmall }"
             />
