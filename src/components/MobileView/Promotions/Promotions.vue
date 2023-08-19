@@ -29,7 +29,7 @@
           </v-btn>
         </template>
         <v-slide-group-item
-          v-for="card in promoOne"
+          v-for="card in promoOne.slice(0, 6)"
           :key="card.id"
           v-slot="{ toggle }"
         >
@@ -42,20 +42,27 @@
                 :to="`/${card.path}`"
                 @click="toggle"
               >
-                <div
-                  class="d-flex fill-height align-center justify-space-between"
-                >
-                  <v-img :src="card.img" height="40">
-                    <template #placeholder>
-                      <div class="skeleton skeleton-discount ml-2" />
-                    </template>
-                  </v-img>
-                  <div class="text-h6 mb-1">
-                    {{ card.title }}
+                <div class="d-flex fill-height align-center justify-start">
+                  <div style="border-radius: 50%; width: 40px; height: 40px">
+                    <v-img
+                      style="border-radius: 50%; width: 100%; height: 100%"
+                      :src="card.img"
+                      height="40"
+                    >
+                      <template #placeholder>
+                        <div class="skeleton skeleton-discount ml-2" />
+                      </template>
+                    </v-img>
                   </div>
+                  <p style="font-size: 12px" class="ml-1 font-weight-bold">
+                    {{ card.title }}
+                  </p>
                 </div>
               </v-card>
-              <div class="text-center" style="font-weight: 600">
+              <div
+                class="text-center"
+                style="font-weight: 600; font-size: 12px"
+              >
                 {{ card.desc }}
               </div>
             </div>
@@ -130,7 +137,7 @@
             </v-btn>
           </template>
           <v-slide-group-item
-            v-for="card in promoTwo"
+            v-for="card in promoTwo.slice(0, 6)"
             :key="card.id"
             v-slot="{ toggle }"
             class="mx-4"
@@ -142,34 +149,49 @@
                 height="160"
                 width="120"
                 elevation="1"
-                style="border-radius: 12px; padding: 22px"
+                style="border-radius: 12px"
                 @click="toggle"
               >
-                <div
-                  class="text-h6"
+                <v-card-title
                   style="
-                    font-size: 16px;
-                    margin-bottom: 10px;
-                    line-height: 19.36px;
+                    font-size: 12px;
+                    line-height: 16.36px;
+                    white-space: normal;
+                    height: 50px;
                   "
                 >
-                  {{ card.title }}
-                </div>
-                <v-img :src="card.img" height="60">
-                  <template #placeholder>
-                    <div class="skeleton skeleton-category ml-2" />
-                  </template>
-                </v-img>
-                <div
-                  style="
-                    font-weight: 600;
-                    font-size: 14px;
-                    margin-top: 10px;
-                    line-height: 16.94px;
-                  "
+                  <div>
+                    {{ card.title }}
+                  </div>
+                </v-card-title>
+                <v-card-text class="w-100 d-flex justify-center align-center">
+                  <div
+                    class="mx-auto"
+                    style="border-radius: 50%; width: 60px; height: 60px"
+                  >
+                    <v-img
+                      style="
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        object-fit: cover;
+                      "
+                      cover
+                      :src="card.img"
+                      height="60"
+                    >
+                      <template #placeholder>
+                        <div class="skeleton skeleton-category ml-2" />
+                      </template>
+                    </v-img>
+                  </div>
+                </v-card-text>
+                <v-card-actions
+                  style="font-weight: 600; font-size: 12px"
+                  class="d-flex justify-center pb-6"
                 >
                   {{ card.desc }}
-                </div>
+                </v-card-actions>
               </v-card>
             </v-lazy>
           </v-slide-group-item>

@@ -3,21 +3,12 @@
     <v-sheet class="mx-auto discount-sheet" elevation="0">
       <v-slide-group>
         <template #prev="{ on, attrs }">
-          <v-btn
-            v-if="activeIndexDiscount > 1"
-            color="white"
-            rounded
-            icon
-            v-bind="attrs"
-            @click="previousSlideDiscount"
-            v-on="on"
-          >
+          <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
         </template>
         <template #next="{ on, attrs }">
           <v-btn
-            v-if="activeIndexDiscount + 1 <= promoOne / 5"
             color="white"
             rounded
             icon
@@ -29,7 +20,7 @@
           </v-btn>
         </template>
         <v-slide-group-item
-          v-for="card in promoOne"
+          v-for="card in promoOne.slice(0, 7)"
           :key="card.id"
           v-slot="{ toggle }"
         >
@@ -42,24 +33,28 @@
                 :to="`/${card.path}`"
                 @click="toggle"
               >
-                <div
-                  class="d-flex fill-height align-center justify-space-around"
-                >
-                  <v-img
-                    :src="card.img"
-                    transition="fade-transition"
-                    height="40"
-                  >
-                    <template #placeholder>
-                      <div class="skeleton skeleton-discount ml-3" />
-                    </template>
-                  </v-img>
-                  <div class="text-h6 mb-1">
-                    {{ card.title }}
+                <div class="d-flex fill-height align-center justify-start">
+                  <div style="border-radius: 50%; width: 50px; height: 50px">
+                    <v-img
+                      style="border-radius: 50%; width: 100%; height: 100%"
+                      :src="card.img"
+                      transition="fade-transition"
+                      height="40"
+                    >
+                      <template #placeholder>
+                        <div class="skeleton skeleton-discount ml-3" />
+                      </template>
+                    </v-img>
                   </div>
+                  <p style="font-size: 14px" class="mb-1 ml-3 font-weight-bold">
+                    {{ card.title }}
+                  </p>
                 </div>
               </v-card>
-              <div class="text-center" style="font-weight: 600">
+              <div
+                class="text-center"
+                style="font-weight: 600; font-size: 14px"
+              >
                 {{ card.desc }}
               </div>
             </div>
@@ -109,7 +104,6 @@
         <v-slide-group v-model="model2" class="pa-4">
           <template #prev="{ on, attrs }">
             <v-btn
-              v-if="activeIndexCategory > 1"
               color="white"
               rounded
               icon
@@ -122,7 +116,6 @@
           </template>
           <template #next="{ on, attrs }">
             <v-btn
-              v-if="activeIndexCategory + 1 <= promoTwo / 5"
               color="white"
               rounded
               icon
@@ -134,7 +127,7 @@
             </v-btn>
           </template>
           <v-slide-group-item
-            v-for="card in promoTwo"
+            v-for="card in promoTwo.slice(0, 8)"
             :key="card.id"
             v-slot="{ toggle }"
             class="mx-4"
@@ -143,41 +136,58 @@
               <v-card
                 :to="`/${card.path}`"
                 class="my-4 text-center mx-3"
-                height="180"
+                height="200"
                 width="140"
                 elevation="1"
-                style="border-radius: 12px; padding: 20px"
+                style="border-radius: 12px"
                 @click="toggle"
               >
-                <div
-                  class="text-h6"
+                <v-card-title
                   style="
-                    font-size: 16px;
-                    margin-bottom: 10px;
+                    font-size: 15px;
                     line-height: 19.36px;
+                    white-space: normal;
+                    height: 60px;
                   "
                 >
-                  Cakes
-                </div>
-                <v-img
-                  src="@/assets/images/cakes.png"
-                  height="80"
-                  transition="fade-transition"
-                >
-                  <template #placeholder>
-                    <div class="skeleton skeleton-category ml-2" />
-                  </template>
-                </v-img>
-                <div
-                  style="
-                    font-weight: 600;
-                    font-size: 14px;
-                    margin-top: 10px;
-                    line-height: 16.94px;
-                  "
-                >
-                  <span class="text-red">32</span> Promos
-                </div>
+                  <div>
+                    {{ card.title }}
+                  </div>
+                </v-card-title>
+                <v-card-text class="w-100 d-flex justify-center align-center">
+                  <div
+                    class="mx-auto"
+                    style="border-radius: 50%; width: 80px; height: 80px"
+                  >
+                    <v-img
+                      style="
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        object-fit: cover;
+                      "
+                      :src="card.img"
+                      height="80"
+                      cover
+                      transition="fade-transition"
+                    >
+                      <template #placeholder>
+                        <div class="skeleton skeleton-category ml-2" />
+                      </template>
+                    </v-img>
+                  </div>
+                </v-card-text>
+                <v-card-actions class="d-flex justify-center">
+                  <div
+                    style="
+                      font-weight: 600;
+                      font-size: 14px;
+                      line-height: 16.94px;
+                    "
+                  >
+                    {{ card.desc }}
+                  </div>
+                </v-card-actions>
               </v-card>
             </v-lazy>
           </v-slide-group-item>
@@ -186,7 +196,7 @@
               <v-card
                 v-if="promoTwo?.length > 0"
                 class="my-4 text-center mx-3 d-flex flex-column align-center justify-center px-auto pa-10"
-                height="180"
+                height="200"
                 width="140"
                 elevation="1"
                 to="/category"

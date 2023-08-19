@@ -32,12 +32,13 @@
             v-if="
               item.title === 'by Meals' ||
               item.title === 'by Day' ||
+              item.title === 'by People' ||
               item.title === 'Voucher '
             "
             class="slide-group"
           >
             <v-slide-group-item
-              v-for="(promo, i) in item.items"
+              v-for="(promo, i) in item.items.slice(0, 6)"
               :key="i"
               class="slide-item"
             >
@@ -54,7 +55,9 @@
                   @click="toggle"
                 >
                   <p
-                    v-if="item.title === 'by Meals'"
+                    v-if="
+                      item.title === 'by Meals' || item.title === 'by People'
+                    "
                     class="mb-2"
                     style="font-size: 10px; font-weight: 500"
                   >
@@ -62,15 +65,21 @@
                   </p>
                   <div
                     :class="{
-                      'other-img-container': item.title === 'by Meals',
+                      'other-img-container':
+                        item.title === 'by Meals' || item.title === 'by People',
                       'other-img-container-5':
                         item.title === 'Voucher ' || item.title === 'by Day',
                     }"
                   >
                     <v-img
                       :src="promo.img"
-                      :height="item.title === 'by Meals' ? 60 : 100"
+                      :height="
+                        item.title === 'by Meals' || item.title === 'by People'
+                          ? 60
+                          : 100
+                      "
                       class="other-img"
+                      cover
                       transition="fade-transition"
                     >
                       <template #placeholder>
@@ -79,7 +88,9 @@
                     </v-img>
                   </div>
                   <div
-                    v-if="item.title === 'by Meals'"
+                    v-if="
+                      item.title === 'by Meals' || item.title === 'by People'
+                    "
                     style="
                       font-weight: 600;
                       font-size: 10px;
@@ -109,11 +120,10 @@
               </v-lazy>
             </v-slide-group-item>
           </v-slide-group>
+          <!-- item.title === 'by People' || -->
           <div
             v-else-if="
-              item.title === 'by People' ||
-              item.title === 'by Preference' ||
-              item.title === 'Other Types of '
+              item.title === 'by Preference' || item.title === 'Other Types of '
             "
             class="d-flex justify-space-between"
             :class="{

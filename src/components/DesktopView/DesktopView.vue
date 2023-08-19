@@ -6,7 +6,7 @@
     <div v-if="!isLoading">
       <Banner :app-details="appDetails1" />
       <Promotions :promo-one="promoOne" :promo-two="promoTwo" />
-      <OtherPromotion :items="otherPromotionDataFinal" />
+      <OtherPromotion :items="otherPromotionDataFinal[0]" />
       <Happening />
       <Featured
         title="Featured Malls"
@@ -67,6 +67,7 @@ export default {
       this.getCard5(),
     ])
       .then(() => {
+        this.otherPromotionDataFinal.push(this.otherPromotionData);
         this.isLoading = false;
       })
       .catch((error) => {
@@ -161,7 +162,7 @@ export default {
     },
     getCard4() {
       axios
-        .get(`/categories/app/${this.$appId}/type/PP`)
+        .get(`/categories/app/${this.$appId}/type/PBP`)
         .then((response) => {
           const data = response.data.data;
 
@@ -176,8 +177,8 @@ export default {
           });
           this.otherPromotionData.push({
             id: 2,
-            title: "By Preference",
-            link: "/preference-promo",
+            title: "By People",
+            link: "/people-promo",
             items: items,
           });
         })
@@ -189,11 +190,11 @@ export default {
     },
     getCard5() {
       axios
-        .get(`/categories/app/${this.$appId}/type/PBP`)
+        .get(`/categories/app/${this.$appId}/type/PP`)
         .then((response) => {
           const data = response.data.data;
 
-          let itemFinal = [];
+          // let itemFinal = [];
           const items = data.map((item, index) => {
             return {
               id: index + 1,
@@ -206,34 +207,12 @@ export default {
           this.otherPromotionData.push(
             {
               id: 3,
-              title: "By People",
-              link: "/people-promo",
+              title: "By Preference",
+              link: "/preference-promo",
               items: items,
             },
             {
               id: 4,
-              title: "By Days",
-              link: "/day-promo",
-              items: [
-                {
-                  title: "Monday",
-                  img: "assets/other-img-1.png",
-                  quantity: 2,
-                },
-                {
-                  title: "Tuesday",
-                  img: "assets/other-img-1.png",
-                  quantity: 2,
-                },
-                {
-                  title: "Wednesday",
-                  img: "assets/other-img-1.png",
-                  quantity: 2,
-                },
-              ],
-            },
-            {
-              id: 5,
               title: "By Others",
               link: "/others-promo",
               items: [
@@ -253,12 +232,35 @@ export default {
                   quantity: 2,
                 },
               ],
+            },
+            {
+              id: 5,
+              title: "By Days",
+              link: "/day-promo",
+              items: [
+                {
+                  title: "Monday",
+                  img: "assets/other-img-1.png",
+                  quantity: 2,
+                },
+                {
+                  title: "Tuesday",
+                  img: "assets/other-img-1.png",
+                  quantity: 2,
+                },
+                {
+                  title: "Wednesday",
+                  img: "assets/other-img-1.png",
+                  quantity: 2,
+                },
+              ],
             }
           );
-          itemFinal = this.otherPromotionData.sort(function (a, b) {
-            return a.id - b.id;
-          });
-          this.otherPromotionDataFinal = itemFinal;
+          // itemFinal = this.otherPromotionData.sort(function (a, b) {
+          //   return a.id - b.id;
+          // });
+          // console.log(itemFinal);
+          // this.otherPromotionDataFinal = itemFinal;
         })
         .catch((error) => {
           // eslint-disable-next-line

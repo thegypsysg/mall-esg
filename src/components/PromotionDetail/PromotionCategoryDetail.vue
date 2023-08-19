@@ -35,16 +35,12 @@
       </div>
       <img src="@/assets/promotion-category-detail-img.jpg" />
       <div class="section-select my-16 mx-auto pa-2">
-        <v-select
-          label="--- Discount Type ---"
-          :items="[
-            'California',
-            'Colorado',
-            'Florida',
-            'Georgia',
-            'Texas',
-            'Wyoming',
-          ]"
+        <v-autocomplete
+          v-model="selected"
+          label="--- Category Type ---"
+          style="white-space: nowrap"
+          :items="resource"
+          clearable
           variant="outlined"
         />
       </div>
@@ -53,23 +49,22 @@
       <div v-if="!isSmall" class="banner-container-desktop">
         <img src="@/assets/promotion-category-detail-img.jpg" />
       </div>
-      <v-select
+      <v-autocomplete
         v-if="!isSmall"
-        label="--- Category ---"
-        :items="[
-          'California',
-          'Colorado',
-          'Florida',
-          'Georgia',
-          'Texas',
-          'Wyoming',
-        ]"
+        v-model="selected"
+        label="--- Category Type ---"
+        style="white-space: nowrap"
+        :items="resource"
+        clearable
         variant="outlined"
         class="section-select-desktop my-16"
       />
       <div
         class="card-container d-flex flex-wrap"
-        :class="{ 'mb-2 justify-center': isSmall, ' mb-8': !isSmall }"
+        :class="{
+          'mb-2 justify-center': isSmall,
+          ' mb-8 justify-center': !isSmall,
+        }"
       >
         <!-- <v-card
         v-for="n in 18"
@@ -88,28 +83,33 @@
         </div>
       </v-card> -->
         <div
-          v-for="n in totalData"
-          :key="n"
+          v-for="card in filteredItems"
+          :key="card.id"
           :class="{ 'card-item-2': isSmall, 'card-item': !isSmall }"
         >
           <v-lazy :options="{ threshold: 0.5 }" min-height="100">
             <v-card
               class="my-4 text-center"
-              :class="{ 'pa-2 mx-1': isSmall, ' mx-3': !isSmall }"
+              :class="{ 'mx-1': isSmall, ' mx-3': !isSmall }"
               :elevation="isSmall ? 0 : 1"
-              style="border-radius: 12px; padding: 20px"
+              :height="isSmall ? 140 : 200"
+              style="border-radius: 12px"
               @click="toggle"
             >
-              <div
-                :class="{ 'fw-700': isSmall, 'text-h6': !isSmall }"
+              <v-card-title
                 style="
-                  font-size: 16px;
-                  margin-bottom: 10px;
+                  font-weight: bold;
                   line-height: 19.36px;
+                  white-space: normal;
                 "
+                :style="{
+                  height: !isSmall ? '60px' : '50px',
+                  fontSize: !isSmall ? '16px' : '10px',
+                  lineHeight: !isSmall ? '19.36px' : '16.36px',
+                }"
               >
-                Cakes
-              </div>
+                {{ card.title }}
+              </v-card-title>
               <div
                 :class="{
                   'card-img-container': !isSmall,
@@ -117,8 +117,9 @@
                 }"
               >
                 <v-img
-                  src="@/assets/images/cakes.png"
+                  :src="card.img"
                   :height="isSmall ? 55 : 80"
+                  cover
                   class="card-img"
                 >
                   <template #placeholder>
@@ -127,10 +128,10 @@
                 </v-img>
               </div>
               <div
-                style="font-weight: 600; margin-top: 10px; line-height: 16.94px"
+                style="font-weight: 600; margin-top: 20px; line-height: 16.94px"
                 :class="{ 'fs-10': isSmall, 'fs-14': !isSmall }"
               >
-                <span class="text-red">32</span> Promos
+                <span class="text-red">{{ card.desc }}</span> Promos
               </div>
             </v-card>
           </v-lazy>
@@ -143,6 +144,7 @@
 
 <script>
 import Footer from "../Footer.vue";
+import axios from "@/util/axios";
 
 export default {
   // eslint-disable-next-line vue/no-reserved-component-names
@@ -150,7 +152,9 @@ export default {
   data() {
     return {
       screenWidth: window.innerWidth,
-      // totalData: 0,
+      promoTwo: [],
+      resource: [],
+      selected: null,
     };
   },
   computed: {
@@ -162,17 +166,47 @@ export default {
       this.screenWidth < 640 ? (tData = 12) : (tData = 18);
       return tData;
     },
+    filteredItems() {
+      if (this.selected == null || this.selected == "") {
+        return this.promoTwo;
+      } else {
+        return this.promoTwo.filter((item) => item.title == this.selected);
+      }
+    },
   },
   created() {
     window.addEventListener("resize", this.handleResize);
   },
-  // mounted() {
-  //   this.totalData = this.isSmall ? 12 : 18;
-  // },
+  mounted() {
+    this.getCard2();
+  },
   unmounted() {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
+    getCard2() {
+      axios
+        .get(`/categories/app/${this.$appId}/type/PC`)
+        .then((response) => {
+          const data = response.data.data;
+
+          this.promoTwo = data.map((item, index) => {
+            return {
+              id: index + 1,
+              img: this.$fileURL + item.image || "",
+              title: item.category_name || "",
+              desc: "32",
+              path: item.slug || "",
+            };
+          });
+
+          this.resource = data.map((item) => item.category_name);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+    },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
@@ -241,12 +275,14 @@ export default {
   width: 80px;
   height: 80px;
   margin: auto;
+  border-radius: 50%;
 }
 .card-img-container-2 {
   overflow: hidden;
   width: 55px;
   height: 55px;
   margin: auto;
+  border-radius: 50%;
 }
 
 .card-img {
@@ -254,6 +290,7 @@ export default {
   object-position: center;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .card-text {

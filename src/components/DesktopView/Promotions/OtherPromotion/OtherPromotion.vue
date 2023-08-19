@@ -18,7 +18,7 @@
             </v-btn>
           </template>
           <v-slide-group-item
-            v-for="(item, index) in items"
+            v-for="(item, index) in sortedCards1"
             :key="index"
             v-slot="{ toggle }"
             class="other-item mx-4"
@@ -94,6 +94,11 @@ export default {
     return {
       maxCardMobile: 3,
     };
+  },
+  computed: {
+    sortedCards1() {
+      return this.items.slice().sort((a, b) => a.id - b.id);
+    },
   },
 };
 </script>

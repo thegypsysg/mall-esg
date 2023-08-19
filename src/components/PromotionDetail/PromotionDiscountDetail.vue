@@ -35,16 +35,12 @@
       </div>
       <img src="@/assets/promotion-discount-detail-img.jpg" />
       <div class="section-select my-16 mx-auto pa-2">
-        <v-select
+        <v-autocomplete
+          v-model="selected"
           label="--- Discount Type ---"
-          :items="[
-            'California',
-            'Colorado',
-            'Florida',
-            'Georgia',
-            'Texas',
-            'Wyoming',
-          ]"
+          style="white-space: nowrap"
+          :items="resource"
+          clearable
           variant="outlined"
         />
       </div>
@@ -53,17 +49,13 @@
       <div v-if="!isSmall" class="banner-container-desktop">
         <img src="@/assets/promotion-discount-detail-img.jpg" />
       </div>
-      <v-select
+      <v-autocomplete
         v-if="!isSmall"
+        v-model="selected"
         label="--- Discount Type ---"
-        :items="[
-          'California',
-          'Colorado',
-          'Florida',
-          'Georgia',
-          'Texas',
-          'Wyoming',
-        ]"
+        style="white-space: nowrap"
+        :items="resource"
+        clearable
         variant="outlined"
         class="section-select-desktop my-16"
       />
@@ -72,8 +64,8 @@
         :class="{ 'mb-2 justify-center': isSmall, ' mb-8': !isSmall }"
       >
         <div
-          v-for="n in totalData"
-          :key="n"
+          v-for="card in filteredItems"
+          :key="card.id"
           :class="{ 'card-item-2': isSmall, 'card-item': !isSmall }"
         >
           <v-lazy :options="{ threshold: 0.5 }" min-height="100">
@@ -91,7 +83,7 @@
                     'card-text-desktop': !isSmall,
                   }"
                 >
-                  20% off
+                  {{ card.title }}
                 </div>
                 <div
                   :class="{
@@ -100,8 +92,9 @@
                   }"
                 >
                   <v-img
-                    src="@/assets/images/icons/off-20.png"
+                    :src="card.img"
                     :height="isSmall ? 55 : 100"
+                    cover
                     class="card-img"
                   >
                     <template #placeholder>
@@ -115,7 +108,7 @@
                     'mt-3 card-text-desktop': !isSmall,
                   }"
                 >
-                  <span class="text-red">32</span> Promos
+                  <span class="text-red">{{ card.desc }}</span> Promos
                 </div>
               </div>
             </v-card>
@@ -129,6 +122,7 @@
 
 <script>
 import Footer from "../Footer.vue";
+import axios from "@/util/axios";
 
 export default {
   // eslint-disable-next-line vue/no-reserved-component-names
@@ -136,7 +130,9 @@ export default {
   data() {
     return {
       screenWidth: window.innerWidth,
-      // totalData: 0,
+      promoOne: [],
+      resource: [],
+      selected: null,
     };
   },
   computed: {
@@ -148,17 +144,46 @@ export default {
       this.screenWidth < 640 ? (tData = 12) : (tData = 18);
       return tData;
     },
+    filteredItems() {
+      if (this.selected == null || this.selected == "") {
+        return this.promoOne;
+      } else {
+        return this.promoOne.filter((item) => item.title == this.selected);
+      }
+    },
   },
   created() {
     window.addEventListener("resize", this.handleResize);
   },
-  // mounted() {
-  //   this.totalData = this.isSmall ? 12 : 18;
-  // },
+  mounted() {
+    this.getCard1();
+  },
   unmounted() {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
+    getCard1() {
+      axios
+        .get(`/categories/app/${this.$appId}/type/PD`)
+        .then((response) => {
+          const data = response.data.data;
+
+          this.promoOne = data.map((item, index) => {
+            return {
+              id: index + 1,
+              img: this.$fileURL + item.image || "",
+              title: item.category_name || "",
+              desc: "32",
+              path: item.slug || "",
+            };
+          });
+          this.resource = data.map((item) => item.category_name);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+    },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
@@ -226,11 +251,13 @@ export default {
   overflow: hidden;
   width: 100px;
   height: 100px;
+  border-radius: 50%;
 }
 .card-img-container-2 {
   overflow: hidden;
   width: 55px;
   height: 55px;
+  border-radius: 50%;
 }
 
 .card-img {
@@ -238,6 +265,7 @@ export default {
   object-position: center;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 .card-text {
   font-size: 10px;

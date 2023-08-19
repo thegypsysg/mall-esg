@@ -35,16 +35,12 @@
       </div>
       <img src="@/assets/people-promo.jpg" />
       <div class="section-select my-16 mx-auto pa-2">
-        <v-select
-          label="--- Discount Type ---"
-          :items="[
-            'California',
-            'Colorado',
-            'Florida',
-            'Georgia',
-            'Texas',
-            'Wyoming',
-          ]"
+        <v-autocomplete
+          v-model="selected"
+          label="--- People Type ---"
+          style="white-space: nowrap"
+          :items="resource"
+          clearable
           variant="outlined"
         />
       </div>
@@ -53,17 +49,13 @@
       <div v-if="!isSmall" class="banner-container-desktop">
         <img src="@/assets/people-promo.jpg" />
       </div>
-      <v-select
+      <v-autocomplete
         v-if="!isSmall"
-        label="--- Discount Type ---"
-        :items="[
-          'California',
-          'Colorado',
-          'Florida',
-          'Georgia',
-          'Texas',
-          'Wyoming',
-        ]"
+        v-model="selected"
+        label="--- People Type ---"
+        style="white-space: nowrap"
+        :items="resource"
+        clearable
         variant="outlined"
         class="section-select-desktop my-16"
       />
@@ -75,8 +67,8 @@
         }"
       >
         <div
-          v-for="meal in peoplePromo"
-          :key="meal"
+          v-for="meal in filteredItems"
+          :key="meal.id"
           :class="{ 'card-item-2': isSmall, 'card-item': !isSmall }"
         >
           <v-lazy :options="{ threshold: 0.5 }" min-height="100">
@@ -94,7 +86,7 @@
                     'card-text-desktop': !isSmall,
                   }"
                 >
-                  {{ meal }}
+                  {{ meal.title }}
                 </div>
                 <div
                   :class="{
@@ -103,8 +95,9 @@
                   }"
                 >
                   <v-img
-                    src="@/assets/images/cakes.png"
+                    :src="meal.img"
                     :height="isSmall ? 55 : 80"
+                    cover
                     class="card-img"
                   >
                     <template #placeholder>
@@ -118,7 +111,7 @@
                     'mt-3 card-text-desktop': !isSmall,
                   }"
                 >
-                  <span class="text-red">32</span> Promos
+                  <span class="text-red">{{ meal.desc }}</span> Promos
                 </div>
               </div>
             </v-card>
@@ -132,6 +125,7 @@
 
 <script>
 import Footer from "../Footer.vue";
+import axios from "@/util/axios";
 
 export default {
   // eslint-disable-next-line vue/no-reserved-component-names
@@ -139,17 +133,9 @@ export default {
   data() {
     return {
       screenWidth: window.innerWidth,
-      peoplePromo: [
-        "Toddlers",
-        "Babies",
-        "Kids",
-        "Teens",
-        "Boys",
-        "Girls",
-        "Men",
-        "Women",
-        "Senior Citizens",
-      ],
+      promoFour: [],
+      resource: [],
+      selected: null,
       // totalData: 0,
     };
   },
@@ -162,17 +148,47 @@ export default {
       this.screenWidth < 640 ? (tData = 12) : (tData = 18);
       return tData;
     },
+    filteredItems() {
+      if (this.selected == null || this.selected == "") {
+        return this.promoFour;
+      } else {
+        return this.promoFour.filter((item) => item.title == this.selected);
+      }
+    },
   },
   created() {
     window.addEventListener("resize", this.handleResize);
   },
-  // mounted() {
-  //   this.totalData = this.isSmall ? 12 : 18;
-  // },
+  mounted() {
+    this.getCard4();
+  },
   unmounted() {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
+    getCard4() {
+      axios
+        .get(`/categories/app/${this.$appId}/type/PBP`)
+        .then((response) => {
+          const data = response.data.data;
+
+          this.promoFour = data.map((item, index) => {
+            return {
+              id: index + 1,
+              img: this.$fileURL + item.image || "",
+              title: item.category_name || "",
+              desc: "32",
+              path: item.slug || "",
+            };
+          });
+
+          this.resource = data.map((item) => item.category_name);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+    },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
@@ -241,12 +257,14 @@ export default {
   width: 80px;
   height: 80px;
   margin: auto;
+  border-radius: 50%;
 }
 .card-img-container-2 {
   overflow: hidden;
   width: 55px;
   height: 55px;
   margin: auto;
+  border-radius: 50%;
 }
 
 .card-img {
@@ -254,6 +272,7 @@ export default {
   object-position: center;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 .card-text {
   font-size: 10px;
