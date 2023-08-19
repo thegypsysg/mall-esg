@@ -11,7 +11,7 @@
       <div class="logo-img-container">
         <v-img
           class="logo-img"
-          src="@/assets/images/logo/mall-E-original-final-2.jpg"
+          :src="$fileURL + logo"
           height="90"
           transition="fade-transition"
         >
@@ -47,8 +47,8 @@
         <v-icon color="white"> mdi-magnify </v-icon>
       </button>
     </form>
-    <div v-if="!isHeader && !isProfile" class="desktop__app">
-      <v-menu>
+    <div v-if="!isHeader && !isProfile" class="text-center desktop__app">
+      <v-menu location="bottom">
         <template #activator="{ props }">
           <v-btn
             style="
@@ -60,15 +60,16 @@
             v-bind="props"
             variant="text"
           >
-            Singapore
+            {{ itemSelected }}
             <v-icon right dark> mdi-menu-down </v-icon>
           </v-btn>
         </template>
         <v-list>
           <v-list-item
-            v-for="(item, index) in items"
+            v-for="(item, index) in country"
             :key="index"
             :value="index"
+            @click="changeItemSelected(item.title)"
           >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
@@ -91,7 +92,7 @@
     <template v-if="!isProfile" #extension>
       <div class="mobile__app text-center">
         <div style="margin-bottom: 8px; margin-top: -16px">
-          <v-menu>
+          <v-menu location="bottom">
             <template #activator="{ props }">
               <v-btn
                 style="
@@ -103,15 +104,16 @@
                 v-bind="props"
                 variant="text"
               >
-                Singapore
+                {{ itemSelected }}
                 <v-icon right dark> mdi-menu-down </v-icon>
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                v-for="(item, index) in items"
+                v-for="(item, index) in country"
                 :key="index"
                 :value="index"
+                @click="changeItemSelected(item.title)"
               >
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
@@ -226,6 +228,9 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+// import app from '@/util/eventBus';
+import axios from "@/util/axios";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names, vue/no-reserved-component-names
   name: "Header",
@@ -233,12 +238,58 @@ export default {
   data() {
     return {
       drawer: false,
-      items: [
+      logo: "",
+      country: [
         { title: "Home", path: "/home", icon: "home" },
         { title: "Sign Up", path: "/signup", icon: "face" },
         { title: "Sign In", path: "/signin", icon: "lock_open" },
       ],
     };
+  },
+  computed: {
+    ...mapState(["itemSelected", "ativeTag"]),
+  },
+  mounted() {
+    this.getLogo();
+    this.getCountry();
+    // this.getAppDetails2();
+  },
+  methods: {
+    changeItemSelected(item) {
+      this.$store.commit("setItemSelected", item);
+    },
+    getLogo() {
+      axios
+        .get(`/app/logo/${this.$appId}`)
+        .then((response) => {
+          const data = response.data.data;
+          // console.log(data);
+          this.logo = data;
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+    },
+    getCountry() {
+      axios
+        .get(`/country`)
+        .then((response) => {
+          const data = response.data.data;
+          // console.log(data);
+          this.country = data.map((country) => {
+            return {
+              id: country.country_id,
+              title: country.country_name,
+              path: "#",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+    },
   },
 };
 </script>

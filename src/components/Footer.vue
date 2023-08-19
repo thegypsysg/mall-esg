@@ -2,30 +2,46 @@
   <v-container class="mt-6 footer_lks">
     <v-row>
       <v-col cols="12" sm="12" md="3">
-        <h2 class="footer_title">About The Gypsy</h2>
+        <h2 class="footer_title">About {{ footerData?.company_name }}</h2>
         <p
           class="footer_paragraph"
           style="margin-bottom: 16px; margin-top: 34px"
         >
-          The gypsy is a Super App that is useful for users travelling from
-          point A to point B in search of anything and everything!!!
+          {{ footerData?.company_name + " is a " + appDetails1?.app_detail }}
         </p>
         <ul class="footer_social">
           <li>
-            <img src="@/assets/map-pointer.svg" height="24" />
-            Marine drive, Singapore
+            <v-icon
+              color="#FA2964"
+              size="20"
+              class="mr-2 mdi mdi-map-marker"
+              aria-hidden="true"
+            />
+            {{ footerData?.location }}
           </li>
           <li>
-            <img src="@/assets/phone.svg" height="24" />
-            +917738282000
+            <v-icon
+              color="#FA2964"
+              size="20"
+              class="mr-2 fa fa-phone"
+              aria-hidden="true"
+            />
+            {{ footerData?.mobile_number }}
           </li>
           <li>
-            <img src="@/assets/whatsapp.svg" height="24" />
-            +917738282000
+            <v-icon color="#FA2964" size="20" class="mr-2 fab fa-whatsapp" />
+            {{ footerData?.whats_app }}
           </li>
           <li>
-            <img src="@/assets/mail.svg" height="24" />
-            <a href="mailto:support@the-gypsy.in">support@the-gypsy.in</a>
+            <v-icon
+              color="#FA2964"
+              size="20"
+              class="mr-2 fa fa-envelope"
+              aria-hidden="true"
+            />
+            <a :href="`mailto:${footerData?.email_id}`">{{
+              footerData?.email_id
+            }}</a>
           </li>
         </ul>
       </v-col>
@@ -60,13 +76,24 @@
           class="footer_apps"
           style="margin-top: 37px; padding-right: 20px"
         >
-          <v-col cols="4">
-            <p style="margin-bottom: 10px">Mall-e</p>
+          <v-col
+            v-for="item in categoryCard.splice(0, 6)"
+            :key="item.id"
+            cols="4"
+          >
+            <p style="margin-bottom: 10px">
+              {{
+                item.title.length >= 8
+                  ? item.title.substring(0, 8) + ".."
+                  : item.title
+              }}
+            </p>
             <div class="our-apps">
               <v-img
                 class="our-apps-img"
+                cover
                 transition="fade-transition"
-                src="@/assets/gypsi-1.png"
+                :src="item.img"
               >
                 <template #placeholder>
                   <div class="skeleton" />
@@ -74,86 +101,18 @@
               </v-img>
             </div>
           </v-col>
-          <v-col cols="4">
-            <p style="margin-bottom: 10px">Boozards</p>
-            <div class="our-apps">
-              <v-img
-                class="our-apps-img"
-                transition="fade-transition"
-                src="@/assets/gypsy-2.png"
-              >
-                <template #placeholder>
-                  <div class="skeleton" />
-                </template>
-              </v-img>
-            </div>
-          </v-col>
-          <v-col cols="4">
-            <p style="margin-bottom: 10px">Flea</p>
-            <div class="our-apps">
-              <v-img
-                class="our-apps-img"
-                transition="fade-transition"
-                src="@/assets/gypsy-3.png"
-              >
-                <template #placeholder>
-                  <div class="skeleton" />
-                </template>
-              </v-img>
-            </div>
-          </v-col>
-          <v-col cols="4">
-            <p style="margin-bottom: 10px">Mendesliga</p>
-            <div class="our-apps">
-              <v-img
-                class="our-apps-img"
-                transition="fade-transition"
-                src="@/assets/gypsy-4.png"
-              >
-                <template #placeholder>
-                  <div class="skeleton" />
-                </template>
-              </v-img>
-            </div>
-          </v-col>
-          <v-col cols="4">
-            <p style="margin-bottom: 10px">Cake run</p>
-            <div class="our-apps">
-              <v-img
-                class="our-apps-img"
-                transition="fade-transition"
-                src="@/assets/gypsy-5.png"
-              >
-                <template #placeholder>
-                  <div class="skeleton" />
-                </template>
-              </v-img>
-            </div>
-          </v-col>
-          <v-col cols="4">
-            <p style="margin-bottom: 10px">Cafe run</p>
-            <div class="our-apps">
-              <v-img
-                class="our-apps-img"
-                transition="fade-transition"
-                src="@/assets/gypsy-6.png"
-              >
-                <template #placeholder>
-                  <div class="skeleton" />
-                </template>
-              </v-img>
-            </div>
-          </v-col>
+        </v-row>
+        <v-row>
           <v-col>
             <a
-              href="javascript:void(0)"
               style="
-                color: #00cdcd;
+                color: #fa2964;
                 font-size: 14px;
                 font-weight: 600;
                 line-height: 19px;
                 text-decoration: none;
               "
+              @click="goToTrending"
             >
               View all</a
             >
@@ -191,22 +150,152 @@
   </v-container>
 
   <v-footer class="bg-black text-center justify-center footer__content">
+    <v-spacer />
+
     <div class="footer_text">
-      @ The gypsy International | Singapore, India 2023 - 2025
+      {{ footerData.copyright }}
     </div>
     <div style="display: flex; justify-content: center">
-      <v-btn variant="text" color="#00CDCD" icon="mdi-facebook" />
-      <v-btn variant="text" color="#00CDCD" icon="mdi-twitter" />
-      <v-btn variant="text" color="#00CDCD" icon="mdi-instagram" />
-      <v-btn variant="text" color="#00CDCD" icon="mdi-youtube" />
+      <v-btn
+        :href="footerData.facebook"
+        variant="text"
+        color="#FA2964"
+        icon="mdi-facebook"
+      />
+      <v-btn
+        :href="footerData.twitter"
+        variant="text"
+        color="#FA2964"
+        icon="mdi-twitter"
+      />
+      <v-btn
+        :href="footerData.instagram"
+        variant="text"
+        color="#FA2964"
+        icon="mdi-instagram"
+      />
+      <v-btn
+        :href="footerData.youtube"
+        variant="text"
+        color="#FA2964"
+        icon="mdi-youtube"
+      />
     </div>
   </v-footer>
 </template>
 
 <script>
+import axios from "@/util/axios";
+import app from "@/util/eventBus";
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
+  // eslint-disable-next-line vue/multi-word-component-names, vue/no-reserved-component-names
   name: "Footer",
+  data() {
+    return {
+      categoryCard: [],
+      appDetails1: {
+        app_detail: "",
+      },
+      appDetails2: null,
+      footerData: {
+        company_name: "",
+        location: "",
+        mobile_number: "",
+        whats_app: "",
+        email_id: "",
+        copyright: "",
+        facebook: "",
+        twitter: "",
+        instagram: "",
+        youtube: "",
+      },
+    };
+  },
+  mounted() {
+    this.getAppContact();
+    this.getAppDetails1();
+    this.getAppDetails2();
+  },
+  methods: {
+    goToTrending() {
+      app.config.globalProperties.$eventBus.$emit("scrollToCardSection");
+    },
+    getAppDetails1() {
+      // this.isLoading = true;
+      axios
+        .get(`/app/details/${this.$appId}`)
+        .then((response) => {
+          const data = response.data.data;
+          this.appDetails1.app_detail = data.app_detail || "";
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+      // .finally(() => {
+      //   this.isLoading = false;
+      // });
+    },
+    getAppDetails2() {
+      // this.isLoading = true;
+      axios
+        .get(`/categories/active-website/app/${this.$appId}`)
+        .then((response) => {
+          const data = response.data.data;
+          // this.appDetails = data.map((item) => {
+          //   return {
+          //     ...item,
+          //     categoryId: item.category_id || 0,
+          //     categoryName: item.category_name || '',
+          //     description: item.description || '',
+          //     image: item.image || '',
+          //     slug: item.slug || '',
+          //   };
+          // })[0];
+          this.categoryCard = data.map((item) => {
+            return {
+              id: item.category_id || 0,
+              img: this.$fileURL + item.image || "",
+              title: item.category_name || "",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+      // .finally(() => {
+      //   this.isLoading = false;
+      // });
+    },
+    getAppContact() {
+      // this.isLoading = true;
+      axios
+        .get(`/app/contact/${this.$appId}`)
+        .then((response) => {
+          const data = response.data.data;
+          this.footerData = {
+            company_name: data.company_name || "",
+            location: data.location || "",
+            mobile_number: data.mobile_number || "",
+            whats_app: data.whats_app || "",
+            email_id: data.email_id || "",
+            copyright: data.copyright || "",
+            facebook: data.facebook || "",
+            twitter: data.twitter || "",
+            instagram: data.instagram || "",
+            youtube: data.youtube || "",
+          };
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+      // .finally(() => {
+      //   this.isLoading = false;
+      // });
+    },
+  },
 };
 </script>
 

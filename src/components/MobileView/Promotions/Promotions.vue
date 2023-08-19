@@ -17,7 +17,7 @@
         </template>
         <template #next="{ on, attrs }">
           <v-btn
-            v-if="activeIndexDiscount + 1 <= totalData / 5"
+            v-if="activeIndexDiscount + 1 <= promoOne / 5"
             color="white"
             rounded
             icon
@@ -28,28 +28,35 @@
             <v-icon>mdi-arrow-right</v-icon>
           </v-btn>
         </template>
-        <v-slide-group-item v-for="n in totalData" :key="n" v-slot="{ toggle }">
-          <v-lazy :options="{ threshold: 0.5 }" min-height="50">
+        <v-slide-group-item
+          v-for="card in promoOne"
+          :key="card.id"
+          v-slot="{ toggle }"
+        >
+          <v-lazy :options="{ threshold: 0.5 }" min-height="100">
             <div>
               <v-card
                 class="my-4 pa-4 mx-2"
                 elevation="1"
                 variant="outlined"
+                :to="`/${card.path}`"
                 @click="toggle"
               >
                 <div
                   class="d-flex fill-height align-center justify-space-between"
                 >
-                  <v-img src="@/assets/images/icons/off-20.png" height="40">
+                  <v-img :src="card.img" height="40">
                     <template #placeholder>
                       <div class="skeleton skeleton-discount ml-2" />
                     </template>
                   </v-img>
-                  <div class="text-h6 mb-1">20% off</div>
+                  <div class="text-h6 mb-1">
+                    {{ card.title }}
+                  </div>
                 </div>
               </v-card>
               <div class="text-center" style="font-weight: 600">
-                32 Promotions
+                {{ card.desc }}
               </div>
             </div>
           </v-lazy>
@@ -111,7 +118,7 @@
           </template>
           <template #next="{ on, attrs }">
             <v-btn
-              v-if="activeIndexCategory + 1 <= totalData / 5"
+              v-if="activeIndexCategory + 1 <= promoTwo / 5"
               color="white"
               rounded
               icon
@@ -123,13 +130,14 @@
             </v-btn>
           </template>
           <v-slide-group-item
-            v-for="n in totalData"
-            :key="n"
+            v-for="card in promoTwo"
+            :key="card.id"
             v-slot="{ toggle }"
             class="mx-4"
           >
             <v-lazy :options="{ threshold: 0.5 }" min-height="100">
               <v-card
+                :to="`/${card.path}`"
                 class="my-4 text-center mx-2"
                 height="160"
                 width="120"
@@ -145,9 +153,9 @@
                     line-height: 19.36px;
                   "
                 >
-                  Cakes
+                  {{ card.title }}
                 </div>
-                <v-img src="@/assets/images/cakes.png" height="60">
+                <v-img :src="card.img" height="60">
                   <template #placeholder>
                     <div class="skeleton skeleton-category ml-2" />
                   </template>
@@ -160,7 +168,7 @@
                     line-height: 16.94px;
                   "
                 >
-                  <span class="text-red">32</span> Promos
+                  {{ card.desc }}
                 </div>
               </v-card>
             </v-lazy>
@@ -168,6 +176,7 @@
           <v-slide-group-item v-slot="{ toggle }">
             <v-lazy :options="{ threshold: 0.5 }" min-height="100">
               <v-card
+                v-if="promoTwo?.length > 0"
                 class="my-4 text-center mx-2 d-flex flex-column align-center justify-center px-auto pa-10"
                 height="160"
                 width="120"
@@ -200,234 +209,19 @@
       </v-sheet>
     </v-container>
   </div>
-  <OtherPromotion :items="otherPromotionData" />
 </template>
 
 <script>
-import OtherPromotion from "./OtherPromotion/OtherPromotion.vue";
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Promotions",
-  components: { OtherPromotion },
+  props: ["promoOne", "promoTwo"],
   data: () => ({
     model: null,
     model2: null,
     activeIndexDiscount: 1,
     activeIndexCategory: 1,
     totalData: 10,
-    otherPromotionData: [
-      {
-        title: "by Meals",
-        name: "Promotion Meals",
-        items: [
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Banana",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-        ],
-      },
-      {
-        title: "by People",
-        name: "Promotion People",
-        items: [
-          {
-            title: "Everyone",
-            img: "assets/other-people-img-1.png",
-            quantity: 10,
-          },
-          {
-            title: "Men",
-            img: "assets/other-people-img-2.png",
-            quantity: 10,
-          },
-          {
-            title: "Senior Citizens",
-            img: "assets/other-people-img-3.png",
-            quantity: 10,
-          },
-        ],
-      },
-      {
-        title: "by Preference",
-        name: "Promotion Preference",
-        items: [
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-1.png",
-            quantity: 5,
-          },
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-2.png",
-            quantity: 5,
-          },
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-3.png",
-            quantity: 5,
-          },
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-4.png",
-            quantity: 5,
-          },
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-5.png",
-            quantity: 5,
-          },
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-6.png",
-            quantity: 5,
-          },
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-7.png",
-            quantity: 5,
-          },
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-8.png",
-            quantity: 5,
-          },
-          {
-            title: "Oranges",
-            img: "assets/other-preference-img-9.png",
-            quantity: 5,
-          },
-        ],
-      },
-      {
-        title: "Other Types of ",
-        name: "Promotion Others",
-        items: [
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-1.png",
-            quantity: 5,
-          },
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-2.png",
-            quantity: 5,
-          },
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-3.png",
-            quantity: 5,
-          },
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-types-img-4.png",
-            quantity: 5,
-          },
-        ],
-      },
-      {
-        title: "by Day",
-        name: "Promotion Day",
-        items: [
-          {
-            title: "Mondays",
-            img: "assets/other-voucher-img-1.png",
-            quantity: 5,
-          },
-          {
-            title: "Tuesdays",
-            img: "assets/other-voucher-img-2.png",
-            quantity: 5,
-          },
-          {
-            title: "Wednesdays",
-            img: "assets/other-voucher-img-3.png",
-            quantity: 5,
-          },
-          {
-            title: "Thursdays",
-            img: "assets/other-voucher-img-4.png",
-            quantity: 5,
-          },
-          {
-            title: "Fridays",
-            img: "assets/other-voucher-img-5.png",
-            quantity: 5,
-          },
-        ],
-      },
-      {
-        title: "Voucher ",
-        items: [
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-1.png",
-            quantity: 5,
-          },
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-2.png",
-            quantity: 5,
-          },
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-3.png",
-            quantity: 5,
-          },
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-4.png",
-            quantity: 5,
-          },
-          {
-            title: "Buy 1 Get 1 Free",
-            img: "assets/other-voucher-img-5.png",
-            quantity: 5,
-          },
-        ],
-      },
-    ],
   }),
   methods: {
     previousSlideDiscount() {

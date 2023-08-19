@@ -17,7 +17,7 @@
         </template>
         <template #next="{ on, attrs }">
           <v-btn
-            v-if="activeIndexDiscount + 1 <= totalData / 5"
+            v-if="activeIndexDiscount + 1 <= promoOne / 5"
             color="white"
             rounded
             icon
@@ -28,20 +28,25 @@
             <v-icon>mdi-arrow-right</v-icon>
           </v-btn>
         </template>
-        <v-slide-group-item v-for="n in totalData" :key="n" v-slot="{ toggle }">
-          <v-lazy :options="{ threshold: 0.5 }" min-height="50">
+        <v-slide-group-item
+          v-for="card in promoOne"
+          :key="card.id"
+          v-slot="{ toggle }"
+        >
+          <v-lazy :options="{ threshold: 0.5 }" min-height="100">
             <div>
               <v-card
                 class="my-4 pa-4 mx-3"
                 elevation="1"
                 variant="outlined"
+                :to="`/${card.path}`"
                 @click="toggle"
               >
                 <div
                   class="d-flex fill-height align-center justify-space-around"
                 >
                   <v-img
-                    src="@/assets/images/icons/off-20.png"
+                    :src="card.img"
                     transition="fade-transition"
                     height="40"
                   >
@@ -49,11 +54,13 @@
                       <div class="skeleton skeleton-discount ml-3" />
                     </template>
                   </v-img>
-                  <div class="text-h6 mb-1">20% off</div>
+                  <div class="text-h6 mb-1">
+                    {{ card.title }}
+                  </div>
                 </div>
               </v-card>
               <div class="text-center" style="font-weight: 600">
-                32 Promotions
+                {{ card.desc }}
               </div>
             </div>
           </v-lazy>
@@ -115,7 +122,7 @@
           </template>
           <template #next="{ on, attrs }">
             <v-btn
-              v-if="activeIndexCategory + 1 <= totalData / 5"
+              v-if="activeIndexCategory + 1 <= promoTwo / 5"
               color="white"
               rounded
               icon
@@ -127,13 +134,14 @@
             </v-btn>
           </template>
           <v-slide-group-item
-            v-for="n in totalData"
-            :key="n"
+            v-for="card in promoTwo"
+            :key="card.id"
             v-slot="{ toggle }"
             class="mx-4"
           >
             <v-lazy :options="{ threshold: 0.5 }" min-height="100">
               <v-card
+                :to="`/${card.path}`"
                 class="my-4 text-center mx-3"
                 height="180"
                 width="140"
@@ -176,6 +184,7 @@
           <v-slide-group-item v-slot="{ toggle }">
             <v-lazy :options="{ threshold: 0.5 }" min-height="100">
               <v-card
+                v-if="promoTwo?.length > 0"
                 class="my-4 text-center mx-3 d-flex flex-column align-center justify-center px-auto pa-10"
                 height="180"
                 width="140"
@@ -208,279 +217,19 @@
       </v-sheet>
     </v-container>
   </div>
-  <OtherPromotion :items="otherPromotionData" />
 </template>
 
 <script>
-import OtherPromotion from "./OtherPromotion/OtherPromotion.vue";
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Promotions",
-  components: { OtherPromotion },
+  props: ["promoOne", "promoTwo"],
   data: () => ({
     model: null,
     model2: null,
     activeIndexDiscount: 1,
     activeIndexCategory: 1,
     totalData: 20,
-    otherPromotionData: [
-      {
-        title: "By Meals",
-        link: "/meal-promo",
-        items: [
-          {
-            title: "Breakfast",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Lunch",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Dinner",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-        ],
-      },
-      {
-        title: "By Preference",
-        link: "/preference-promo",
-        items: [
-          {
-            title: "Chicken",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Orange",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Durian",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-        ],
-      },
-      {
-        title: "By People",
-        link: "/people-promo",
-        items: [
-          {
-            title: "Kids",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Teens",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Men",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-        ],
-      },
-      {
-        title: "By Days",
-        link: "/day-promo",
-        items: [
-          {
-            title: "Monday",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Tuesday",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Wednesday",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-        ],
-      },
-      {
-        title: "By Others",
-        link: "/others-promo",
-        items: [
-          {
-            title: "1 for 1",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Buy 2 Get 1",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          {
-            title: "Free with Buy",
-            img: "assets/other-img-1.png",
-            quantity: 2,
-          },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Chicken",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Durian",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-          // {
-          //   title: "Banana",
-          //   img: "assets/other-img-1.png",
-          //   quantity: 2,
-          // },
-        ],
-      },
-    ],
   }),
   methods: {
     previousSlideDiscount() {

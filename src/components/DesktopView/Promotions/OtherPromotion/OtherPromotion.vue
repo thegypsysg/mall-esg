@@ -42,8 +42,8 @@
                 </div>
                 <div class="d-flex">
                   <v-card
-                    v-for="(promo, i) in item.items.slice(0, 3)"
-                    :key="i"
+                    v-for="promo in item.items.slice(0, 3)"
+                    :key="promo.id"
                     :class="['text-left', 'mr-2']"
                     elevation="0"
                     @click="toggle"
@@ -53,7 +53,7 @@
                     </p>
                     <div class="other-img-container">
                       <v-img
-                        src="@/assets/other-img-1.png"
+                        :src="promo.img"
                         height="60"
                         class="other-img"
                         transition="fade-transition"
@@ -121,7 +121,6 @@ export default {
 }
 
 .other-btn {
-  width: 70%;
   margin-top: 20px;
   display: flex;
   align-items: center;

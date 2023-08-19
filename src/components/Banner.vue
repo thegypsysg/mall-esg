@@ -1,5 +1,10 @@
 <template>
-  <div class="bg-image">
+  <div
+    class="bg-image"
+    :style="{
+      backgroundImage: `url(${$fileURL + appDetails?.app_main_image})`,
+    }"
+  >
     <v-container
       style="height: calc(100vh - 90px); display: flex; align-items: center"
     >
@@ -42,6 +47,7 @@ onMounted(() => {
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Banner",
+  props: ["appDetails"],
 };
 </script>
 
