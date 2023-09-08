@@ -35,14 +35,50 @@
       v-if="!isHeader && !isProfile"
       class="navbar__search navbar__search__desktop"
     >
-      <input
+      <v-autocomplete
         id="product_name"
-        class="form-control mr-sm-2"
-        type="text"
+        v-model="search"
+        class="form-control mr-sm-2 ml-md-n3 mt-md-n2 search-input"
+        item-title="name"
+        item-value="name"
+        :items="activeMalls"
+        style="font-style: italic"
         placeholder="Type a Mall or merchant"
-        aria-label="Search"
-        data-autocompleturl="https://boozards.com/merchant-product/search"
-      />
+        density="compact"
+        color="blue-grey-lighten-2"
+      >
+        <template #item="{ props, item }">
+          <div class="mb-2" v-bind="props">
+            <router-link
+              class="text-decoration-none text-black font-weight-bold"
+              to="#"
+            >
+              <div class="d-flex align-center w-100">
+                <div class="w-25 py-1">
+                  <div style="width: 100px">
+                    <v-img height="40" :src="item?.raw?.mainImage">
+                      <template #placeholder>
+                        <div class="skeleton" />
+                      </template>
+                    </v-img>
+                  </div>
+                </div>
+                <div class="w-75" style="font-size: 12px">
+                  <p class="mb-1">
+                    {{ `${item?.raw?.name} (${item?.raw?.subIndustryName})` }}
+                  </p>
+                  <p class="text-grey">
+                    <span>{{ `${item?.raw?.town}` }}</span> (<span
+                      class="text-red"
+                      >{{ `${item?.raw?.distanceText}` }}</span
+                    ><span class="text-black"> away</span>)
+                  </p>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </template>
+      </v-autocomplete>
       <button class="btn btn--search" type="submit">
         <v-icon color="white"> mdi-magnify </v-icon>
       </button>
@@ -121,14 +157,53 @@
           </v-menu>
         </div>
         <form class="navbar__search navbar__search__mobile">
-          <input
+          <v-autocomplete
             id="product_name"
-            class="form-control mr-sm-2"
-            type="text"
+            v-model="search"
+            class="form-control mr-sm-2 ml-md-n3 mt-n2 search-input"
+            item-title="name"
+            item-value="name"
+            :items="activeMalls"
+            style="font-style: italic"
             placeholder="Type a Mall or merchant"
-            aria-label="Search"
-            data-autocompleturl="https://boozards.com/merchant-product/search"
-          />
+            density="compact"
+            color="blue-grey-lighten-2"
+          >
+            <template #item="{ props, item }">
+              <div class="mb-2" v-bind="props">
+                <router-link
+                  class="text-decoration-none text-black font-weight-bold"
+                  style="font-size: 12px"
+                  to="#"
+                >
+                  <div class="d-flex align-center" style="width: 100%">
+                    <div style="width: 30% !important" class="py-1">
+                      <div style="width: 100px">
+                        <v-img height="40" :src="item?.raw?.mainImage">
+                          <template #placeholder>
+                            <div class="skeleton" />
+                          </template>
+                        </v-img>
+                      </div>
+                    </div>
+                    <div style="width: 70% !important" class="pl-2">
+                      <p class="mb-1">
+                        {{
+                          `${item?.raw?.name} (${item?.raw?.subIndustryName})`
+                        }}
+                      </p>
+                      <p class="text-grey">
+                        <span>{{ `${item?.raw?.town}` }}</span> (<span
+                          class="text-red"
+                          >{{ `${item?.raw?.distanceText}` }}</span
+                        ><span class="text-black"> away</span>)
+                      </p>
+                    </div>
+                  </div>
+                </router-link>
+              </div>
+            </template>
+          </v-autocomplete>
           <button class="btn btn--search" type="submit">
             <v-icon color="white"> mdi-magnify </v-icon>
           </button>
@@ -239,6 +314,8 @@ export default {
     return {
       drawer: false,
       logo: "",
+      search: null,
+      activeMalls: [],
       country: [
         { title: "Home", path: "/home", icon: "home" },
         { title: "Sign Up", path: "/signup", icon: "face" },
@@ -248,15 +325,70 @@ export default {
   },
   computed: {
     ...mapState(["itemSelected", "ativeTag"]),
+    latitude() {
+      return localStorage.getItem("latitude");
+    },
+    longitude() {
+      return localStorage.getItem("longitude");
+    },
   },
   mounted() {
     this.getLogo();
     this.getCountry();
-    // this.getAppDetails2();
+    this.getActiveMallData();
   },
   methods: {
     changeItemSelected(item) {
       this.$store.commit("setItemSelected", item);
+    },
+    getActiveMallData() {
+      axios
+        .get(`/malls/active-list/${this.latitude}/${this.longitude}`)
+        .then((response) => {
+          const data = response.data.data;
+          console.log(data);
+          this.activeMalls = data
+            .sort((a, b) => a.partner_name.localeCompare(b.partner_name))
+            .map((item) => {
+              return {
+                id: item.mall_id || 0,
+                town: item.town_name || "",
+                city: item.city_name || "",
+                country: item.country_name || "",
+                distance: item.distance || 0,
+                distanceText: this.formatDistance(item.distance),
+                featured: item.featured || "N",
+                latitude: item.latitude || "",
+                longitude: item.longitude || "",
+                logo: this.$fileURL + item.logo || "",
+                mainImage: this.$fileURL + item.main_image || "",
+                oneCity: item.one_city || "N",
+                partnerId: item.partner_id || 0,
+                name: item.partner_name || "",
+                subIndustryName: item.sub_industry_name || "",
+              };
+            });
+          console.log(this.activeMallCards);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+          throw error;
+        });
+    },
+    formatDistance(distance) {
+      if (distance === 0 || distance === null) {
+        return "0";
+      } else {
+        //const roundedDistance = Math.round(distance * 10) / 10;
+        //const formattedDistance = roundedDistance.toLocaleString('en-US', {
+        //  minimumFractionDigits: 1,
+        //  maximumFractionDigits: 1,
+        //});
+        //return `${formattedDistance} km`;
+
+        return distance.toFixed(1);
+      }
     },
     getLogo() {
       axios

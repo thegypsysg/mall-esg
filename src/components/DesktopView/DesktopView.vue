@@ -12,16 +12,21 @@
         title="Featured Malls"
         desc="Check out promotions that are happening in malls around you"
         :is-diff="false"
+        :is-slide="false"
+        :active-mall-items="activeMallItems"
+        :active-mall-cards="activeMallCards"
       />
       <Featured
         title="Featured Merchants"
         desc="Check out promotions that are happening with your Favorite Merchant"
         :is-diff="false"
+        :is-slide="true"
       />
       <Featured
         title="Featured Merchants"
         desc="Check out promotions that are happening with your Favorite Merchant"
         :is-diff="true"
+        :is-slide="true"
       />
       <Footer />
     </div>
@@ -52,12 +57,23 @@ export default {
       otherCard1: [],
       otherCard2: [],
       otherCard3: [],
+      activeMallItems: [],
+      activeMallCards: [],
 
       otherPromotionData: [],
       otherPromotionDataFinal: [],
     };
   },
+  computed: {
+    latitude() {
+      return localStorage.getItem("latitude");
+    },
+    longitude() {
+      return localStorage.getItem("longitude");
+    },
+  },
   mounted() {
+    this.getActiveMallData();
     Promise.all([
       this.getAppDetails1(),
       this.getCard1(),
@@ -261,6 +277,86 @@ export default {
           // });
           // console.log(itemFinal);
           // this.otherPromotionDataFinal = itemFinal;
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+          throw error;
+        });
+    },
+    formatDistance(distance) {
+      if (distance === 0 || distance === null) {
+        return "0 km";
+      } else {
+        //const roundedDistance = Math.round(distance * 10) / 10;
+        //const formattedDistance = roundedDistance.toLocaleString('en-US', {
+        //  minimumFractionDigits: 1,
+        //  maximumFractionDigits: 1,
+        //});
+        //return `${formattedDistance} km`;
+
+        return distance.toFixed(1) + " kms";
+      }
+    },
+    getActiveMallData() {
+      axios
+        .get(`/malls/active-list/${this.latitude}/${this.longitude}/featured`)
+        .then((response) => {
+          const data = response.data.data;
+          console.log(data);
+          // let itemFinal = [];
+          this.activeMallItems = data
+            .sort((a, b) => a.distance - b.distance)
+            .map((item) => item.partner_name);
+          this.activeMallCards = data
+            .sort((a, b) => a.distance - b.distance)
+            .map((item) => {
+              return {
+                id: item.mall_id || 0,
+                town: item.town_name || "",
+                city: item.city_name || "",
+                country: item.country_name || "",
+                address:
+                  item.town_name &&
+                  item.city_name &&
+                  item.country_name &&
+                  item.one_city == "Y"
+                    ? `${item.town_name}, ${item.city_name}`
+                    : item.town_name &&
+                      item.city_name &&
+                      item.country_name &&
+                      item.one_city != "Y"
+                    ? `${item.town_name}, ${item.city_name}, ${item.country_name}`
+                    : item.country_name &&
+                      item.city_name &&
+                      item.town_name == null
+                    ? `${item.city_name}, ${item.country_name}`
+                    : item.country_name &&
+                      item.city_name == null &&
+                      item.town_name == null
+                    ? `${item.country_name}`
+                    : item.city_name &&
+                      item.country_name == null &&
+                      item.town_name == null
+                    ? `${item.city_name}`
+                    : item.town_name &&
+                      item.country_name == null &&
+                      item.city_name == null
+                    ? `${item.town_name}`
+                    : "-",
+                distance: item.distance || 0,
+                distanceText: this.formatDistance(item.distance),
+                featured: item.featured || "N",
+                latitude: item.latitude || "",
+                longitude: item.longitude || "",
+                logo: this.$fileURL + item.logo || "",
+                oneCity: item.one_city || "N",
+                partnerId: item.partner_id || 0,
+                name: item.partner_name || "",
+                subIndustryName: item.sub_industry_name || "",
+              };
+            });
+          console.log(this.activeMallCards);
         })
         .catch((error) => {
           // eslint-disable-next-line

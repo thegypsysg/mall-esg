@@ -8,6 +8,7 @@ import PromotionPeopleDetail from "@/components/PromotionDetail/PromotionPeopleD
 import PromotionPreferenceDetail from "@/components/PromotionDetail/PromotionPreferenceDetail.vue";
 import PromotionOthersDetail from "@/components/PromotionDetail/PromotionOthersDetail.vue";
 import PromotionDayDetail from "@/components/PromotionDetail/PromotionDayDetail.vue";
+import ViewAllMallsVue from "@/components/ViewAllMalls.vue";
 
 const routes = [
   {
@@ -53,6 +54,11 @@ const routes = [
     path: "/day-promo",
     name: "Promotion Day",
     component: PromotionDayDetail,
+  },
+  {
+    path: "/all-malls",
+    name: "All Malls",
+    component: ViewAllMallsVue,
   },
 ];
 

@@ -1,28 +1,30 @@
 <template>
   <v-container class="mb-8">
-    <div class="section-title mb-5">
+    <h1 v-if="isAllMalls">
+      {{ title }}
+    </h1>
+    <div v-if="!isAllMalls" class="section-title mb-5">
       <h1>{{ title }}</h1>
       <div class="title-line" />
-      <v-select
+      <v-autocomplete
+        v-model="selectedMalls"
+        clearable
         label="--Select Mall--"
-        :items="[
-          'California',
-          'Colorado',
-          'Florida',
-          'Georgia',
-          'Texas',
-          'Wyoming',
-        ]"
+        :items="activeMallItems"
         variant="outlined"
         class="section-select"
       />
     </div>
     <div class="section-content">
-      <h1 class="ml-2">
+      <h1 v-if="!isAllMalls" class="ml-2">
         {{ desc }}
       </h1>
       <v-sheet class="mx-n10 mt-5" elevation="0">
-        <v-slide-group v-model="model2" class="py-2 px-6">
+        <v-slide-group
+          v-if="isSlide == true"
+          v-model="model2"
+          class="py-2 px-6"
+        >
           <template #prev="{ on, attrs }">
             <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
               <v-icon>mdi-arrow-left</v-icon>
@@ -155,7 +157,43 @@
                       width="32"
                       height="32"
                       icon="mdi-share-variant-outline"
-                    />
+                    >
+                      <v-icon color="rgb(38, 38, 38)" size="22">
+                        mdi-share-variant-outline
+                      </v-icon>
+                      <v-menu activator="parent">
+                        <v-list>
+                          <v-list-item @click="console.log('share')">
+                            <v-list-item-title>
+                              <v-icon class="mr-4" color="black" size="18">
+                                mdi-email-outline </v-icon
+                              >Email
+                            </v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="console.log('share')">
+                            <v-list-item-title>
+                              <v-icon class="mr-4" size="18">
+                                <i class="fa-brands fa-facebook-f" /> </v-icon
+                              >Facebook
+                            </v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="console.log('share')">
+                            <v-list-item-title>
+                              <v-icon class="mr-4" color="black" size="18">
+                                mdi-twitter </v-icon
+                              >Twitter
+                            </v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="console.log('share')">
+                            <v-list-item-title>
+                              <v-icon class="mr-4" size="18">
+                                <i class="fa-brands fa-linkedin-in" /> </v-icon
+                              >Linkedin
+                            </v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </v-btn>
                     <v-btn
                       class="card-btn"
                       variant="outlined"
@@ -187,13 +225,198 @@
             </div>
           </v-slide-group-item>
         </v-slide-group>
+        <div
+          v-if="isSlide == false"
+          class="d-flex flex-row flex-wrap"
+          :class="{
+            'justify-center': !isAllMalls,
+            'justify-start': isAllMalls,
+          }"
+        >
+          <template
+            v-for="(item, i) in filteredActiveMall.slice(0, 6)"
+            :key="i"
+          >
+            <v-lazy :options="{ threshold: 0.5 }" min-height="370">
+              <v-card
+                class="my-4 mx-3 featured-card"
+                width="370"
+                height="380"
+                elevation="1"
+                @click="toggle"
+              >
+                <div
+                  v-if="!isDiff"
+                  class="card-title-container d-flex justify-space-between align-center px-2 py-4"
+                >
+                  <div class="w-25">
+                    <v-img :src="item.logo" height="30" />
+                  </div>
+                  <div class="w-75 d-flex align-center justify-space-between">
+                    <div class="card-title">
+                      <h4>{{ item.name }}</h4>
+                      <span>{{ item.address }}</span>
+                    </div>
+                    <span class="text-red card-title-right">{{
+                      item.distanceText
+                    }}</span>
+                  </div>
+                </div>
+                <div class="featured-card-img-cont">
+                  <v-img
+                    class="featured-card-img"
+                    :src="item.logo"
+                    transition="fade-transition"
+                  >
+                    <template #placeholder>
+                      <div class="skeleton" />
+                    </template>
+                  </v-img>
+                  <!-- <div class="skeleton" /> -->
+                </div>
+                <div
+                  v-if="!isDiff"
+                  style="font-weight: 400; font-size: 14px; position: relative"
+                  class="px-2 pt-5 pb-2"
+                >
+                  15 Merchants | 12 Promotions
+                </div>
+                <div
+                  v-if="isDiff"
+                  class="card-description pa-2 d-flex flex-column"
+                  style="position: relative; gap: 10px"
+                >
+                  <div class="card-rating">
+                    <v-icon color="#F63F17"> mdi-star </v-icon>
+                    <v-icon color="#F63F17"> mdi-star </v-icon>
+                    <v-icon color="#F63F17"> mdi-star </v-icon>
+                    <v-icon color="#F63F17"> mdi-star </v-icon>
+                    <v-icon color="#F63F17"> mdi-star-outline </v-icon>
+                    <span class="ml-2">( 132 rates )</span>
+                  </div>
+                  <div class="card-price">
+                    <img src="@/assets/featured-price-img.png" height="15" />
+                    <span class="ml-5">$80</span>
+                  </div>
+                  <div class="card-time">
+                    <v-icon color="#ABABAB"> mdi-clock-outline </v-icon
+                    ><span class="ml-4" style="color: #ababab"
+                      >Ends in 18 Days (15/03/2023)</span
+                    >
+                  </div>
+                  <div
+                    class="card-address d-flex align-center"
+                    style="gap: 25px"
+                  >
+                    <img
+                      src="@/assets/featured-address-img.png"
+                      width="24"
+                      height="28"
+                    />
+                    <div class="card-address-info">
+                      <h4>Papa Rich</h4>
+                      <h4>Parkway Parade, #01-23</h4>
+                      <h4>Marine Parade</h4>
+                    </div>
+                  </div>
+                  <div
+                    class="card-offer py-5 d-flex align-center"
+                    style="background: #f3f3f3; gap: 20px; color: #5e5e5e"
+                  >
+                    <img src="@/assets/featured-offer-img.png" />
+                    <span>Flat 50% on all Stores</span>
+                  </div>
+                </div>
+                <div
+                  class="card-btn-container d-flex justify-space-between"
+                  :class="{
+                    'card-btn-container-1': !isDiff,
+                    'card-btn-container-2': isDiff,
+                  }"
+                >
+                  <v-btn
+                    variant="outlined"
+                    color="black"
+                    class="card-btn"
+                    width="32"
+                    height="32"
+                    icon="mdi-share-variant-outline"
+                  >
+                    <v-icon color="rgb(38, 38, 38)" size="22">
+                      mdi-share-variant-outline
+                    </v-icon>
+                    <v-menu activator="parent">
+                      <v-list>
+                        <v-list-item @click="console.log('share')">
+                          <v-list-item-title>
+                            <v-icon class="mr-4" color="black" size="18">
+                              mdi-email-outline </v-icon
+                            >Email
+                          </v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="console.log('share')">
+                          <v-list-item-title>
+                            <v-icon class="mr-4" size="18">
+                              <i class="fa-brands fa-facebook-f" /> </v-icon
+                            >Facebook
+                          </v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="console.log('share')">
+                          <v-list-item-title>
+                            <v-icon class="mr-4" color="black" size="18">
+                              mdi-twitter </v-icon
+                            >Twitter
+                          </v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="console.log('share')">
+                          <v-list-item-title>
+                            <v-icon class="mr-4" size="18">
+                              <i class="fa-brands fa-linkedin-in" /> </v-icon
+                            >Linkedin
+                          </v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </v-btn>
+                  <v-btn
+                    class="card-btn"
+                    variant="outlined"
+                    color="black"
+                    icon="mdi-heart"
+                    width="32"
+                    height="32"
+                  >
+                    <v-icon color="red"> mdi-heart </v-icon>
+                  </v-btn>
+                </div>
+                <div
+                  v-if="item.featured == 'Y'"
+                  class="card-tag"
+                  :class="{
+                    'card-tag-1': isDiff,
+                    'card-tag-2': !isDiff,
+                  }"
+                >
+                  Featured
+                </div>
+                <div v-if="isDiff" class="card-distance">
+                  <v-icon color="#808080"> mdi-map-marker </v-icon>
+                  <span class="text-red">10.20 kms</span
+                  ><span class="text-muted"> away</span>
+                </div>
+              </v-card>
+            </v-lazy>
+          </template>
+        </div>
       </v-sheet>
       <div
+        v-if="!isAllMalls"
         class="card-footer d-flex justify-center align-center mt-16 mb-10"
         style="gap: 10px"
       >
         <!-- <div class="line-divider" /> -->
         <v-btn
+          to="/all-malls"
           class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 text-white d-flex align-center py-8 px-16"
           style="
             background-color: #008d00;
@@ -215,7 +438,33 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Featured",
-  props: ["title", "desc", "isDiff"],
+  props: [
+    "title",
+    "desc",
+    "isDiff",
+    "isSlide",
+    "activeMallItems",
+    "activeMallCards",
+  ],
+  data() {
+    return {
+      selectedMalls: null,
+    };
+  },
+  computed: {
+    isAllMalls() {
+      return this.$route.path == "/all-malls";
+    },
+    filteredActiveMall() {
+      if (!this.selectedMalls) {
+        return this.activeMallCards;
+      } else {
+        return this.activeMallCards.filter(
+          (item) => item.name == this.selectedMalls
+        );
+      }
+    },
+  },
 };
 </script>
 
@@ -235,8 +484,9 @@ export default {
 }
 
 .section-select {
-  width: 230px;
+  width: 330px;
   margin: 0 auto;
+  text-align: center;
   color: black !important;
 }
 
@@ -278,7 +528,7 @@ export default {
 
 .card-title h4 {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .card-title span {
@@ -297,7 +547,7 @@ export default {
 }
 
 .card-btn-container-1 {
-  bottom: 35px;
+  bottom: 55px;
   right: 30px;
 }
 .card-btn-container-2 {
@@ -328,7 +578,7 @@ export default {
   left: 10px;
 }
 .card-tag-2 {
-  top: 105px;
+  top: 100px;
   left: 10px;
 }
 .card-distance {
