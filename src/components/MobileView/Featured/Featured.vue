@@ -80,7 +80,7 @@
                 >
                   <v-img
                     class="featured-card-img"
-                    :src="item.logo"
+                    :src="item.mainImage"
                     transition="fade-transition"
                     :height="isDiff ? 154 : 180"
                   >

@@ -350,6 +350,7 @@ export default {
                 latitude: item.latitude || "",
                 longitude: item.longitude || "",
                 logo: this.$fileURL + item.logo || "",
+                mainImage: this.$fileURL + item.main_image || "",
                 oneCity: item.one_city || "N",
                 partnerId: item.partner_id || 0,
                 name: item.partner_name || "",

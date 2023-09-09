@@ -265,7 +265,7 @@
                 <div class="featured-card-img-cont">
                   <v-img
                     class="featured-card-img"
-                    :src="item.logo"
+                    :src="item.mainImage"
                     transition="fade-transition"
                   >
                     <template #placeholder>
