@@ -194,6 +194,7 @@ export default {
 <style scoped>
 .banner-container {
   height: 30vh;
+  margin-top: 0;
   position: relative;
 }
 .btn-container {

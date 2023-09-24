@@ -4,58 +4,62 @@
       <v-progress-circular :size="50" color="#fa2964" indeterminate />
     </div>
     <div v-if="!isLoading">
-      <Banner :app-details="appDetails1" />
-      <Featured
-        title="Featured Malls"
-        desc="Check out promotions that are happening in malls around you"
-        :is-diff="false"
-        :is-slide="false"
-        :active-mall-items="activeMallItems"
-        :active-mall-cards="activeMallCards"
-      />
-      <v-container class="mt-n4">
-        <div class="promotion-container">
-          <v-row class="mb-4">
-            <v-col cols="2">
-              <h1>All Malls</h1>
-            </v-col>
-            <v-col cols="4">
-              <v-autocomplete
-                clearable
-                label="Type a Malls Name"
-                variant="outlined"
-              />
-            </v-col>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                label="---Select Zone---"
-                variant="outlined"
-              />
-            </v-col>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                label="---Select Town---"
-                variant="outlined"
-              />
-            </v-col>
-          </v-row>
-          <v-sheet class="d-flex justify-space-between flex-wrap" elevation="0">
-            <div v-for="n in 8" :key="n">
-              <v-lazy :options="{ threshold: 0.5 }" min-height="100">
-                <v-card
-                  class="my-4 card-cont"
-                  :class="{
-                    'mx-3 pa-2 text-center': !isSmall,
-                    'mx-1': isSmall,
-                  }"
-                  :height="!isSmall ? 290 : 280"
-                  :width="!isSmall ? 260 : 250"
-                  elevation="1"
-                  @click="toggle"
-                >
-                  <!-- <div
+      <template v-if="!isSmall">
+        <Banner :app-details="appDetails1" />
+        <Featured1
+          title="Featured Malls"
+          desc="Check out promotions that are happening in malls around you"
+          :is-diff="false"
+          :is-slide="false"
+          :active-mall-items="activeMallItems"
+          :active-mall-cards="activeMallCards"
+        />
+        <v-container class="mt-n4">
+          <div class="promotion-container">
+            <v-row class="mb-4">
+              <v-col cols="2">
+                <h1>All Malls</h1>
+              </v-col>
+              <v-col cols="4">
+                <v-autocomplete
+                  clearable
+                  label="Type a Malls Name"
+                  variant="outlined"
+                />
+              </v-col>
+              <v-col cols="3">
+                <v-autocomplete
+                  clearable
+                  label="---Select Zone---"
+                  variant="outlined"
+                />
+              </v-col>
+              <v-col cols="3">
+                <v-autocomplete
+                  clearable
+                  label="---Select Town---"
+                  variant="outlined"
+                />
+              </v-col>
+            </v-row>
+            <v-sheet
+              class="d-flex justify-space-between flex-wrap"
+              elevation="0"
+            >
+              <div v-for="n in 8" :key="n">
+                <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+                  <v-card
+                    class="my-4 card-cont"
+                    :class="{
+                      'mx-3 pa-2 text-center': !isSmall,
+                      'mx-1': isSmall,
+                    }"
+                    :height="!isSmall ? 290 : 280"
+                    :width="!isSmall ? 260 : 250"
+                    elevation="1"
+                    @click="toggle"
+                  >
+                    <!-- <div
                 v-if="isSmall"
                 style="
                   font-size: 16px;
@@ -71,7 +75,7 @@
                     : card.text
                 }}
               </div> -->
-                  <!-- <div
+                    <!-- <div
                 v-if="!isSmall"
                 style="
                   font-size: 16px;
@@ -83,45 +87,45 @@
               >
                 Parkway Parade
               </div> -->
-                  <div
-                    class="trending__app"
-                    :class="{
-                      'card-image-cont-1': !isSmall,
-                      'card-image-cont-2': isSmall,
-                    }"
-                  >
-                    <v-img
-                      src="https://admin1.the-gypsy.sg/img/app/453d9f4812f4e609d9261c07cf3bc5f9.jpg"
-                      class="card-image"
-                      :height="isSmall ? 170 : 220"
-                      cover
-                      transition="fade-transition"
+                    <div
+                      class="trending__app"
+                      :class="{
+                        'card-image-cont-1': !isSmall,
+                        'card-image-cont-2': isSmall,
+                      }"
                     >
-                      <template #placeholder>
-                        <div class="skeleton skeleton-category ml-2" />
-                      </template>
-                    </v-img>
-                  </div>
-                  <v-btn
-                    elevation="4"
-                    to="#"
-                    style="
-                      position: absolute;
-                      bottom: 110px;
-                      left: 15px;
-                      background-color: #fa2964;
-                      border-radius: 5px;
-                      padding-left: 8px;
-                      padding-right: 6px;
-                      padding-top: 4px;
-                      padding-bottom: 4px;
-                      font-weight: 600;
-                      font-size: 12px;
-                    "
-                  >
-                    <span class="text-white" style="">View Jobs</span>
-                  </v-btn>
-                  <!-- <div
+                      <v-img
+                        src="https://admin1.the-gypsy.sg/img/app/453d9f4812f4e609d9261c07cf3bc5f9.jpg"
+                        class="card-image"
+                        :height="isSmall ? 170 : 220"
+                        cover
+                        transition="fade-transition"
+                      >
+                        <template #placeholder>
+                          <div class="skeleton skeleton-category ml-2" />
+                        </template>
+                      </v-img>
+                    </div>
+                    <v-btn
+                      elevation="4"
+                      to="#"
+                      style="
+                        position: absolute;
+                        bottom: 110px;
+                        left: 15px;
+                        background-color: #fa2964;
+                        border-radius: 5px;
+                        padding-left: 8px;
+                        padding-right: 6px;
+                        padding-top: 4px;
+                        padding-bottom: 4px;
+                        font-weight: 600;
+                        font-size: 12px;
+                      "
+                    >
+                      <span class="text-white" style="">View Jobs</span>
+                    </v-btn>
+                    <!-- <div
                 v-if="card.featured == 'Y'"
                 style="
                   position: absolute;
@@ -142,78 +146,351 @@
                 <span class="text-white text-left" style="">Featured</span>
               </div> -->
 
-                  <div
-                    class="card-description d-flex flex-column mt-6"
-                    style="position: relative; gap: 10px"
-                  >
                     <div
-                      class="card-address-info text-left mt-n4 mb-n2"
-                      style="font-weight: 400"
+                      class="card-description d-flex flex-column mt-6"
+                      style="position: relative; gap: 10px"
                     >
-                      <p>
-                        <span class="text-red">100 kms</span
-                        ><span class="text-muted"> away</span>
-                      </p>
-                    </div>
-                    <div
-                      style="gap: 5px"
-                      class="card-address d-flex align-center"
-                    >
-                      <div style="width: 25%">
-                        <v-img
-                          src="https://admin1.the-gypsy.sg/img/app/20ceddeed08eb7cb435367d83a9446e5.jpg"
-                          height="35"
-                        >
-                          <template #placeholder>
-                            <div class="skeleton" />
-                          </template>
-                        </v-img>
+                      <div
+                        class="card-address-info text-left mt-n4 mb-n2"
+                        style="font-weight: 400"
+                      >
+                        <p>
+                          <span class="text-red">100 kms</span
+                          ><span class="text-muted"> away</span>
+                        </p>
                       </div>
                       <div
-                        style="width: 75%"
-                        class="card-address-info text-left"
+                        style="gap: 5px"
+                        class="card-address d-flex align-center"
                       >
-                        <h4 class="mt-4" style="font-weight: 600">
-                          Parkway Parade
-                        </h4>
+                        <div style="width: 25%">
+                          <v-img
+                            src="https://admin1.the-gypsy.sg/img/app/20ceddeed08eb7cb435367d83a9446e5.jpg"
+                            height="35"
+                          >
+                            <template #placeholder>
+                              <div class="skeleton" />
+                            </template>
+                          </v-img>
+                        </div>
+                        <div
+                          style="width: 75%"
+                          class="card-address-info text-left"
+                        >
+                          <h4 class="mt-4" style="font-weight: 600">
+                            Parkway Parade
+                          </h4>
 
-                        <div class="mt-2" style="font-weight: 400">
-                          <p>Raffles Place (Central), Singapore City</p>
+                          <div class="mt-2" style="font-weight: 400">
+                            <p>Raffles Place (Central), Singapore City</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="card-btn-container-1 d-flex justify-space-between"
+                    <div
+                      class="card-btn-container-1 d-flex justify-space-between"
+                    >
+                      <v-btn
+                        color="white"
+                        class="card-btn"
+                        :width="isSmall ? 40 : 32"
+                        :height="isSmall ? 40 : 32"
+                        icon="mdi-share-variant-outline"
+                      >
+                        <v-icon size="20" color="red">
+                          mdi-share-variant-outline
+                        </v-icon>
+                      </v-btn>
+                      <v-btn
+                        class="card-btn"
+                        color="white"
+                        icon="mdi-heart-outline"
+                        :width="isSmall ? 40 : 32"
+                        :height="isSmall ? 40 : 32"
+                      >
+                        <v-icon size="20" color="red">
+                          mdi-heart-outline
+                        </v-icon>
+                      </v-btn>
+                    </div>
+                  </v-card>
+                </v-lazy>
+              </div>
+            </v-sheet>
+          </div>
+        </v-container>
+        <Footer />
+      </template>
+      <template v-if="isSmall">
+        <v-container>
+          <v-row class="my-4 d-flex align-center">
+            <v-col cols="3">
+              <router-link to="/">
+                <div class="logo-img-container">
+                  <v-img
+                    class="logo-img"
+                    src="https://admin1.the-gypsy.sg/img/app/42673768d2b7cadf2fb0b3f8589a5c16.jpg"
+                    height="200"
+                    cover
+                    transition="fade-transition"
                   >
-                    <v-btn
-                      color="white"
-                      class="card-btn"
-                      :width="isSmall ? 40 : 32"
-                      :height="isSmall ? 40 : 32"
-                      icon="mdi-share-variant-outline"
-                    >
-                      <v-icon size="20" color="red">
-                        mdi-share-variant-outline
-                      </v-icon>
-                    </v-btn>
-                    <v-btn
-                      class="card-btn"
-                      color="white"
-                      icon="mdi-heart-outline"
-                      :width="isSmall ? 40 : 32"
-                      :height="isSmall ? 40 : 32"
-                    >
-                      <v-icon size="20" color="red"> mdi-heart-outline </v-icon>
-                    </v-btn>
+                    <template #placeholder>
+                      <div class="skeleton" />
+                    </template>
+                  </v-img>
+                </div>
+              </router-link>
+            </v-col>
+            <v-col cols="9">
+              Malls in Singapore (<span class="text-blue-darken-4"
+                >214 Malls</span
+              >)
+            </v-col>
+          </v-row>
+          <v-row class="mb-4 d-flex justify-center">
+            <v-col cols="12">
+              <form class="navbar__search navbar__search__mobile">
+                <v-autocomplete
+                  clearable
+                  label="Type a Mall"
+                  variant="outlined"
+                />
+                <button class="btn btn--search" type="submit">
+                  <v-icon color="white"> mdi-magnify </v-icon>
+                </button>
+              </form>
+            </v-col>
+            <v-col cols="6">
+              <v-autocomplete
+                clearable
+                label="Search By Town"
+                variant="outlined"
+              />
+            </v-col>
+          </v-row>
+          <v-slide-group class="py-2 px-6">
+            <v-slide-group-item v-for="n in 5" :key="n" class="mx-4">
+              <div class="card-container d-flex flex-column">
+                <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
+                <v-card
+                  class="my-4 mx-3 featured-card"
+                  width="120"
+                  height="130"
+                  elevation="0"
+                >
+                  <div style="font-size: 12px" class="card-title-container">
+                    <p class="mb-2">Great World City</p>
+                    <v-img src="@/assets/gypsi-1.png" cover height="80" />
+                    <!-- <div class="card-title d-flex flex-column">
+                      <span>River Valley</span>
+                    </div> -->
+                    <span>1 Malls</span>
                   </div>
                 </v-card>
-              </v-lazy>
+                <!-- </v-lazy> -->
+              </div>
+            </v-slide-group-item>
+          </v-slide-group>
+          <Featured2
+            title="Featured Malls"
+            desc="Check out promotions that are happening in malls around you"
+            :is-diff="false"
+            :is-slide="false"
+            :active-mall-items="activeMallItems"
+            :active-mall-cards="activeMallCards"
+          />
+          <div class="mt-n4">
+            <div class="promotion-container">
+              <v-row class="mb-4">
+                <v-col cols="12">
+                  <h1>All Malls <span>(212 Malls)</span></h1>
+                </v-col>
+              </v-row>
+              <v-row
+                class="d-flex justify-space-between flex-wrap"
+                elevation="0"
+              >
+                <v-col cols="6" v-for="n in 8" :key="n">
+                  <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+                    <v-card
+                      class="my-4 card-cont"
+                      :class="{
+                        'mx-3 pa-2 text-center': !isSmall,
+                        'mx-1': isSmall,
+                      }"
+                      :height="!isSmall ? 290 : 220"
+                      width="100%"
+                      elevation="0"
+                      @click="toggle"
+                    >
+                      <!-- <div
+                v-if="isSmall"
+                style="
+                  font-size: 16px;
+                  font-weight: 600;
+                  margin-bottom: 10px;
+                  line-height: 19.36px;
+                "
+                class="pt-2"
+              >
+                {{
+                  card.text.length >= 28
+                    ? card.text.substring(0, 28) + '..'
+                    : card.text
+                }}
+              </div> -->
+                      <!-- <div
+                v-if="!isSmall"
+                style="
+                  font-size: 16px;
+                  font-weight: 600;
+                  margin-bottom: 10px;
+                  line-height: 19.36px;
+                "
+                class="pt-2 text-left"
+              >
+                Parkway Parade
+              </div> -->
+                      <div
+                        class="card-description d-flex flex-column mb-2"
+                        style="position: relative; gap: 10px"
+                      >
+                        <div
+                          style="gap: 5px"
+                          class="card-address d-flex align-center"
+                        >
+                          <div style="width: 25%">
+                            <v-img
+                              src="https://admin1.the-gypsy.sg/img/app/20ceddeed08eb7cb435367d83a9446e5.jpg"
+                              height="35"
+                            >
+                              <template #placeholder>
+                                <div class="skeleton" />
+                              </template>
+                            </v-img>
+                          </div>
+                          <div
+                            style="width: 75%"
+                            class="card-address-info text-left"
+                          >
+                            <h4 class="mt-4" style="font-weight: 600">
+                              Parkway Parade
+                            </h4>
+
+                            <div class="mt-2" style="font-weight: 400">
+                              <p>Raffles Place (Central), Singapore City</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="trending__app"
+                        :class="{
+                          'card-image-cont-1': !isSmall,
+                          'card-image-cont-2': isSmall,
+                        }"
+                      >
+                        <v-img
+                          src="https://admin1.the-gypsy.sg/img/app/453d9f4812f4e609d9261c07cf3bc5f9.jpg"
+                          class="card-image"
+                          :height="isSmall ? 170 : 220"
+                          cover
+                          transition="fade-transition"
+                        >
+                          <template #placeholder>
+                            <div class="skeleton skeleton-category ml-2" />
+                          </template>
+                        </v-img>
+                      </div>
+                      <v-btn
+                        elevation="1"
+                        to="#"
+                        size="small"
+                        style="
+                          position: absolute;
+                          bottom: 40px;
+                          left: 15px;
+                          background-color: #fa2964;
+                          border-radius: 5px;
+                          padding-left: 8px;
+                          padding-right: 6px;
+                          padding-top: 2px;
+                          padding-bottom: 2px;
+                          font-weight: 600;
+                          font-size: 10px;
+                        "
+                      >
+                        <span class="text-white" style="">View Jobs</span>
+                      </v-btn>
+                      <!-- <div
+                v-if="card.featured == 'Y'"
+                style="
+                  position: absolute;
+                  top: 50px;
+                  right: 15px;
+                  background-color: #f69400;
+                  border-radius: 5px;
+                  padding-left: 10px;
+                  padding-right: 6px;
+                  padding-top: 4px;
+                  padding-bottom: 4px;
+                  font-weight: 600;
+                  font-size: 12px;
+                  width: 120px;
+                  text-align: left !important;
+                "
+              >
+                <span class="text-white text-left" style="">Featured</span>
+              </div> -->
+
+                      <div
+                        class="card-description d-flex flex-column mt-6"
+                        style="position: relative; gap: 10px"
+                      >
+                        <div
+                          class="card-address-info text-left mt-n4 mb-n2"
+                          style="font-weight: 400"
+                        >
+                          <p>
+                            <span class="text-red">100 kms</span
+                            ><span class="text-muted"> away</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="card-btn-container-2 d-flex justify-space-between"
+                      >
+                        <v-btn
+                          color="white"
+                          class="card-btn"
+                          :width="isSmall ? 25 : 32"
+                          :height="isSmall ? 25 : 32"
+                          icon="mdi-share-variant-outline"
+                        >
+                          <v-icon size="15" color="red">
+                            mdi-share-variant-outline
+                          </v-icon>
+                        </v-btn>
+                        <v-btn
+                          class="card-btn"
+                          color="white"
+                          icon="mdi-heart-outline"
+                          :width="isSmall ? 25 : 32"
+                          :height="isSmall ? 25 : 32"
+                        >
+                          <v-icon size="15" color="red">
+                            mdi-heart-outline
+                          </v-icon>
+                        </v-btn>
+                      </div>
+                    </v-card>
+                  </v-lazy>
+                </v-col>
+              </v-row>
             </div>
-          </v-sheet>
-        </div>
-      </v-container>
-      <Footer />
+          </div>
+        </v-container>
+      </template>
     </div>
   </div>
 </template>
@@ -221,7 +498,8 @@
 <script setup>
 import Banner from "@/components/Banner.vue";
 import Footer from "@/components/Footer.vue";
-import Featured from "@/components/DesktopView/Featured/Featured.vue";
+import Featured1 from "@/components/DesktopView/Featured/Featured.vue";
+import Featured2 from "@/components/MobileView/Featured/Featured.vue";
 </script>
 
 <script>
@@ -586,7 +864,7 @@ export default {
 .card-image-cont-2 {
   position: relative;
   overflow: hidden;
-  height: 170px;
+  height: 100px;
   width: 100%;
 }
 .card-image-cont-3 {
@@ -606,8 +884,8 @@ export default {
 .card-btn-container-2 {
   position: absolute;
   gap: 10px;
-  bottom: 75px;
-  right: 30px;
+  bottom: 20px;
+  right: 10px;
   z-index: 100;
 }
 

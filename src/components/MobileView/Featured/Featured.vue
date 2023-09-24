@@ -5,7 +5,9 @@
         <h1>{{ title }}</h1>
         <div class="title-line" />
       </div>
-      <h1 class="view-all">View all</h1>
+      <router-link class="text-decoration-none" to="/all-malls">
+        <h1 class="view-all">View all</h1>
+      </router-link>
     </div>
     <div class="section-content">
       <!-- <h1 class="my-n3">
