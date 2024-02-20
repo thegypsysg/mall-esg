@@ -20,28 +20,22 @@
         {{ desc }}
       </h1>
       <v-sheet class="mx-n10 mt-5" elevation="0">
-        <v-slide-group
-          v-if="isSlide == true"
-          v-model="model2"
+        <div
           class="py-2 px-6"
         >
-          <template #prev="{ on, attrs }">
-            <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
-              <v-icon>mdi-arrow-left</v-icon>
-            </v-btn>
-          </template>
-          <template #next="{ on, attrs }">
-            <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
-              <v-icon>mdi-arrow-right</v-icon>
-            </v-btn>
-          </template>
-          <v-slide-group-item
-            v-for="n in 5"
-            :key="n"
-            v-slot="{ toggle }"
+        <div
+          v-if="isFeaturedMerchants"
+          class="d-flex flex-row flex-wrap"
+          :class="{
+            'justify-start': true,
+          }"
+        >        
+          <template 
+            v-for="(item, index) in mallMerchants"
+            :key="index"
             class="mx-4"
           >
-            <div class="card-container d-flex flex-column">
+            <div class="">
               <div
                 v-if="isDiff"
                 style="width: 85% !important; gap: 5px"
@@ -63,21 +57,28 @@
                   elevation="1"
                   @click="toggle"
                 >
-                  <div
-                    v-if="!isDiff"
-                    class="card-title-container d-flex justify-space-between align-center pa-4"
-                  >
-                    <img src="@/assets/featured-logo-img.png" height="50" />
-                    <div class="card-title">
-                      <h4>Great World City</h4>
-                      <span>River Valley</span>
-                    </div>
-                    <span class="text-red card-title-right">1.20 kms</span>
+
+                <div
+                  v-if="!isDiff"
+                  class="card-title-container d-flex justify-space-between align-center px-2 py-4"
+                >
+                  <div class="w-25 pr-3">
+                    <v-img :src="this.$fileURL + item?.partner?.logo" height="30" />
                   </div>
+                  <div class="w-75 d-flex align-center justify-space-between">
+                    <div class="card-title">
+                      <h4 class="text-no-wrap">{{ item?.partner?.partner_name }}</h4>
+                      <span class="text-no-wrap text-blue">{{ item?.location_name }}, {{ item?.unit_number }}</span>
+                      <br />
+                      <span class="text-no-wrap text-primary">{{ item?.town?.town_name }}</span>
+                    </div>
+                    <span class="text-red card-title-right text-no-wrap text-red">{{ item?.distance }}</span>
+                  </div>
+                </div>
                   <div class="featured-card-img-cont">
                     <v-img
                       class="featured-card-img"
-                      src="@/assets/featured-card-img.png"
+                      :src="this.$fileURL + item?.location_image"
                       transition="fade-transition"
                     >
                       <template #placeholder>
@@ -97,6 +98,9 @@
                   >
                     15 Merchants | 12 Promotions
                   </div>
+
+
+
                   <div
                     v-if="isDiff"
                     class="card-description pa-2 d-flex flex-column"
@@ -207,11 +211,13 @@
                   </div>
 
                   <div
+                    v-if="item?.mall_merchant?.featured === 'Y'"
                     class="card-tag"
                     :class="{
                       'card-tag-1': isDiff,
                       'card-tag-2': !isDiff,
                     }"
+                    style="top:100px"
                   >
                     Featured
                   </div>
@@ -223,8 +229,11 @@
                 </v-card>
               </v-lazy>
             </div>
-          </v-slide-group-item>
-        </v-slide-group>
+          </template>
+          </div>
+        </div>
+
+        
         <div
           v-if="isSlide == false"
           class="d-flex flex-row flex-wrap"
@@ -445,6 +454,9 @@ export default {
     "isSlide",
     "activeMallItems",
     "activeMallCards",
+    "activeMerchantItems",
+    "mallMerchants",
+    "isFeaturedMerchants"
   ],
   data() {
     return {

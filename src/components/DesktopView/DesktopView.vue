@@ -21,12 +21,16 @@
         desc="Check out promotions that are happening with your Favorite Merchant"
         :is-diff="false"
         :is-slide="true"
+        :is-featured-merchants="true"
+        :mall-merchants="mallMerchants"
       />
       <Featured
         title="Featured Merchants"
         desc="Check out promotions that are happening with your Favorite Merchant"
         :is-diff="true"
         :is-slide="true"
+        :is-featured-merchants="true"
+        :mall-merchants="mallMerchants"
       />
       <Footer />
     </div>
@@ -59,9 +63,9 @@ export default {
       otherCard3: [],
       activeMallItems: [],
       activeMallCards: [],
-
       otherPromotionData: [],
       otherPromotionDataFinal: [],
+      mallMerchants: [],
     };
   },
   computed: {
@@ -74,6 +78,7 @@ export default {
   },
   mounted() {
     this.getActiveMallData();
+    this.getMallMerchantsData();
     Promise.all([
       this.getAppDetails1(),
       this.getCard1(),
@@ -358,6 +363,25 @@ export default {
               };
             });
           console.log(this.activeMallCards);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+          throw error;
+        });
+    },
+    getMallMerchantsData() {
+      axios
+        .get(`/mall-merchants/featured`, {
+          params: {
+            longitude: this.longitude,
+            latitude: this.latitude,
+            limit: 6
+          }
+        })
+        .then((response) => {
+          const data = response.data.data;
+          this.mallMerchants = data
         })
         .catch((error) => {
           // eslint-disable-next-line

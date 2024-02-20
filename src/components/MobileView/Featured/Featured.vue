@@ -18,7 +18,7 @@
           v-if="title == 'Featured Malls'"
           v-model="model2"
           class="py-2 px-6"
-        >
+          >
           <template #prev="{ on, attrs }">
             <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
               <v-icon>mdi-arrow-left</v-icon>
@@ -93,7 +93,7 @@
                 </div>
                 <div
                   v-if="!isDiff"
-                  style="font-weight: 400; font-size: 14px; position: relative"
+                  style="font-weight: 400; font-size: 14px; position: relative;"
                   class="px-2 pt-5 pb-12"
                 >
                   15 Merchants | 12 Promotions
@@ -237,6 +237,8 @@
             </div>
           </v-slide-group-item>
         </v-slide-group>
+
+
         <v-slide-group v-else v-model="model2" class="py-2 px-6">
           <template #prev="{ on, attrs }">
             <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
@@ -249,8 +251,8 @@
             </v-btn>
           </template>
           <v-slide-group-item
-            v-for="n in 5"
-            :key="n"
+            v-for="(item, index) in mallMerchants"
+            :key="index"
             v-slot="{ toggle }"
             class="mx-4"
           >
@@ -276,16 +278,22 @@
                 elevation="1"
                 @click="toggle"
               >
+              
                 <div
                   v-if="!isDiff"
-                  class="card-title-container d-flex justify-space-between align-center pa-4"
+                  class="card-title-container d-flex justify-space-between align-center px-1 py-4"
                 >
-                  <img src="@/assets/featured-logo-img.png" height="50" />
-                  <div class="card-title d-flex flex-column">
-                    <h4>Great World City</h4>
-                    <span>River Valley</span>
+                  <div class="w-25 pr-2">
+                    <v-img :src="this.$fileURL + item?.partner?.logo" height="30" />
                   </div>
-                  <span class="text-red card-title-right">1.20 kms</span>
+                  <div class="w-75 d-flex align-center justify-space-between">
+                    <div class="card-title w-75">
+                      <h4 class="text-no-wrap">{{ item?.partner?.partner_name }}</h4>
+                      <span class="text-no-wrap text-blue">{{ item?.location_name }}, {{ item?.unit_number }}</span>
+                      <br />
+                      <span class="text-primary">{{ item?.town?.town_name }}</span>
+                    </div>
+                  </div>
                 </div>
                 <div
                   class="featured-card-img-cont"
@@ -293,7 +301,7 @@
                 >
                   <v-img
                     class="featured-card-img"
-                    src="@/assets/featured-card-img.png"
+                    :src="this.$fileURL + item?.location_image"
                     transition="fade-transition"
                     :height="isDiff ? 154 : 180"
                   >
@@ -305,9 +313,12 @@
                 <div
                   v-if="!isDiff"
                   style="font-weight: 400; font-size: 14px; position: relative"
-                  class="px-2 pt-5 pb-12"
+                  class="px-2 pt-5 pb-4"
                 >
                   15 Merchants | 12 Promotions
+                  <br />
+                  <span class="text-red card-title-rightd" style="font-size:9px">{{ item?.distance }}</span>
+                  <span class="card-title-right text-gray" style="font-size:9px"> away</span> 
                 </div>
                 <div
                   v-if="isDiff"
@@ -429,12 +440,13 @@
                 </div>
 
                 <div
-                  v-if="isDiff"
+                  v-if="item?.mall_merchant?.featured"
                   class="card-tag"
                   :class="{
                     'card-tag-1': isDiff,
                     'card-tag-2': !isDiff,
                   }"
+                  style="top:90px"
                 >
                   Featured
                 </div>
@@ -476,7 +488,7 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Featured",
-  props: ["title", "desc", "isDiff", "activeMallItems", "activeMallCards"],
+  props: ["title", "desc", "isDiff", "activeMallItems", "activeMallCards", "mallMerchants"],
   data() {
     return {
       data: null,
@@ -582,7 +594,7 @@ export default {
 }
 
 .card-btn-container-1 {
-  bottom: 75px;
+  bottom: 100px;
   right: 30px;
 }
 .card-btn-container-1-malls {
