@@ -446,7 +446,7 @@
                     'card-tag-1': isDiff,
                     'card-tag-2': !isDiff,
                   }"
-                  style="top:90px"
+                  style="top:120px"
                 >
                   Featured
                 </div>
