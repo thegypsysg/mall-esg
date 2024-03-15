@@ -22,7 +22,7 @@
         :mall-merchants="mallMerchants"
       />
       <Featured
-        title="Featured Merchants"
+        title="Featured Promotions"
         desc="Check out promotions that are happening with your Favorite Merchant"
         :is-diff="true"
         :mall-merchants="mallMerchants"
@@ -63,7 +63,7 @@ export default {
 
       otherPromotionData: [],
       otherPromotionDataFinal: [],
-      mallMerchants: []
+      mallMerchants: [],
     };
   },
   computed: {
@@ -421,12 +421,12 @@ export default {
           params: {
             longitude: this.longitude,
             latitude: this.latitude,
-            limit: 50
-          }
+            limit: 50,
+          },
         })
         .then((response) => {
           const data = response.data.data;
-          this.mallMerchants = data
+          this.mallMerchants = data;
         })
         .catch((error) => {
           // eslint-disable-next-line
