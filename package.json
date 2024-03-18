@@ -11,6 +11,7 @@
     "@mdi/font": "7.0.96",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.4.0",
+    "moment-timezone": "^0.5.45",
     "roboto-fontface": "*",
     "v-skeleton-loader": "^0.1.9",
     "vue": "^3.2.38",
