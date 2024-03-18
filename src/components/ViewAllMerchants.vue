@@ -807,10 +807,11 @@ export default {
           this.activeMerchantItems = Object.keys(uniqueItems);
 
           this.mallMerchants = data;
-          this.allMallMerchants = data;
-          // this.allMallMerchants = data.filter(
-          //   (item) => item.mall_merchant.featured !== "Y"
-          // );
+          this.allMallMerchants = data.filter(
+            (item) =>
+              item.mall_merchant.featured !== "Y" &&
+              item.mall_merchant.active === "Y"
+          );
         })
         .catch((error) => {
           // eslint-disable-next-line

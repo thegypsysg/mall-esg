@@ -573,13 +573,15 @@ export default {
     filteredActiveMerchants() {
       if (!this.selectedMerchants) {
         return this.mallMerchants.filter(
-          (i) => i.mall_merchant.featured === "Y"
+          (i) =>
+            i.mall_merchant.featured === "Y" && i.mall_merchant.active === "Y"
         );
       } else {
         return this.mallMerchants.filter(
           (item) =>
             item.partner.partner_name == this.selectedMerchants &&
-            item.mall_merchant.featured === "Y"
+            item.mall_merchant.featured === "Y" &&
+            item.mall_merchant.active === "Y"
         );
       }
     },
