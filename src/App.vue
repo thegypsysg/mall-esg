@@ -15,6 +15,7 @@
           currentRoute === '/preference-promo' ||
           currentRoute === '/others-promo' ||
           currentRoute === '/day-promo' ||
+          (currentRoute === '/all-merchants' && !isDesktop) ||
           (currentRoute === '/all-malls' && !isDesktop)
             ? true
             : false

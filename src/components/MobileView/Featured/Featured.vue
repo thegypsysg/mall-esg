@@ -5,7 +5,10 @@
         <h1>{{ title }}</h1>
         <div class="title-line" />
       </div>
-      <router-link class="text-decoration-none" to="/all-malls">
+      <router-link
+        class="text-decoration-none"
+        :to="title === 'Featured Merchants' ? '/all-merchants' : '/all-malls'"
+      >
         <h1 class="view-all">View all</h1>
       </router-link>
     </div>
@@ -350,7 +353,7 @@
                   class="px-2 pt-5 pb-4"
                 >
                   15 Merchants | 12 Promotions
-                  <br />
+                  <!-- <br />
                   <span
                     class="text-red card-title-rightd"
                     style="font-size: 9px"
@@ -361,7 +364,7 @@
                     style="font-size: 9px"
                   >
                     away</span
-                  >
+                  > -->
                 </div>
                 <div
                   v-if="isDiff"
@@ -570,8 +573,39 @@ export default {
   ],
   data() {
     return {
+      selectedMalls: null,
+      selectedMerchants: null,
       data: null,
     };
+  },
+  computed: {
+    isAll() {
+      return (
+        this.$route.path == "/all-malls" || this.$route.path == "/all-merchants"
+      );
+    },
+    filteredActiveMalls() {
+      if (!this.selectedMalls) {
+        return this.activeMallCards;
+      } else {
+        return this.activeMallCards.filter(
+          (item) => item.name == this.selectedMalls
+        );
+      }
+    },
+    filteredActiveMerchants() {
+      if (!this.selectedMerchants) {
+        return this.mallMerchants.filter(
+          (i) => i.mall_merchant.featured === "Y"
+        );
+      } else {
+        return this.mallMerchants.filter(
+          (item) =>
+            item.partner.partner_name == this.selectedMerchants &&
+            item.mall_merchant.featured === "Y"
+        );
+      }
+    },
   },
 };
 </script>

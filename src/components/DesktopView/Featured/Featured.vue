@@ -1,22 +1,39 @@
 <template>
   <v-container class="mb-8">
-    <h1 v-if="isAllMalls">
+    <h1 v-if="isAll && !isAllMerchants">
       {{ title }}
     </h1>
-    <div v-if="!isAllMalls" class="section-title mb-5">
-      <h1>{{ title }}</h1>
-      <div class="title-line" />
-      <v-autocomplete
+    <v-row v-if="isAll && isAllMerchants" class="mb-4">
+      <v-col cols="4">
+        <h1 style="color: #4b54d0">
+          {{ title }}
+        </h1>
+        <v-autocomplete
+          v-model="selectedMerchants"
+          :items="activeMallItems"
+          class="mt-8"
+          clearable
+          label="Type Merchants Name"
+          variant="outlined"
+        />
+      </v-col>
+    </v-row>
+
+    <div class="section-content">
+      <div v-if="!isAll" class="section-title mb-5">
+        <h1>{{ title }}</h1>
+        <div class="title-line" />
+      </div>
+      <!-- <v-autocomplete
+        v-if="!isAll"
         v-model="selectedMalls"
         clearable
         label="--Select Mall--"
         :items="activeMallItems"
         variant="outlined"
         class="section-select"
-      />
-    </div>
-    <div class="section-content">
-      <h1 v-if="!isAllMalls" class="ml-2">
+      /> -->
+      <h1 v-if="!isAll" class="ml-2">
         {{ desc }}
       </h1>
       <v-sheet class="mx-n10 mt-5" elevation="0">
@@ -24,56 +41,21 @@
           <div
             v-if="isFeaturedMerchants"
             class="d-flex flex-row flex-wrap"
-            :class="{
-              'justify-start': true,
-            }"
+            :class="isAll ? 'justify-center' : 'justify-start'"
           >
-            <template v-for="(item, index) in mallMerchants" :key="index">
-              <div class="mx-4">
+            <template
+              v-for="(item, index) in filteredActiveMerchants.slice(0, 6)"
+              :key="index"
+            >
+              <div :class="isAll ? 'mx-1' : 'mx-4'">
                 <v-lazy :options="{ threshold: 0.5 }" min-height="370">
                   <v-card
-                    class="my-4 mx-3 featured-card"
+                    class="my-4 featured-card"
+                    :class="isAll ? 'mx-1' : 'mx-3'"
                     width="370"
                     elevation="1"
                     @click="toggle"
                   >
-                    <div
-                      v-if="isDiff"
-                      style="gap: 5px"
-                      class="card-info px-2 pt-3 pb-2 d-flex flex-column"
-                    >
-                      <p style="font-weight: 600; font-size: 16px">
-                        Hainan Chicken Rice with steamed Chicken topped with
-                        Soya Sauce
-                      </p>
-                      <div class="d-flex justify-space-between mt-2">
-                        <div
-                          style="font-weight: 600; font-size: 11px; gap: 5px"
-                          class="d-flex"
-                        >
-                          <p>
-                            <span class="text-muted">120</span>
-                            View
-                          </p>
-                          <p>
-                            <span class="text-muted">10</span>
-                            Likes
-                          </p>
-                          <p>
-                            <span class="text-muted">25</span>
-                            Purchased
-                          </p>
-                        </div>
-                        <div class="card-rating" style="font-size: 11px">
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star-outline </v-icon>
-                          <span class="ml-2">( 132 rates )</span>
-                        </div>
-                      </div>
-                    </div>
                     <div
                       v-if="!isDiff"
                       class="card-title-container d-flex justify-space-between align-center px-2 py-4"
@@ -129,7 +111,120 @@
                     >
                       15 Merchants | 12 Promotions
                     </div>
+                    <div
+                      v-if="!isDiff"
+                      class="card-btn-container d-flex justify-space-between"
+                      :class="{
+                        'card-btn-container-1': !isDiff,
+                        'card-btn-container-2': isDiff,
+                      }"
+                    >
+                      <v-btn
+                        variant="outlined"
+                        color="black"
+                        class="card-btn"
+                        width="32"
+                        height="32"
+                        icon="mdi-share-variant-outline"
+                      >
+                        <v-icon color="rgb(38, 38, 38)" size="22">
+                          mdi-share-variant-outline
+                        </v-icon>
+                        <v-menu activator="parent">
+                          <v-list>
+                            <v-list-item @click="console.log('share')">
+                              <v-list-item-title>
+                                <v-icon class="mr-4" color="black" size="18">
+                                  mdi-email-outline </v-icon
+                                >Email
+                              </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item @click="console.log('share')">
+                              <v-list-item-title>
+                                <v-icon class="mr-4" size="18">
+                                  <i class="fa-brands fa-facebook-f" /> </v-icon
+                                >Facebook
+                              </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item @click="console.log('share')">
+                              <v-list-item-title>
+                                <v-icon class="mr-4" color="black" size="18">
+                                  mdi-twitter </v-icon
+                                >Twitter
+                              </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item @click="console.log('share')">
+                              <v-list-item-title>
+                                <v-icon class="mr-4" size="18">
+                                  <i
+                                    class="fa-brands fa-linkedin-in"
+                                  /> </v-icon
+                                >Linkedin
+                              </v-list-item-title>
+                            </v-list-item>
+                          </v-list>
+                        </v-menu>
+                      </v-btn>
+                      <v-btn
+                        class="card-btn"
+                        variant="outlined"
+                        color="black"
+                        icon="mdi-heart"
+                        width="32"
+                        height="32"
+                      >
+                        <v-icon color="red"> mdi-heart </v-icon>
+                      </v-btn>
+                    </div>
+                    <div
+                      v-if="item?.mall_merchant?.featured === 'Y'"
+                      class="card-tag"
+                      :class="{
+                        'card-tag-1': isDiff,
+                        'card-tag-2': !isDiff,
+                      }"
+                      style="top: 120px"
+                    >
+                      Featured
+                    </div>
 
+                    <div
+                      v-if="isDiff"
+                      style="gap: 5px"
+                      class="card-info px-2 pt-3 pb-2 d-flex flex-column"
+                    >
+                      <p style="font-weight: 600; font-size: 16px">
+                        Hainan Chicken Rice with steamed Chicken topped with
+                        Soya Sauce
+                      </p>
+                      <div class="d-flex justify-space-between mt-2">
+                        <div
+                          style="font-weight: 600; font-size: 11px; gap: 5px"
+                          class="d-flex"
+                        >
+                          <p>
+                            <span class="text-muted">120</span>
+                            View
+                          </p>
+                          <p>
+                            <span class="text-muted">10</span>
+                            Likes
+                          </p>
+                          <p>
+                            <span class="text-muted">25</span>
+                            Purchased
+                          </p>
+                        </div>
+                        <div class="card-rating" style="font-size: 11px">
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star-outline </v-icon>
+                          <span class="ml-2">( 132 rates )</span>
+                        </div>
+                      </div>
+                    </div>
                     <div
                       v-if="isDiff"
                       class="card-description pa-3 d-flex flex-column"
@@ -212,83 +307,6 @@
                         <span>Reedem Now</span>
                       </v-btn>
                     </div>
-                    <div
-                      v-if="!isDiff"
-                      class="card-btn-container d-flex justify-space-between"
-                      :class="{
-                        'card-btn-container-1': !isDiff,
-                        'card-btn-container-2': isDiff,
-                      }"
-                    >
-                      <v-btn
-                        variant="outlined"
-                        color="black"
-                        class="card-btn"
-                        width="32"
-                        height="32"
-                        icon="mdi-share-variant-outline"
-                      >
-                        <v-icon color="rgb(38, 38, 38)" size="22">
-                          mdi-share-variant-outline
-                        </v-icon>
-                        <v-menu activator="parent">
-                          <v-list>
-                            <v-list-item @click="console.log('share')">
-                              <v-list-item-title>
-                                <v-icon class="mr-4" color="black" size="18">
-                                  mdi-email-outline </v-icon
-                                >Email
-                              </v-list-item-title>
-                            </v-list-item>
-                            <v-list-item @click="console.log('share')">
-                              <v-list-item-title>
-                                <v-icon class="mr-4" size="18">
-                                  <i class="fa-brands fa-facebook-f" /> </v-icon
-                                >Facebook
-                              </v-list-item-title>
-                            </v-list-item>
-                            <v-list-item @click="console.log('share')">
-                              <v-list-item-title>
-                                <v-icon class="mr-4" color="black" size="18">
-                                  mdi-twitter </v-icon
-                                >Twitter
-                              </v-list-item-title>
-                            </v-list-item>
-                            <v-list-item @click="console.log('share')">
-                              <v-list-item-title>
-                                <v-icon class="mr-4" size="18">
-                                  <i
-                                    class="fa-brands fa-linkedin-in"
-                                  /> </v-icon
-                                >Linkedin
-                              </v-list-item-title>
-                            </v-list-item>
-                          </v-list>
-                        </v-menu>
-                      </v-btn>
-                      <v-btn
-                        class="card-btn"
-                        variant="outlined"
-                        color="black"
-                        icon="mdi-heart"
-                        width="32"
-                        height="32"
-                      >
-                        <v-icon color="red"> mdi-heart </v-icon>
-                      </v-btn>
-                    </div>
-
-                    <div
-                      v-if="item?.mall_merchant?.featured === 'Y'"
-                      class="card-tag"
-                      :class="{
-                        'card-tag-1': isDiff,
-                        'card-tag-2': !isDiff,
-                      }"
-                      style="top: 120px"
-                    >
-                      Featured
-                    </div>
                     <!-- <div v-if="isDiff" class="card-distance">
                       <v-icon color="#808080"> mdi-map-marker </v-icon>
                       <span class="text-red">10.20 kms</span
@@ -305,12 +323,12 @@
           v-if="isSlide == false"
           class="d-flex flex-row flex-wrap"
           :class="{
-            'justify-center': !isAllMalls,
-            'justify-start': isAllMalls,
+            'justify-center': !isAll,
+            'justify-start': isAll,
           }"
         >
           <template
-            v-for="(item, i) in filteredActiveMall.slice(0, 6)"
+            v-for="(item, i) in filteredActiveMalls.slice(0, 6)"
             :key="i"
           >
             <v-lazy :options="{ threshold: 0.5 }" min-height="370">
@@ -486,13 +504,13 @@
         </div>
       </v-sheet>
       <div
-        v-if="!isAllMalls"
+        v-if="!isAll"
         class="card-footer d-flex justify-center align-center mt-16 mb-10"
         style="gap: 10px"
       >
         <!-- <div class="line-divider" /> -->
         <v-btn
-          to="/all-malls"
+          :to="title === 'Featured Merchants' ? '/all-merchants' : '/all-malls'"
           class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 text-white d-flex align-center py-8 px-16"
           style="
             background-color: #008d00;
@@ -503,7 +521,11 @@
           "
         >
           <span>{{
-            isDiff ? "View All Featured Promotions" : "View All Featured Malls"
+            title === "Featured Promotions"
+              ? "View All Featured Promotions"
+              : title === "Featured Merchants"
+              ? "View All Featured Merchants"
+              : "View All Featured Malls"
           }}</span>
         </v-btn>
         <!-- <div class="line-divider" /> -->
@@ -526,22 +548,39 @@ export default {
     "activeMerchantItems",
     "mallMerchants",
     "isFeaturedMerchants",
+    "isAllMerchants",
   ],
   data() {
     return {
       selectedMalls: null,
+      selectedMerchants: null,
     };
   },
   computed: {
-    isAllMalls() {
-      return this.$route.path == "/all-malls";
+    isAll() {
+      return (
+        this.$route.path == "/all-malls" || this.$route.path == "/all-merchants"
+      );
     },
-    filteredActiveMall() {
+    filteredActiveMalls() {
       if (!this.selectedMalls) {
         return this.activeMallCards;
       } else {
         return this.activeMallCards.filter(
           (item) => item.name == this.selectedMalls
+        );
+      }
+    },
+    filteredActiveMerchants() {
+      if (!this.selectedMerchants) {
+        return this.mallMerchants.filter(
+          (i) => i.mall_merchant.featured === "Y"
+        );
+      } else {
+        return this.mallMerchants.filter(
+          (item) =>
+            item.partner.partner_name == this.selectedMerchants &&
+            item.mall_merchant.featured === "Y"
         );
       }
     },
