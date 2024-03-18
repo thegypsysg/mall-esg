@@ -186,7 +186,15 @@ header {
   text-align: left;
   position: relative;
   display: inline;
-  margin-bottom: 34px;
+  margin-bottom: 44px;
+}
+.footer_title-2 {
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-align: left;
+  position: relative;
 }
 .footer_title::before {
   position: absolute;
@@ -203,6 +211,7 @@ header {
 .footer_social li,
 .footer_links li {
   display: flex;
+  font-size: 12px;
   align-items: center;
   margin-bottom: 16px;
 }
@@ -321,7 +330,7 @@ header {
   display: flex;
   justify-content: left;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   background-image: linear-gradient(#383351, #42222d);
   color: white;
   font-family: Nunito, sans-serif;

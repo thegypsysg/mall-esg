@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="promoOne && !title">
     <v-sheet class="mx-auto discount-sheet" elevation="0">
       <v-slide-group>
         <template #prev="{ on, attrs }">
@@ -95,7 +95,15 @@
   <div class="promotion-container">
     <v-container>
       <div class="d-flex justify-space-between mt-5">
-        <h1>Promotions by Category</h1>
+        <h1 v-if="!title">Promotions by Category</h1>
+        <div v-if="title">
+          <h1>
+            Promotions
+            <span class="text-red-darken-2" style="font-size: 20px"
+              >- {{ title }}</span
+            >
+          </h1>
+        </div>
         <router-link to="/category" class="text-decoration-none">
           <h1 class="view-all">View all</h1>
         </router-link>
@@ -179,6 +187,7 @@
                 </v-card-text>
                 <v-card-actions class="d-flex justify-center">
                   <div
+                    v-if="!title"
                     style="
                       font-weight: 600;
                       font-size: 14px;
@@ -186,6 +195,19 @@
                     "
                   >
                     {{ card.desc }}
+                  </div>
+                  <div
+                    v-else
+                    style="
+                      font-weight: 600;
+                      font-size: 14px;
+                      line-height: 16.94px;
+                    "
+                  >
+                    <p>
+                      <span class="text-red-darken-1">{{ card.quantity }}</span>
+                      Promos
+                    </p>
                   </div>
                 </v-card-actions>
               </v-card>
@@ -233,7 +255,7 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Promotions",
-  props: ["promoOne", "promoTwo"],
+  props: ["promoOne", "promoTwo", "title"],
   data: () => ({
     model: null,
     model2: null,

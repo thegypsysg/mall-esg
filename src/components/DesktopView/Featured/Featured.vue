@@ -40,22 +40,58 @@
         <div class="py-2 px-6">
           <div
             v-if="isFeaturedMerchants"
-            class="d-flex flex-row flex-wrap"
-            :class="isAll ? 'justify-center' : 'justify-start'"
+            class="d-flex flex-row flex-wrap justify-center"
           >
             <template
               v-for="(item, index) in filteredActiveMerchants.slice(0, 6)"
               :key="index"
             >
-              <div :class="isAll ? 'mx-1' : 'mx-4'">
+              <div class="mx-1">
                 <v-lazy :options="{ threshold: 0.5 }" min-height="370">
                   <v-card
-                    class="my-4 featured-card"
-                    :class="isAll ? 'mx-1' : 'mx-3'"
+                    class="my-4 mx-1 featured-card"
                     width="370"
                     elevation="1"
                     @click="toggle"
                   >
+                    <div
+                      v-if="isDiff"
+                      style="gap: 5px"
+                      class="card-info px-2 pt-3 pb-2 d-flex flex-column"
+                    >
+                      <p style="font-weight: 600; font-size: 16px">
+                        Hainan Chicken Rice with steamed Chicken topped with
+                        Soya Sauce
+                      </p>
+                      <div class="d-flex justify-space-between mt-2">
+                        <div
+                          style="font-weight: 600; font-size: 11px; gap: 5px"
+                          class="d-flex"
+                        >
+                          <p>
+                            <span class="text-muted">120</span>
+                            View
+                          </p>
+                          <p>
+                            <span class="text-muted">10</span>
+                            Likes
+                          </p>
+                          <p>
+                            <span class="text-muted">25</span>
+                            Purchased
+                          </p>
+                        </div>
+                        <div class="card-rating" style="font-size: 11px">
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star-outline </v-icon>
+                          <span class="ml-2">( 132 rates )</span>
+                        </div>
+                      </div>
+                    </div>
+
                     <div
                       v-if="!isDiff"
                       class="card-title-container d-flex justify-space-between align-center px-2 py-4"
@@ -115,7 +151,7 @@
                       v-if="!isDiff"
                       class="card-btn-container d-flex justify-space-between"
                       :class="{
-                        'card-btn-container-1': !isDiff,
+                        'card-btn-container-1-merchant': !isDiff,
                         'card-btn-container-2': isDiff,
                       }"
                     >
@@ -188,43 +224,6 @@
                       Featured
                     </div>
 
-                    <div
-                      v-if="isDiff"
-                      style="gap: 5px"
-                      class="card-info px-2 pt-3 pb-2 d-flex flex-column"
-                    >
-                      <p style="font-weight: 600; font-size: 16px">
-                        Hainan Chicken Rice with steamed Chicken topped with
-                        Soya Sauce
-                      </p>
-                      <div class="d-flex justify-space-between mt-2">
-                        <div
-                          style="font-weight: 600; font-size: 11px; gap: 5px"
-                          class="d-flex"
-                        >
-                          <p>
-                            <span class="text-muted">120</span>
-                            View
-                          </p>
-                          <p>
-                            <span class="text-muted">10</span>
-                            Likes
-                          </p>
-                          <p>
-                            <span class="text-muted">25</span>
-                            Purchased
-                          </p>
-                        </div>
-                        <div class="card-rating" style="font-size: 11px">
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star-outline </v-icon>
-                          <span class="ml-2">( 132 rates )</span>
-                        </div>
-                      </div>
-                    </div>
                     <div
                       v-if="isDiff"
                       class="card-description pa-3 d-flex flex-column"
@@ -424,7 +423,7 @@
                 <div
                   class="card-btn-container d-flex justify-space-between"
                   :class="{
-                    'card-btn-container-1': !isDiff,
+                    'card-btn-container-1-mall': !isDiff,
                     'card-btn-container-2': isDiff,
                   }"
                 >
@@ -666,8 +665,12 @@ export default {
   gap: 10px;
 }
 
-.card-btn-container-1 {
-  bottom: 55px;
+.card-btn-container-1-mall {
+  bottom: 85px;
+  right: 30px;
+}
+.card-btn-container-1-merchant {
+  bottom: 65px;
   right: 30px;
 }
 .card-btn-container-2 {

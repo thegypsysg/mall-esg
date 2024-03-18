@@ -48,89 +48,86 @@
       <v-col cols="12" sm="12" md="3">
         <h2 class="footer_title" style="margin-bottom: 16px">Quick links</h2>
         <ul class="footer_links" style="margin-top: 37px">
-          <li>
+          <li class="text-blue-accent-4">
             <img src="@/assets/links-arrow.svg" height="12" />
-            Our Apps
+            Merchants - Send Inquiry
           </li>
-          <li>
+          <li class="text-blue-accent-4">
             <img src="@/assets/links-arrow.svg" height="12" />
-            Sign Up/Register
+            Driver Partners - Deliver for us
           </li>
-          <li>
+          <li class="text-blue-accent-4">
             <img src="@/assets/links-arrow.svg" height="12" />
-            Delivery partners
+            All Promotions
           </li>
-          <li>
+          <li class="text-blue-accent-4">
             <img src="@/assets/links-arrow.svg" height="12" />
-            Merchants
-          </li>
-          <li>
-            <img src="@/assets/links-arrow.svg" height="12" />
-            Employers
+            All Malls
           </li>
         </ul>
       </v-col>
       <v-col cols="12" sm="12" md="3">
         <h2 class="footer_title">Our Apps</h2>
-        <v-row
-          class="footer_apps"
-          style="margin-top: 37px; padding-right: 20px"
-        >
-          <v-col
-            v-for="item in categoryCard.splice(0, 6)"
-            :key="item.id"
-            cols="4"
-          >
-            <p style="margin-bottom: 10px">
-              {{
-                item.title.length >= 8
-                  ? item.title.substring(0, 8) + ".."
-                  : item.title
-              }}
-            </p>
-            <div class="our-apps">
-              <v-img
-                class="our-apps-img"
-                cover
-                transition="fade-transition"
-                :src="item.img"
-              >
-                <template #placeholder>
-                  <div class="skeleton" />
-                </template>
-              </v-img>
-            </div>
-          </v-col>
-        </v-row>
         <v-row>
-          <v-col>
-            <a
-              style="
-                color: #fa2964;
-                font-size: 14px;
-                font-weight: 600;
-                line-height: 19px;
-                text-decoration: none;
-              "
-              @click="goToTrending"
-            >
-              View all</a
-            >
+          <v-col cols="6">
+            <ul class="footer_links" style="margin-top: 37px">
+              <li class="text-blue-accent-4">
+                <img src="@/assets/links-arrow.svg" height="12" />
+                Discount
+              </li>
+              <li class="text-blue-accent-4">
+                <img src="@/assets/links-arrow.svg" height="12" />
+                Preference
+              </li>
+              <li class="text-blue-accent-4">
+                <img src="@/assets/links-arrow.svg" height="12" />
+                Meal Promos
+              </li>
+              <li class="text-blue-accent-4">
+                <img src="@/assets/links-arrow.svg" height="12" />
+                Days of Week
+              </li>
+            </ul>
+          </v-col>
+          <v-col cols="6">
+            <ul class="footer_links" style="margin-top: 37px">
+              <li class="text-blue-accent-4">
+                <img src="@/assets/links-arrow.svg" height="12" />
+                Category
+              </li>
+              <li class="text-blue-accent-4">
+                <img src="@/assets/links-arrow.svg" height="12" />
+                Voucher Promos
+              </li>
+              <li class="text-blue-accent-4">
+                <img src="@/assets/links-arrow.svg" height="12" />
+                People Promos
+              </li>
+              <li class="text-blue-accent-4">
+                <img src="@/assets/links-arrow.svg" height="12" />
+                Other Types
+              </li>
+            </ul>
           </v-col>
         </v-row>
       </v-col>
       <v-col cols="12" sm="12" md="3">
-        <h2 class="footer_title">Sign up / Register</h2>
-        <p
-          class="footer_paragraph"
-          style="margin-bottom: 16px; margin-top: 34px"
-        >
-          Sign up and be part of the Gypsy Community. Please Register for a
-          Gypsy ID which can be used for all our Apps.<br />
-          Type your email and press get started.
+        <h2 class="footer_title">Shoppers</h2>
+        <h2 style="margin-top: 36px" class="mt-4 footer_title-2">
+          Are you going to a Mall. ?
+        </h2>
+        <p class="footer_paragraph" style="margin-bottom: 16px">
+          Register with us to look for promotions happening in Malls around you
+          .
         </p>
-        <input class="footer_input" placeholder="Type your email" />
-        <div class="footer-btn-cont">
+        <div class="mt-10 btn_sign__up-cont">
+          <v-btn elevation="0" class="btn_sign__up">
+            <span> Sign up / Register</span>
+          </v-btn>
+          <div class="btn_sign__up-hover" />
+        </div>
+        <!-- <input class="footer_input" placeholder="Type your email" /> -->
+        <!-- <div class="footer-btn-cont">
           <v-btn
             class="footer-btn"
             style="
@@ -144,7 +141,7 @@
             <span>Get started</span>
           </v-btn>
           <div class="footer-btn-hover" />
-        </div>
+        </div> -->
       </v-col>
     </v-row>
   </v-container>
