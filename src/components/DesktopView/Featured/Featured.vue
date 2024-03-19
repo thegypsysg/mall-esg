@@ -43,7 +43,9 @@
             class="d-flex flex-row flex-wrap justify-center"
           >
             <template
-              v-for="(item, index) in filteredActiveMerchants.slice(0, 6)"
+              v-for="(item, index) in isAll
+                ? filteredActiveMerchants.slice(0, 6)
+                : mallMerchants.slice(0, 6)"
               :key="index"
             >
               <div class="mx-1">
@@ -54,44 +56,6 @@
                     elevation="1"
                     @click="toggle"
                   >
-                    <div
-                      v-if="isDiff"
-                      style="gap: 5px"
-                      class="card-info px-2 pt-3 pb-2 d-flex flex-column"
-                    >
-                      <p style="font-weight: 600; font-size: 16px">
-                        Hainan Chicken Rice with steamed Chicken topped with
-                        Soya Sauce
-                      </p>
-                      <div class="d-flex justify-space-between mt-2">
-                        <div
-                          style="font-weight: 600; font-size: 11px; gap: 5px"
-                          class="d-flex"
-                        >
-                          <p>
-                            <span class="text-muted">120</span>
-                            View
-                          </p>
-                          <p>
-                            <span class="text-muted">10</span>
-                            Likes
-                          </p>
-                          <p>
-                            <span class="text-muted">25</span>
-                            Purchased
-                          </p>
-                        </div>
-                        <div class="card-rating" style="font-size: 11px">
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star </v-icon>
-                          <v-icon color="#F63F17"> mdi-star-outline </v-icon>
-                          <span class="ml-2">( 132 rates )</span>
-                        </div>
-                      </div>
-                    </div>
-
                     <div
                       v-if="!isDiff"
                       class="card-title-container d-flex justify-space-between align-center px-2 py-4"
@@ -223,6 +187,94 @@
                     >
                       Featured
                     </div>
+                    <!-- <div v-if="isDiff" class="card-distance">
+                      <v-icon color="#808080"> mdi-map-marker </v-icon>
+                      <span class="text-red">10.20 kms</span
+                      ><span class="text-muted"> away</span>
+                    </div> -->
+                  </v-card>
+                </v-lazy>
+              </div>
+            </template>
+          </div>
+          <div
+            v-if="isFeaturedPromotions"
+            class="d-flex flex-row flex-wrap justify-center"
+          >
+            <template
+              v-for="(item, index) in isAll
+                ? filteredActivePromotions.slice(0, 6)
+                : mallPromotions.slice(0, 6)"
+              :key="index"
+            >
+              <div class="mx-1">
+                <v-lazy :options="{ threshold: 0.5 }" min-height="370">
+                  <v-card
+                    class="my-4 mx-1 featured-card"
+                    width="370"
+                    elevation="1"
+                    @click="toggle"
+                  >
+                    <div
+                      v-if="isDiff"
+                      style="gap: 5px"
+                      class="card-info px-2 pt-3 pb-2 d-flex flex-column"
+                    >
+                      <p style="font-weight: 600; font-size: 16px">
+                        {{ item?.promo_name }}
+                      </p>
+                      <div class="d-flex justify-space-between mt-2">
+                        <div
+                          style="font-weight: 600; font-size: 11px; gap: 5px"
+                          class="d-flex"
+                        >
+                          <p>
+                            <span class="text-muted">120</span>
+                            View
+                          </p>
+                          <p>
+                            <span class="text-muted">10</span>
+                            Likes
+                          </p>
+                          <p>
+                            <span class="text-muted">25</span>
+                            Purchased
+                          </p>
+                        </div>
+                        <div class="card-rating" style="font-size: 11px">
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star </v-icon>
+                          <v-icon color="#F63F17"> mdi-star-outline </v-icon>
+                          <span class="ml-2">( 132 rates )</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="featured-card-img-cont">
+                      <v-img
+                        class="featured-card-img"
+                        :src="$fileURL + item?.main_image"
+                        transition="fade-transition"
+                      >
+                        <template #placeholder>
+                          <div class="skeleton" />
+                        </template>
+                      </v-img>
+                      <!-- <div class="skeleton" /> -->
+                    </div>
+                    <div
+                      v-if="item?.promo_featured === 'Y'"
+                      class="card-tag"
+                      :class="{
+                        'card-tag-1': isDiff,
+                        'card-tag-2': !isDiff,
+                      }"
+                      style="top: 90px"
+                    >
+                      Featured
+                    </div>
 
                     <div
                       v-if="isDiff"
@@ -242,20 +294,23 @@
                           style="gap: 25px"
                         >
                           <img
-                            src="@/assets/featured-address-img.png"
+                            :src="$fileURL + item?.logo"
                             width="24"
                             height="28"
                           />
                           <div class="card-address-info">
-                            <h4>Papa Rich</h4>
-                            <h4>Parkway Parade - #01-23, Marine Parade</h4>
+                            <h4>{{ item?.partner_name }}</h4>
+                            <h4>
+                              {{ item?.mall_name }} - {{ item?.unit_number }},
+                              {{ item?.town_name }}
+                            </h4>
                           </div>
                         </div>
                         <div
                           style="font-size: 12px; text-align: right"
                           class="w-33"
                         >
-                          <span class="text-red">10.20 kms</span
+                          <span class="text-red">{{ item?.distanceText }}</span
                           ><span class="text-muted"> away</span>
                         </div>
                       </div>
@@ -264,21 +319,24 @@
                           <v-icon> mdi-calendar </v-icon>
                           <div>
                             <p style="font-size: 14px" class="ml-2">
-                              Starts 15/03/2023
+                              Starts {{ item?.promo_starts_on }}
                             </p>
                             <p style="font-size: 12px" class="ml-2">
-                              (27 days ago)
+                              ({{ dateComparisonStart(item?.promo_starts_on) }})
                             </p>
                           </div>
                         </div>
-                        <div class="card-time d-flex">
+                        <div
+                          v-if="item?.promo_ends_on"
+                          class="card-time d-flex"
+                        >
                           <v-icon> mdi-calendar </v-icon>
                           <div>
                             <p style="font-size: 14px" class="ml-2">
-                              Starts 15/03/2023
+                              Ends {{ item?.promo_ends_on }}
                             </p>
                             <p style="font-size: 12px" class="ml-2">
-                              (27 days ago)
+                              ({{ dateComparisonEnd(item?.promo_ends_on) }})
                             </p>
                           </div>
                         </div>
@@ -289,8 +347,13 @@
                       class="card-offer py-5 px-3 d-flex align-center justify-space-around"
                       style="background: #f3f3f3; gap: 20px; color: #5e5e5e"
                     >
-                      <span style="color: #0197d5; font-weight: 500"
-                        >S$ 46.40</span
+                      <span
+                        style="
+                          color: #0197d5;
+                          font-size: 16px;
+                          font-weight: 600;
+                        "
+                        >S$ {{ item?.amount }}</span
                       >
                       <v-btn
                         class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 text-white d-flex align-center pa-4"
@@ -306,11 +369,6 @@
                         <span>Reedem Now</span>
                       </v-btn>
                     </div>
-                    <!-- <div v-if="isDiff" class="card-distance">
-                      <v-icon color="#808080"> mdi-map-marker </v-icon>
-                      <span class="text-red">10.20 kms</span
-                      ><span class="text-muted"> away</span>
-                    </div> -->
                   </v-card>
                 </v-lazy>
               </div>
@@ -534,6 +592,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Featured",
@@ -548,11 +608,16 @@ export default {
     "mallMerchants",
     "isFeaturedMerchants",
     "isAllMerchants",
+    "mallPromotions",
+    "isFeaturedPromotions",
+    // "isAllMerchants",
   ],
   data() {
     return {
       selectedMalls: null,
       selectedMerchants: null,
+      selectedPromotions: null,
+      currentDate: moment().format("DD/MM/YYYY"),
     };
   },
   computed: {
@@ -574,15 +639,54 @@ export default {
       if (!this.selectedMerchants) {
         return this.mallMerchants.filter(
           (i) =>
-            i.mall_merchant.featured === "Y" && i.mall_merchant.active === "Y"
+            i.mall_merchant?.featured === "Y" && i.mall_merchant?.active === "Y"
         );
       } else {
         return this.mallMerchants.filter(
           (item) =>
             item.partner.partner_name == this.selectedMerchants &&
-            item.mall_merchant.featured === "Y" &&
-            item.mall_merchant.active === "Y"
+            item.mall_merchant?.featured === "Y" &&
+            item.mall_merchant?.active === "Y"
         );
+      }
+    },
+    filteredActivePromotions() {
+      if (!this.selectedPromotions) {
+        return this.mallPromotions.filter((i) => i.promo_featured === "Y");
+      } else {
+        return this.mallPromotions.filter(
+          (item) =>
+            item.partner.partner_name == this.selectedPromotions &&
+            item.promo_featured === "Y"
+        );
+      }
+    },
+  },
+  methods: {
+    dateComparisonStart(startDate) {
+      const start = moment(startDate, "DD/MM/YYYY");
+      const current = moment(this.currentDate, "DD/MM/YYYY");
+      const diffDays = current.diff(start, "days");
+
+      if (diffDays === 0) {
+        return "Today";
+      } else if (diffDays > 0) {
+        return diffDays + " days ago";
+      } else {
+        return "In the future";
+      }
+    },
+    dateComparisonEnd(endDate) {
+      const end = moment(endDate, "DD/MM/YYYY");
+      const current = moment(this.currentDate, "DD/MM/YYYY");
+      const diffDays = end.diff(current, "days");
+
+      if (diffDays === 0) {
+        return "Today";
+      } else if (diffDays > 0) {
+        return diffDays + " days left";
+      } else {
+        return "Already passed";
       }
     },
   },
