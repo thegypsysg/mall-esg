@@ -245,7 +245,11 @@
           </v-slide-group-item>
         </v-slide-group>
 
-        <v-slide-group v-else v-model="model2" class="py-2 px-6">
+        <v-slide-group
+          v-if="title == 'Featured Merchants'"
+          v-model="model2"
+          class="py-2 px-6"
+        >
           <template #prev="{ on, attrs }">
             <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
               <v-icon>mdi-arrow-left</v-icon>
@@ -535,6 +539,196 @@
             </div>
           </v-slide-group-item>
         </v-slide-group>
+
+        <v-slide-group v-else v-model="model2" class="py-2 px-6">
+          <template #prev="{ on, attrs }">
+            <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+          </template>
+          <template #next="{ on, attrs }">
+            <v-btn color="white" rounded icon v-bind="attrs" v-on="on">
+              <v-icon>mdi-arrow-right</v-icon>
+            </v-btn>
+          </template>
+          <v-slide-group-item
+            v-for="(item, index) in mallPromotions"
+            :key="index"
+            v-slot="{ toggle }"
+            class="mx-4"
+          >
+            <div class="card-container d-flex flex-column">
+              <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
+              <v-card
+                class="my-4 mx-3 featured-card"
+                style="position: relative"
+                width="270"
+                elevation="1"
+                @click="toggle"
+              >
+                <div
+                  v-if="isDiff"
+                  style="gap: 5px"
+                  class="card-info px-2 pt-3 pb-2 d-flex flex-column"
+                >
+                  <p style="font-weight: 600; font-size: 14px">
+                    {{ item?.promo_name }}
+                  </p>
+
+                  <!-- <div class="d-flex justify-space-between mt-2"> -->
+                  <div
+                    style="font-weight: 600; font-size: 11px; gap: 5px"
+                    class="d-flex mt-4"
+                  >
+                    <p>
+                      <span class="text-muted">120</span>
+                      View
+                    </p>
+                    <p>
+                      <span class="text-muted">10</span>
+                      Likes
+                    </p>
+                    <p>
+                      <span class="text-muted">25</span>
+                      Purchased
+                    </p>
+                  </div>
+                  <div class="card-rating" style="font-size: 11px">
+                    <v-icon color="#F63F17"> mdi-star </v-icon>
+                    <v-icon color="#F63F17"> mdi-star </v-icon>
+                    <v-icon color="#F63F17"> mdi-star </v-icon>
+                    <v-icon color="#F63F17"> mdi-star </v-icon>
+                    <v-icon color="#F63F17"> mdi-star-outline </v-icon>
+                    <span class="ml-2">( 132 rates )</span>
+                  </div>
+                  <!-- </div> -->
+                </div>
+                <div
+                  class="featured-card-img-cont"
+                  :class="{ 'featured-card-img-cont-2': isDiff }"
+                >
+                  <v-img
+                    class="featured-card-img"
+                    :src="$fileURL + item?.main_image"
+                    transition="fade-transition"
+                    :height="isDiff ? 154 : 180"
+                  >
+                    <template #placeholder>
+                      <div class="skeleton" />
+                    </template>
+                  </v-img>
+                </div>
+                <div
+                  v-if="isDiff"
+                  class="card-description pa-3 d-flex flex-column"
+                  style="gap: 10px"
+                >
+                  <!-- <div class="card-price">
+                  <img
+                    src="@/assets/featured-price-img.png"
+                    height="15"
+                  />
+                  <span class="ml-5">$80</span>
+                </div> -->
+                  <div class="d-flex">
+                    <div
+                      class="card-address d-flex align-center w-66"
+                      style="gap: 15px"
+                    >
+                      <img
+                        :src="$fileURL + item?.logo"
+                        width="24"
+                        height="28"
+                      />
+                      <div class="card-address-info">
+                        <h5>{{ item?.partner_name }}</h5>
+                        <h5>
+                          {{ item?.mall_name }} - {{ item?.unit_number }},
+                          {{ item?.town_name }}
+                        </h5>
+                      </div>
+                    </div>
+                    <div
+                      style="font-size: 10px; text-align: right"
+                      class="w-33"
+                    >
+                      <span class="text-red">{{ item?.distanceText }}</span
+                      ><span class="text-muted"> away</span>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-space-between mt-4">
+                    <div class="card-time d-flex">
+                      <v-icon> mdi-calendar </v-icon>
+                      <div>
+                        <p style="font-size: 11px" class="ml-1">
+                          Starts {{ item?.promo_starts_on }}
+                        </p>
+                        <p style="font-size: 10px" class="ml-1">
+                          ({{ dateComparisonStart(item?.promo_starts_on) }})
+                        </p>
+                      </div>
+                    </div>
+                    <div v-if="item?.promo_ends_on" class="card-time d-flex">
+                      <v-icon> mdi-calendar </v-icon>
+                      <div>
+                        <p style="font-size: 11px" class="ml-1">
+                          Ends {{ item?.promo_ends_on }}
+                        </p>
+                        <p style="font-size: 10px" class="ml-1">
+                          ({{ dateComparisonEnd(item?.promo_ends_on) }})
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    v-if="item?.promo_featured === 'Y'"
+                    class="card-tag"
+                    :class="{
+                      'card-tag-1': isDiff,
+                      'card-tag-2': !isDiff,
+                    }"
+                    style="top: 120px"
+                  >
+                    Featured
+                  </div>
+                  <!-- <div
+                    v-if="isDiff"
+                    class="card-distance"
+                  >
+                    <v-icon color="#808080">
+                      mdi-map-marker
+                    </v-icon>
+                    <span class="text-red ml-2">10.20 kms</span><span class="text-muted"> away</span>
+                  </div> -->
+                </div>
+                <div
+                  v-if="isDiff"
+                  class="card-offer py-5 px-3 d-flex align-center justify-space-around"
+                  style="background: #f3f3f3; gap: 20px; color: #5e5e5e"
+                >
+                  <span style="color: #0197d5; font-weight: 500"
+                    >S$ {{ item?.amount }}</span
+                  >
+                  <v-btn
+                    class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 text-white d-flex align-center pa-4"
+                    style="
+                      background: #e99820;
+                      color: #ffffff;
+                      border-color: #008d00;
+                      font-weight: 400;
+                      font-size: 12px;
+                      border-radius: 10px;
+                    "
+                  >
+                    <span>Reedem Now</span>
+                  </v-btn>
+                </div>
+              </v-card>
+              <!-- </v-lazy> -->
+            </div>
+          </v-slide-group-item>
+        </v-slide-group>
       </v-sheet>
       <!-- <div
         class="card-footer d-flex justify-center align-center mt-16 mb-10"
@@ -560,6 +754,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Featured",
@@ -570,12 +765,14 @@ export default {
     "activeMallItems",
     "activeMallCards",
     "mallMerchants",
+    "mallPromotions",
   ],
   data() {
     return {
       selectedMalls: null,
       selectedMerchants: null,
       data: null,
+      currentDate: moment().format("DD/MM/YYYY"),
     };
   },
   computed: {
@@ -604,6 +801,34 @@ export default {
             item.partner.partner_name == this.selectedMerchants &&
             item.mall_merchant.featured === "Y"
         );
+      }
+    },
+  },
+  methods: {
+    dateComparisonStart(startDate) {
+      const start = moment(startDate, "DD/MM/YYYY");
+      const current = moment(this.currentDate, "DD/MM/YYYY");
+      const diffDays = current.diff(start, "days");
+
+      if (diffDays === 0) {
+        return "Today";
+      } else if (diffDays > 0) {
+        return diffDays + " days ago";
+      } else {
+        return "In the future";
+      }
+    },
+    dateComparisonEnd(endDate) {
+      const end = moment(endDate, "DD/MM/YYYY");
+      const current = moment(this.currentDate, "DD/MM/YYYY");
+      const diffDays = end.diff(current, "days");
+
+      if (diffDays === 0) {
+        return "Today";
+      } else if (diffDays > 0) {
+        return diffDays + " days left";
+      } else {
+        return "Already passed";
       }
     },
   },
