@@ -97,12 +97,7 @@
       <div class="d-flex justify-space-between mt-5">
         <h1 v-if="!title">Promotions by Category</h1>
         <div v-if="title">
-          <h1>
-            Promotions
-            <span class="text-red-darken-2" style="font-size: 20px"
-              >- {{ title }}</span
-            >
-          </h1>
+          <h1>Promotions by {{ title }}</h1>
         </div>
         <router-link to="/category" class="text-decoration-none">
           <h1 class="view-all">View all</h1>
