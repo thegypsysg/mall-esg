@@ -222,7 +222,7 @@
 
                 <div
                   v-if="item.featured == 'Y'"
-                  class="card-tag"
+                  class="card-tag w-50"
                   :class="{
                     'card-tag-1': isDiff,
                     'card-tag-2': !isDiff,
@@ -513,8 +513,8 @@
                   <span style="color: #0197d5; font-weight: 500"
                     >S$ {{ item?.amount }}</span
                   >
+                  <!-- :to="`/pre-redeem/${item?.promo_id}`" -->
                   <v-btn
-                    :to="`/pre-redeem/${item?.promo_id}`"
                     class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 text-white d-flex align-center pa-4"
                     style="
                       background: #e99820;
@@ -524,6 +524,7 @@
                       font-size: 12px;
                       border-radius: 10px;
                     "
+                    @click="moveToRedeem(item)"
                   >
                     <span>Reedem Now</span>
                   </v-btn>
@@ -558,6 +559,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import moment from "moment";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -609,6 +611,10 @@ export default {
     },
   },
   methods: {
+    moveToRedeem(item) {
+      localStorage.setItem("preRedeemItem", JSON.stringify(item));
+      router.push(`/pre-redeem/${item?.promo_id}`);
+    },
     dateComparisonStart(startDate) {
       const start = moment(startDate, "DD/MM/YYYY");
       const current = moment(this.currentDate, "DD/MM/YYYY");
