@@ -461,16 +461,17 @@ export default {
     },
     getMallMerchantsData() {
       axios
-        .get(`/mall-merchants/featured`, {
-          params: {
-            longitude: this.longitude,
-            latitude: this.latitude,
-            limit: 6,
-          },
-        })
+        .get(
+          `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${this.longitude}`
+        )
         .then((response) => {
           const data = response.data.data;
-          this.mallMerchants = data;
+          this.mallMerchants = data.map((item) => {
+            return {
+              ...item,
+              distanceText: this.formatDistance(parseInt(item.distance)),
+            };
+          });
         })
         .catch((error) => {
           // eslint-disable-next-line

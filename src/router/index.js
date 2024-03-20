@@ -10,6 +10,7 @@ import PromotionOthersDetail from "@/components/PromotionDetail/PromotionOthersD
 import PromotionDayDetail from "@/components/PromotionDetail/PromotionDayDetail.vue";
 import ViewAllMallsVue from "@/components/ViewAllMalls.vue";
 import ViewAllMerchantsVue from "@/components/ViewAllMerchants.vue";
+import PreRedeem from "@/components/PreRedeem.vue";
 
 const routes = [
   {
@@ -65,6 +66,11 @@ const routes = [
     path: "/all-merchants",
     name: "All Merchants",
     component: ViewAllMerchantsVue,
+  },
+  {
+    path: "/pre-redeem/:promo-id",
+    name: "Pre Redeem",
+    component: PreRedeem,
   },
 ];
 

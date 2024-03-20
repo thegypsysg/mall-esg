@@ -61,30 +61,27 @@
                       class="card-title-container d-flex justify-space-between align-center px-2 py-4"
                     >
                       <div class="w-25 pr-3">
-                        <v-img
-                          :src="$fileURL + item?.partner?.logo"
-                          height="30"
-                        />
+                        <v-img :src="$fileURL + item?.logo" height="30" />
                       </div>
                       <div
                         class="w-75 d-flex align-center justify-space-between"
                       >
                         <div class="card-title">
                           <h4 class="text-no-wrap">
-                            {{ item?.partner?.partner_name }}
+                            {{ item?.partner_name }}
                           </h4>
                           <span class="text-no-wrap text-caption text-blue"
-                            >{{ item?.location_name }},
+                            >{{ item?.mall_name }},
                             {{ item?.unit_number }}</span
                           >
                           <br />
                           <span class="text-no-wrap text-primary">{{
-                            item?.town?.town_name
+                            item?.town_name
                           }}</span>
                         </div>
                         <span
                           class="text-red card-title-right text-no-wrap text-red"
-                          >{{ item?.distance }}</span
+                          >{{ item?.distanceText }}</span
                         >
                       </div>
                     </div>
@@ -109,7 +106,8 @@
                       "
                       class="px-2 pt-5 pb-2"
                     >
-                      15 Merchants | 12 Promotions
+                      {{ item?.outlet_count }} Outlets |
+                      {{ item?.promotion_count }} Promotions
                     </div>
                     <div
                       v-if="!isDiff"
