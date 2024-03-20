@@ -175,7 +175,7 @@
                       </v-btn>
                     </div>
                     <div
-                      v-if="item?.mall_merchant?.featured === 'Y'"
+                      v-if="item?.featured === 'Y'"
                       class="card-tag"
                       :class="{
                         'card-tag-1': isDiff,
@@ -636,15 +636,14 @@ export default {
     filteredActiveMerchants() {
       if (!this.selectedMerchants) {
         return this.mallMerchants.filter(
-          (i) =>
-            i.mall_merchant?.featured === "Y" && i.mall_merchant?.active === "Y"
+          (i) => i?.featured === "Y" && i?.active === "Y"
         );
       } else {
         return this.mallMerchants.filter(
           (item) =>
-            item.partner.partner_name == this.selectedMerchants &&
-            item.mall_merchant?.featured === "Y" &&
-            item.mall_merchant?.active === "Y"
+            item.partner_name == this.selectedMerchants &&
+            item?.featured === "Y" &&
+            item?.active === "Y"
         );
       }
     },
@@ -793,6 +792,7 @@ export default {
 }
 
 .card-tag {
+  width: 100px;
   background: #e99820;
   color: #ffffff;
 
