@@ -306,7 +306,7 @@
                     z-index: 3;
                   "
                 >
-                  S$ {{ item?.amount }}
+                  S$ {{ item?.amount?.toFixed(2) }}
                 </div>
                 <div
                   v-if="item?.promo_featured === 'Y'"
@@ -741,7 +741,7 @@
                   style="background: #f3f3f3; gap: 20px; color: #5e5e5e"
                 >
                   <span style="color: #0197d5; font-weight: 500"
-                    >S$ {{ item?.amount }}</span
+                    >S$ {{ item?.amount?.toFixed(2) }}</span
                   >
                   <!-- :to="`/pre-redeem/${item?.promo_id}`" -->
                   <v-btn

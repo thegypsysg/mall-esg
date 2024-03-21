@@ -199,7 +199,7 @@
       "
     >
       <span style="color: #0197d5; font-weight: 600"
-        >S$ {{ promoData?.amount }}</span
+        >S$ {{ promoData?.amount?.toFixed(2) }}</span
       >
       <!-- :to="`/pre-redeem/${promoData?.promo_id}`" -->
       <v-btn

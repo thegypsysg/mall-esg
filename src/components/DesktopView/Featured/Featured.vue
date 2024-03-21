@@ -351,7 +351,7 @@
                           font-size: 16px;
                           font-weight: 600;
                         "
-                        >S$ {{ item?.amount }}</span
+                        >S$ {{ item?.amount?.toFixed(2) }}</span
                       >
                       <v-btn
                         class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 text-white d-flex align-center pa-4"

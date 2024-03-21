@@ -85,7 +85,7 @@
       "
     >
       <span style="color: #0197d5; font-weight: 600"
-        >S$ {{ promoData?.amount }}</span
+        >S$ {{ promoData?.amount?.toFixed(2) }}</span
       >
       <v-btn
         :to="`/redeem-detail/${promoData?.promo_id}`"
