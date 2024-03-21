@@ -94,7 +94,7 @@
         icon="mdi-share-outline"
         width="40"
         height="40"
-        class="mr-2 ml-4"
+        class="mr-2"
       >
         <v-icon color="rgb(38, 38, 38)" size="22"> mdi-share-outline </v-icon>
         <v-menu activator="parent">
@@ -288,7 +288,10 @@
 
     <template v-if="!isProfile" #extension>
       <div class="mobile__app text-center">
-        <div style="margin-top: -50px" class="d-flex flex-column">
+        <div
+          style="margin-top: -50px; margin-bottom: 10px"
+          class="d-flex flex-column"
+        >
           <v-menu v-if="!isLoading">
             <template #activator="{ props }">
               <v-btn
