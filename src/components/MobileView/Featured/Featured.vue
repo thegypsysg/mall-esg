@@ -374,14 +374,16 @@
                   style="gap: 5px"
                   class="card-info px-2 pt-3 pb-2 d-flex flex-column"
                 >
-                  <p style="font-weight: 600; font-size: 14px">
-                    {{ item?.promo_name }}
-                  </p>
+                  <div style="height: 40px; overflow-y: hidden">
+                    <p style="font-weight: 600; font-size: 14px">
+                      {{ item?.promo_name }}
+                    </p>
+                  </div>
 
                   <!-- <div class="d-flex justify-space-between mt-2"> -->
                   <div
                     style="font-weight: 600; font-size: 11px; gap: 5px"
-                    class="d-flex mt-4"
+                    class="d-flex"
                   >
                     <p>
                       <span class="text-muted">120</span>
@@ -406,10 +408,7 @@
                   </div>
                   <!-- </div> -->
                 </div>
-                <div
-                  class="featured-card-img-cont"
-                  :class="{ 'featured-card-img-cont-2': isDiff }"
-                >
+                <div class="featured-card-img-cont-2">
                   <v-img
                     class="featured-card-img"
                     :src="$fileURL + item?.main_image"
@@ -426,24 +425,19 @@
                   class="card-description pa-3 d-flex flex-column"
                   style="gap: 10px"
                 >
-                  <!-- <div class="card-price">
-                  <img
-                    src="@/assets/featured-price-img.png"
-                    height="15"
-                  />
-                  <span class="ml-5">$80</span>
-                </div> -->
                   <div class="d-flex">
                     <div
                       class="card-address d-flex align-center w-66"
                       style="gap: 15px"
                     >
-                      <img
-                        :src="$fileURL + item?.logo"
-                        width="24"
-                        height="28"
-                      />
-                      <div class="card-address-info">
+                      <div style="width: 20%">
+                        <img
+                          class="logo-img"
+                          :src="$fileURL + item?.logo"
+                          height="28"
+                        />
+                      </div>
+                      <div class="card-address-info" style="width: 80%">
                         <h5>{{ item?.partner_name }}</h5>
                         <h5>
                           {{ item?.mall_name }} - {{ item?.unit_number }},
@@ -459,7 +453,7 @@
                       ><span class="text-muted"> away</span>
                     </div>
                   </div>
-                  <div class="d-flex justify-space-between mt-4">
+                  <div class="d-flex justify-space-between">
                     <div class="card-time d-flex">
                       <v-icon> mdi-calendar </v-icon>
                       <div>
@@ -484,7 +478,7 @@
                     </div>
                   </div>
 
-                  <div
+                  <!-- <div
                     v-if="item?.promo_featured === 'Y'"
                     class="card-tag"
                     :class="{
@@ -494,7 +488,8 @@
                     style="top: 120px"
                   >
                     Featured
-                  </div>
+                  </div> -->
+
                   <!-- <div
                     v-if="isDiff"
                     class="card-distance"
@@ -507,7 +502,7 @@
                 </div>
                 <div
                   v-if="isDiff"
-                  class="card-offer py-5 px-3 d-flex align-center justify-space-around"
+                  class="card-offer py-3 px-3 d-flex align-center justify-space-around"
                   style="background: #f3f3f3; gap: 20px; color: #5e5e5e"
                 >
                   <span style="color: #0197d5; font-weight: 500"
@@ -687,6 +682,12 @@ export default {
   width: 290px !important;
 }
 
+.logo-img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
 .featured-card {
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.43) !important;
 }

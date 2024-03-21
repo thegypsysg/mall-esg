@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    v-if="isDesktop || !isHeader || isSmall"
+    v-if="(isDesktop && !isHeader) || (isSmall && !isHeader)"
     :class="{
       'app-bar-mobile-start': isSmall,
       'px-8': isHeader || isProfile,

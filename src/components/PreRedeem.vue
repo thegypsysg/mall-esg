@@ -65,7 +65,7 @@
     </div>
     <v-container style="padding-top: 230px; padding-bottom: 100px">
       <h3 class="text-blue-accent-4">
-        {{ promoData?.partner_name }}
+        {{ promoData?.promo_name }}
       </h3>
       <p class="mt-6" style="font-size: 12px">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, labore?
@@ -79,7 +79,7 @@
       </router-link>
 
       <div class="d-flex justify-space-between mt-6">
-        <div class="card-time d-flex">
+        <div class="card-time d-flex" style="gap: 10px">
           <v-icon> mdi-calendar </v-icon>
           <div>
             <p style="font-size: 14px" class="ml-1">
@@ -90,7 +90,11 @@
             </p>
           </div>
         </div>
-        <div v-if="promoData?.promo_ends_on" class="card-time d-flex">
+        <div
+          v-if="promoData?.promo_ends_on"
+          class="card-time d-flex"
+          style="gap: 10px"
+        >
           <v-icon> mdi-calendar </v-icon>
           <div>
             <p style="font-size: 14px" class="ml-1">
@@ -104,24 +108,52 @@
       </div>
 
       <div class="d-flex flex-column mt-6" style="gap: 20px; font-size: 12px">
-        <div class="d-flex" style="gap: 20px">
+        <div class="d-flex" style="gap: 10px">
           <v-icon>mdi-flash</v-icon>
           <p><span class="text-blue-lighten-1">8</span> Views</p>
         </div>
-        <div class="d-flex" style="gap: 20px">
+        <div class="d-flex" style="gap: 10px">
           <v-icon color="green"> mdi-thumb-up </v-icon>
           <p>0</p>
         </div>
-        <div class="d-flex" style="gap: 20px">
+        <div class="d-flex" style="gap: 10px">
           <v-icon> mdi-tag-multiple </v-icon>
           <p>4 have Purchased</p>
         </div>
       </div>
 
-      <div class="mt-4 px-2 py-4" style="border: 1px solid black">
-        <div class="d-flex">
-          <div class="card-address d-flex align-center w-66" style="gap: 15px">
-            <img :src="$fileURL + promoData?.logo" width="24" height="28" />
+      <div
+        class="mt-6 px-2 py-6 position-relative"
+        style="border: 1px solid black; z-index: 1"
+      >
+        <div
+          style="
+            position: absolute;
+            top: -10px;
+            left: 15%;
+            background: white;
+            z-index: 2;
+            gap: 10px;
+          "
+          class="px-2 d-flex align-center"
+        >
+          <h3 class="text-blue-darken-4" style="font-size: 16px">
+            Redeem Location
+          </h3>
+          <span style="font-size: 10px" class="text-red">{{
+            promoData?.distanceText
+          }}</span
+          ><span style="font-size: 10px" class="text-muted"> away</span>
+        </div>
+        <div class="d-flex justify-center">
+          <div class="card-address d-flex align-center w-75" style="gap: 15px">
+            <div style="width: 20%">
+              <img
+                class="logo-img"
+                :src="$fileURL + promoData?.logo"
+                height="28"
+              />
+            </div>
             <div
               class="card-address-info"
               style="font-size: 12px; font-weight: 600"
@@ -133,10 +165,6 @@
               </h5>
             </div>
           </div>
-          <div style="font-size: 10px; text-align: right" class="w-33">
-            <span class="text-red">{{ promoData?.distanceText }}</span
-            ><span class="text-muted"> away</span>
-          </div>
         </div>
       </div>
 
@@ -145,7 +173,7 @@
           border: 1px solid red;
           border-radius: 5px;
           color: red;
-          font-size: 12px;
+          font-size: 16px;
         "
         class="px-3 py-2 mt-6 mb-4"
       >
@@ -254,5 +282,12 @@ export default {
 
   top: 70px;
   right: 10px;
+}
+
+.logo-img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
 }
 </style>

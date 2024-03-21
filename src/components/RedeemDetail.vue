@@ -3,7 +3,7 @@
     <div class="position-fixed w-100">
       <div
         class="app-bar w-100 position-absolute d-flex align-center px-2"
-        style="height: 50px; top: 0; background: #f3f3f3"
+        style="height: 60px; top: 0; background: #f3f3f3"
       >
         <v-btn
           variant="text"
@@ -15,7 +15,7 @@
         <div class="d-flex align-center" style="gap: 15px">
           <img :src="$fileURL + promoData?.main_image" width="45" height="35" />
           <h3 class="text-blue-accent-4">
-            {{ promoData?.partner_name }}
+            {{ promoData?.promo_name }}
           </h3>
         </div>
       </div>
