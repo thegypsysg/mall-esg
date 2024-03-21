@@ -1,7 +1,10 @@
 <template>
   <v-app-bar
-    v-if="isDesktop || !isHeader"
-    :class="{ 'px-8': isHeader || isProfile }"
+    v-if="isDesktop || !isHeader || isSmall"
+    :class="{
+      'app-bar-mobile-start': isSmall,
+      'px-8': isHeader || isProfile,
+    }"
     color="white"
     elevation="1"
     fixed
@@ -84,7 +87,50 @@
       </button>
     </form>
     <div v-if="!isHeader && !isProfile" class="text-center desktop__app">
-      <v-menu location="bottom">
+      <v-btn
+        style="background: #f4f5f7; color: black"
+        variant="text"
+        color="black"
+        icon="mdi-share-outline"
+        width="40"
+        height="40"
+        class="mr-2 ml-4"
+      >
+        <v-icon color="rgb(38, 38, 38)" size="22"> mdi-share-outline </v-icon>
+        <v-menu activator="parent">
+          <v-list>
+            <v-list-item @click="console.log('share')">
+              <v-list-item-title>
+                <v-icon class="mr-4" color="black" size="18">
+                  mdi-email-outline </v-icon
+                >Email
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="console.log('share')">
+              <v-list-item-title>
+                <v-icon class="mr-4" size="18">
+                  <i class="fa-brands fa-facebook-f" /> </v-icon
+                >Facebook
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="console.log('share')">
+              <v-list-item-title>
+                <v-icon class="mr-4" color="black" size="18">
+                  mdi-twitter </v-icon
+                >Twitter
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="console.log('share')">
+              <v-list-item-title>
+                <v-icon class="mr-4" size="18">
+                  <i class="fa-brands fa-linkedin-in" /> </v-icon
+                >Linkedin
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-btn>
+      <!-- <v-menu location="bottom">
         <template #activator="{ props }">
           <v-btn
             style="
@@ -97,7 +143,12 @@
             variant="text"
           >
             {{ itemSelected }}
-            <v-icon right dark> mdi-menu-down </v-icon>
+            <v-icon
+              right
+              dark
+            >
+              mdi-menu-down
+            </v-icon>
           </v-btn>
         </template>
         <v-list>
@@ -108,6 +159,116 @@
             @click="changeItemSelected(item.title)"
           >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu> -->
+
+      <v-menu>
+        <template #activator="{ props }">
+          <v-btn
+            v-if="!isLoading"
+            style="font-size: 15px; color: #494949"
+            v-bind="props"
+            variant="text"
+          >
+            <template
+              v-if="!itemSelectedComplete || itemSelectedComplete == null"
+            >
+              <span>{{ itemSelected }}</span>
+            </template>
+            <template
+              v-if="itemSelectedComplete || itemSelectedComplete != null"
+            >
+              <span class="text-blue-darken-4">{{
+                itemSelectedComplete?.title
+              }}</span
+              ><span class="text-red">
+                ({{ itemSelectedComplete?.count }}
+                {{
+                  itemSelectedComplete?.count == "1" ||
+                  itemSelectedComplete?.count == "0"
+                    ? "Job"
+                    : "Jobs"
+                }})</span
+              >
+            </template>
+            <v-icon right dark> mdi-menu-down </v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in country"
+            :key="index"
+            :value="index"
+            @click="changeItemSelected(item)"
+          >
+            <v-list-item-title v-if="isSpecific">
+              <span class="text-blue-darken-4">{{ item.title }}</span
+              ><span class="text-red">
+                ({{ item.count }}
+                {{
+                  item.count == "1" || item.count == "0" ? "Job" : "Jobs"
+                }})</span
+              >
+            </v-list-item-title>
+            <v-list-item-title v-else>
+              {{ item.title }}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-menu v-if="itemSelectedComplete?.oneCity != true">
+        <template #activator="{ props }">
+          <v-btn
+            style="
+              margin-left: 10px;
+              margin-right: 20px;
+              font-size: 15px;
+              color: #494949;
+            "
+            v-bind="props"
+            variant="text"
+          >
+            <!-- {{ isLoading ? 'loading...' : itemSelected2 }} -->
+            <span v-if="isLoading">loading...</span>
+            <template v-if="!isLoading && itemSelected2Complete == null">
+              <span>{{ itemSelected2 }}</span>
+            </template>
+            <template v-if="!isLoading && itemSelected2Complete != null">
+              <span class="text-blue-darken-4">
+                {{ itemSelected2Complete?.title }}</span
+              ><span class="text-black">
+                ({{ itemSelected2Complete?.count }}
+                {{
+                  itemSelected2Complete?.count == "1" ||
+                  itemSelected2Complete?.count == "0"
+                    ? "Job"
+                    : "Jobs"
+                }})</span
+              >
+            </template>
+            <v-icon right dark> mdi-menu-down </v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in city"
+            :key="index"
+            :value="index"
+            @click="changeItemSelected2(item)"
+          >
+            <v-list-item-title v-if="isSpecific">
+              <span class="text-blue-darken-4">{{ item.title }}</span
+              ><span class="text-black">
+                ({{ item.count }}
+                {{
+                  item.count == "1" || item.count == "0" ? "Job" : "Jobs"
+                }})</span
+              >
+            </v-list-item-title>
+            <v-list-item-title v-else>
+              {{ item.title }}
+            </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -127,31 +288,108 @@
 
     <template v-if="!isProfile" #extension>
       <div class="mobile__app text-center">
-        <div style="margin-bottom: 8px; margin-top: -16px">
-          <v-menu location="bottom">
+        <div style="margin-top: -50px" class="d-flex flex-column">
+          <v-menu v-if="!isLoading">
             <template #activator="{ props }">
               <v-btn
-                style="
-                  margin-left: 30px;
-                  margin-right: 30px;
-                  font-size: 16px;
-                  color: #494949;
-                "
+                v-if="!isLoading"
+                style="font-size: 15px; color: #494949"
                 v-bind="props"
                 variant="text"
               >
-                {{ itemSelected }}
+                <template
+                  v-if="!itemSelectedComplete || itemSelectedComplete == null"
+                >
+                  <span>{{ itemSelected }}</span>
+                </template>
+                <template
+                  v-if="itemSelectedComplete || itemSelectedComplete != null"
+                >
+                  <span class="text-blue-darken-4">{{
+                    itemSelectedComplete?.title
+                  }}</span
+                  ><span class="text-red">
+                    ({{ itemSelectedComplete?.count }}
+                    {{
+                      itemSelectedComplete?.count == "1" ||
+                      itemSelectedComplete?.count == "0"
+                        ? "Job"
+                        : "Jobs"
+                    }})</span
+                  >
+                </template>
                 <v-icon right dark> mdi-menu-down </v-icon>
               </v-btn>
             </template>
-            <v-list>
+            <v-list style="max-height: 50vh">
               <v-list-item
                 v-for="(item, index) in country"
                 :key="index"
                 :value="index"
-                @click="changeItemSelected(item.title)"
+                @click="changeItemSelected(item)"
               >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title v-if="isSpecific">
+                  <span class="text-blue-darken-4">{{ item.title }}</span
+                  ><span class="text-red">
+                    ({{ item.count }}
+                    {{
+                      item.count == "1" || item.count == "0" ? "Job" : "Jobs"
+                    }})</span
+                  >
+                </v-list-item-title>
+                <v-list-item-title v-else>
+                  {{ item.title }}
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-menu v-if="itemSelectedComplete?.oneCity != true">
+            <template #activator="{ props }">
+              <v-btn
+                style="font-size: 15px; color: #494949"
+                v-bind="props"
+                variant="text"
+              >
+                <!-- {{ isLoading ? 'loading...' : itemSelected2 }} -->
+                <span v-if="isLoading">loading...</span>
+                <template v-if="!isLoading && itemSelected2Complete == null">
+                  <span>{{ itemSelected2 }}</span>
+                </template>
+                <template v-if="!isLoading && itemSelected2Complete != null">
+                  <span class="text-blue-darken-4">
+                    {{ itemSelected2Complete?.title }}</span
+                  ><span class="text-black">
+                    ({{ itemSelected2Complete?.count }}
+                    {{
+                      itemSelected2Complete?.count == "1" ||
+                      itemSelected2Complete?.count == "0"
+                        ? "Job"
+                        : "Jobs"
+                    }})</span
+                  >
+                </template>
+                <v-icon right dark> mdi-menu-down </v-icon>
+              </v-btn>
+            </template>
+            <v-list style="max-height: 50vh">
+              <v-list-item
+                v-for="(item, index) in city"
+                :key="index"
+                :value="index"
+                @click="changeItemSelected2(item)"
+              >
+                <v-list-item-title v-if="isSpecific">
+                  <span class="text-blue-darken-4">{{ item.title }}</span
+                  ><span class="text-black">
+                    ({{ item.count }}
+                    {{
+                      item.count == "1" || item.count == "0" ? "Job" : "Jobs"
+                    }})</span
+                  >
+                </v-list-item-title>
+                <v-list-item-title v-else>
+                  {{ item.title }}
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -527,7 +765,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 // import app from "@/util/eventBus";
 import axios from "@/util/axios";
 import moment from "moment-timezone";
@@ -537,6 +775,7 @@ export default {
   props: ["titleHeader", "isHeader", "isDesktop", "isProfile"],
   data() {
     return {
+      isLoading: false,
       drawer: false,
       headerData: {},
       userImage: null,
@@ -545,21 +784,27 @@ export default {
       logo: "",
       search: null,
       activeMalls: [],
-      country: [
-        { title: "Home", path: "/home", icon: "home" },
-        { title: "Sign Up", path: "/signup", icon: "face" },
-        { title: "Sign In", path: "/signin", icon: "lock_open" },
-      ],
+      countryId: null,
+      country: [],
+      city: [],
       currentTime: "",
+      screenWidth: window.innerWidth,
     };
   },
   computed: {
+    ...mapState(["itemSelected"]),
+    ...mapState(["itemSelected2"]),
+    ...mapState(["itemSelectedComplete"]),
+    ...mapState(["itemSelected2Complete"]),
     ...mapState(["itemSelected", "ativeTag"]),
     latitude() {
       return localStorage.getItem("latitude");
     },
     longitude() {
       return localStorage.getItem("longitude");
+    },
+    isSmall() {
+      return this.screenWidth < 640;
     },
   },
   created() {
@@ -568,18 +813,22 @@ export default {
   },
   mounted() {
     this.getLogo();
-    this.getCountry();
+    this.getCountryMall();
+    this.getCityMall();
     this.getActiveMallData();
   },
   methods: {
+    ...mapMutations([
+      "setItemSelected",
+      "setItemSelectedComplete",
+      "setItemSelected2",
+      "setItemSelected2Complete",
+    ]),
     updateTime() {
       // Ambil zona waktu Singapore
       const singaporeTime = moment().tz("Asia/Singapore");
       // Format waktu dalam hh:mm:ss
       this.currentTime = singaporeTime.format("HH:mm:ss");
-    },
-    changeItemSelected(item) {
-      this.$store.commit("setItemSelected", item);
     },
     getActiveMallData() {
       axios
@@ -662,11 +911,83 @@ export default {
           console.log(error);
         });
     },
+    getCountryMall() {
+      this.isLoading = true;
+      axios
+        .get(`/mall-country-list`)
+        .then((response) => {
+          const data = response.data.data;
+          this.country = data.map((country) => {
+            return {
+              id: country.country_id,
+              title: country.country_name,
+              count: 1,
+              oneCity: country.one_city == "Y" ? true : false,
+              path: "#",
+            };
+          });
+          this.setItemSelectedComplete(this.country[0]);
+          this.setItemSelected(this.country[0].title);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    getCityMall() {
+      this.isLoading = true;
+      axios
+        .get(
+          `/mall-city-list/mall-country/${
+            this.itemSelectedComplete?.id || this.countryId
+          }`
+        )
+        .then((response) => {
+          const data = response.data.data;
+          //console.log(data);
+          this.city = data.map((city) => {
+            return {
+              id: city.city_id,
+              title: city.city_name,
+              count: 1,
+              countryId: city.country_id,
+              path: "#",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    changeItemSelected(item) {
+      this.setItemSelected(item.title);
+      this.setItemSelectedComplete(item);
+      this.setItemSelected2("---Select City---");
+      this.setItemSelected2Complete(null);
+      this.getCityMall();
+    },
+    changeItemSelected2(item) {
+      this.setItemSelected2(item.title);
+      this.setItemSelected2Complete(item);
+    },
   },
 };
 </script>
 
 <style scoped>
+.app-bar-mobile-start {
+  height: 28vh !important;
+}
+header.v-sheet.v-app-bar {
+  height: 172px !important;
+}
 .v-app-bar.v-toolbar {
   max-width: 100%;
 }
