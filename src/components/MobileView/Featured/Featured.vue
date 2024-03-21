@@ -1,6 +1,6 @@
 <template>
   <v-container class="mb-2">
-    <div v-if="title == 'Featured Malls'">
+    <div v-if="title == 'Featured Malls' && !isAll">
       <h1 style="font-weight: 800; text-align: center">
         Featured <span style="color: #16b85f">Malls</span>
       </h1>
@@ -214,7 +214,7 @@
               </v-card>
             </v-lazy>
           </v-col>
-          <v-col cols="8">
+          <v-col v-if="!isAll" cols="8">
             <v-btn
               to="/all-malls"
               class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 mt-6 text-white d-flex align-center py-6 px-13"
