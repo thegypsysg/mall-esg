@@ -1,6 +1,17 @@
 <template>
   <v-container class="mb-2">
-    <div class="section-title text-h6 d-flex justify-space-between mx-auto">
+    <div v-if="title == 'Featured Malls'">
+      <h1 style="font-weight: 800; text-align: center">
+        Featured <span style="color: #16b85f">Malls</span>
+      </h1>
+      <p class="my-4" style="color: gray">
+        Check out promotions that are happening in malls around you .
+      </p>
+    </div>
+    <div
+      v-else
+      class="section-title text-h6 d-flex justify-space-between mx-auto"
+    >
       <div>
         <h1>{{ title }}</h1>
         <div class="title-line" />
@@ -16,8 +27,8 @@
       <!-- <h1 class="my-n3">
         {{ desc }}
       </h1> -->
-      <v-sheet class="ml-n6 mr-n4 mt-n8" elevation="0">
-        <v-slide-group
+      <v-sheet v-if="title == 'Featured Malls'" elevation="0">
+        <!-- <v-slide-group
           v-if="title == 'Featured Malls'"
           v-model="model2"
           class="py-2 px-6"
@@ -37,57 +48,58 @@
             :key="i"
             v-slot="{ toggle }"
             class="mx-4"
+          > -->
+        <v-row
+          dense
+          class="d-flex align-center justify-center flex-column w-100"
+        >
+          <v-col
+            v-for="(item, i) in activeMallCards?.slice(0, 2)"
+            :key="i"
+            cols="12"
+            class="mb-2"
           >
-            <div class="card-container d-flex flex-column">
-              <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
+            <v-lazy :options="{ threshold: 0.5 }" min-height="250">
               <v-card
-                class="my-4 mx-3 featured-card"
-                width="270"
-                height="340"
-                elevation="1"
+                class="featured-card"
+                height="250"
+                elevation="0"
+                style="box-shadow: none !important"
                 @click="toggle"
               >
                 <div
-                  v-if="isDiff"
-                  style="gap: 5px"
-                  class="card-info ml-3 d-flex flex-column"
-                >
-                  <p style="font-weight: 600; font-size: 12px">
-                    Hainan Chicken Rice with steamed Chicken topped with Soya
-                    Sauce
-                  </p>
-                  <div style="font-weight: 600; font-size: 11px">
-                    32 <span class="text-muted">Purchased</span> 50
-                    <span class="text-muted">Views</span>
-                  </div>
-                </div>
-                <div
                   v-if="!isDiff"
-                  style="height: 100px"
-                  class="card-title-container d-flex justify-space-between align-center px-1 py-4"
+                  class="card-title-container d-flex justify-space-between align-center px-1 pb-1"
                 >
-                  <div class="w-25">
-                    <v-img :src="item.logo" height="30" />
-                  </div>
-                  <div class="w-75 d-flex align-center justify-space-between">
-                    <div class="card-title w-75">
-                      <h4>{{ item.name }}</h4>
-                      <span>{{ item.address }}</span>
-                    </div>
-                    <span class="text-red w-25 card-title-right">{{
-                      item.distanceText
-                    }}</span>
+                  <div class="d-flex align-center justify-end w-100">
+                    <span
+                      style="text-align: right"
+                      class="text-red card-title-right"
+                      >{{ item.distanceText }}</span
+                    >
                   </div>
                 </div>
                 <div
-                  class="featured-card-img-cont"
-                  :class="{ 'featured-card-img-cont-2': isDiff }"
+                  style="
+                    background: #16b85f;
+                    color: #ffffff;
+                    position: absolute;
+                    top: 30px;
+                    left: 15px;
+                    padding: 10px 15px;
+                    font-size: 11px;
+                    border-radius: 50px;
+                    z-index: 3;
+                  "
                 >
+                  12 Promotions
+                </div>
+                <div class="featured-card-img-cont-3">
                   <v-img
                     class="featured-card-img"
                     :src="item.mainImage"
                     transition="fade-transition"
-                    :height="isDiff ? 154 : 180"
+                    height="230"
                   >
                     <template #placeholder>
                       <div class="skeleton" />
@@ -96,66 +108,26 @@
                 </div>
                 <div
                   v-if="!isDiff"
+                  style="height: 100px; position: absolute; bottom: 0; left: 0"
+                  class="card-title-container d-flex justify-space-between align-center px-1 py-4 w-100"
+                >
+                  <div class="w-33">
+                    <v-img :src="item.logo" height="50" />
+                  </div>
+                  <div class="w-66 d-flex align-center justify-space-between">
+                    <div class="card-title text-white">
+                      <h4>{{ item.name }}</h4>
+                      <span>{{ item.address }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div
+                  v-if="!isDiff"
                   style="font-weight: 400; font-size: 14px; position: relative"
                   class="px-2 pt-5 pb-12"
                 >
                   15 Merchants | 12 Promotions
-                </div>
-                <div
-                  v-if="isDiff"
-                  class="card-description pa-2 d-flex flex-column mt-1"
-                  style="position: relative; gap: 10px"
-                >
-                  <div class="card-rating">
-                    <v-icon class="mr-1" size="20" color="#F63F17">
-                      mdi-star
-                    </v-icon>
-                    <v-icon class="mr-1" size="20" color="#F63F17">
-                      mdi-star
-                    </v-icon>
-                    <v-icon class="mr-1" size="20" color="#F63F17">
-                      mdi-star
-                    </v-icon>
-                    <v-icon class="mr-1" size="20" color="#F63F17">
-                      mdi-star
-                    </v-icon>
-                    <v-icon class="mr-1" size="20" color="#F63F17">
-                      mdi-star-outline
-                    </v-icon>
-                    <span>( 132 rates )</span>
-                  </div>
-                  <div class="card-price d-flex align-center">
-                    <img src="@/assets/featured-price-img.png" height="15" />
-                    <span class="ml-3">$80</span>
-                  </div>
-                  <div class="card-time">
-                    <v-icon color="#ABABAB"> mdi-clock-outline </v-icon
-                    ><span class="ml-4" style="color: #ababab"
-                      >Ends in 18 Days (15/03/2023)</span
-                    >
-                  </div>
-                  <div
-                    class="card-address d-flex align-center my-2"
-                    style="gap: 25px"
-                  >
-                    <img
-                      src="@/assets/featured-address-img.png"
-                      width="24"
-                      height="28"
-                    />
-                    <div class="card-address-info">
-                      <h4>Papa Rich</h4>
-                      <h4>Parkway Parade, #01-23</h4>
-                      <h4>Marine Parade</h4>
-                    </div>
-                  </div>
-                  <div
-                    class="card-offer py-2 d-flex align-center"
-                    style="background: #f3f3f3; gap: 10px; color: #5e5e5e"
-                  >
-                    <img src="@/assets/featured-offer-img.png" />
-                    <span>Flat 50% on all Stores</span>
-                  </div>
                 </div>
                 <div
                   class="card-btn-container d-flex justify-space-between"
@@ -219,7 +191,6 @@
                     <v-icon color="red" size="18"> mdi-heart </v-icon>
                   </v-btn>
                 </div>
-
                 <div
                   v-if="item.featured == 'Y'"
                   class="card-tag w-50"
@@ -229,7 +200,8 @@
                   }"
                 >
                   Featured
-                </div>
+                </div> -->
+
                 <!-- <div
                   v-if="isDiff"
                   class="card-distance"
@@ -240,11 +212,29 @@
                   <span class="text-red ml-2">10.20 kms</span><span class="text-muted"> away</span>
                 </div> -->
               </v-card>
-              <!-- </v-lazy> -->
-            </div>
-          </v-slide-group-item>
-        </v-slide-group>
+            </v-lazy>
+          </v-col>
+          <v-col cols="8">
+            <v-btn
+              to="/all-malls"
+              class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 mt-6 text-white d-flex align-center py-6 px-13"
+              style="
+                background-color: #008d00;
+                border-color: #008d00;
+                font-weight: 700;
+                font-size: 18px;
+                border-radius: 50px;
+              "
+            >
+              <span>View All Malls</span>
+            </v-btn>
+          </v-col>
+        </v-row>
+        <!-- </v-slide-group-item>
+        </v-slide-group> -->
+      </v-sheet>
 
+      <v-sheet class="ml-n6 mr-n4 mt-n8" elevation="0">
         <v-slide-group
           v-if="title == 'Featured Merchants'"
           v-model="model2"
@@ -478,7 +468,7 @@
                     </div>
                   </div>
 
-                  <!-- <div
+                  <div
                     v-if="item?.promo_featured === 'Y'"
                     class="card-tag"
                     :class="{
@@ -488,7 +478,7 @@
                     style="top: 120px"
                   >
                     Featured
-                  </div> -->
+                  </div>
 
                   <!-- <div
                     v-if="isDiff"
@@ -669,7 +659,6 @@ export default {
   font-size: 14px;
   line-height: 17px;
   color: black;
-  width: 95% !important;
   margin: auto;
 }
 
@@ -705,6 +694,11 @@ export default {
   height: 154px;
 }
 
+.featured-card-img-cont-3 {
+  overflow: hidden;
+  height: 230px;
+}
+
 .featured-card-img {
   transition: all 0.3s;
   transform: scale(1.4);
@@ -723,13 +717,13 @@ export default {
 }
 
 .card-title h4 {
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .card-title span {
-  font-weight: 500;
-  font-size: 11px;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .card-title-right {

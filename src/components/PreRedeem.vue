@@ -59,9 +59,9 @@
         transition="fade-transition"
         class="main-image"
       />
-      <div v-if="promoData?.promo_featured === 'Y'" class="card-tag">
+      <!-- <div v-if="promoData?.promo_featured === 'Y'" class="card-tag">
         Featured
-      </div>
+      </div> -->
     </div>
     <v-container style="padding-top: 230px; padding-bottom: 100px">
       <h3 class="text-blue-accent-4">
@@ -130,22 +130,24 @@
           style="
             position: absolute;
             top: -10px;
-            left: 15%;
+            left: 10%;
             background: white;
             z-index: 2;
-            gap: 10px;
+            gap: 20px;
           "
           class="px-2 d-flex align-center"
         >
           <h3 class="text-blue-darken-4" style="font-size: 16px">
             Redeem Location
           </h3>
-          <span style="font-size: 10px" class="text-red">{{
-            promoData?.distanceText
-          }}</span
-          ><span style="font-size: 10px" class="text-muted"> away</span>
+          <div>
+            <span style="font-size: 10px" class="text-red">{{
+              promoData?.distanceText
+            }}</span
+            ><span style="font-size: 10px" class="text-muted"> away</span>
+          </div>
         </div>
-        <div class="d-flex justify-center">
+        <div class="d-flex justify-start pl-6">
           <div class="card-address d-flex align-center w-75" style="gap: 15px">
             <div style="width: 20%">
               <img
