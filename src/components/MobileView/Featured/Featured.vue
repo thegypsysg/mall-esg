@@ -8,6 +8,14 @@
         Check out promotions that are happening in malls around you .
       </p>
     </div>
+    <div v-if="title == 'Featured Merchants' && !isAll">
+      <h2 style="font-weight: 800; text-align: center">
+        Featured <span style="color: #16b85f">Merchants</span>
+      </h2>
+      <p class="my-4" style="color: gray">
+        Check out promotions that are happening with your Favorite Merchant
+      </p>
+    </div>
     <div v-if="title == 'Featured Promotions' && !isAll" class="mb-4">
       <h2 style="font-weight: 800; text-align: center">
         Featured <span style="color: #16b85f">Promotions</span>
@@ -15,7 +23,8 @@
     </div>
     <div
       v-if="
-        (title == 'Featured Malls' && isAll) || title == 'Featured Merchants'
+        (title == 'Featured Malls' && isAll) ||
+        (title == 'Featured Merchants' && isAll)
       "
       class="section-title text-h6 d-flex justify-space-between mx-auto"
     >
@@ -61,7 +70,7 @@
           class="d-flex align-center justify-center flex-column w-100"
         >
           <v-col
-            v-for="(item, i) in activeMallCards?.slice(0, 2)"
+            v-for="(item, i) in activeMallCards?.slice(0, 5)"
             :key="i"
             cols="12"
             class="mb-2"
@@ -241,6 +250,241 @@
         </v-slide-group> -->
       </v-sheet>
 
+      <v-sheet v-if="title == 'Featured Merchants' && !isAll" elevation="0">
+        <v-row
+          dense
+          class="d-flex align-center justify-center flex-column w-100"
+        >
+          <v-col
+            v-for="(item, i) in mallMerchants?.slice(0, 5)"
+            :key="i"
+            cols="12"
+            class="mb-2"
+          >
+            <v-lazy :options="{ threshold: 0.5 }" min-height="330">
+              <v-card
+                class="featured-card pb-4"
+                height="330"
+                elevation="0"
+                style="
+                  box-shadow: none !important;
+                  border-bottom: 1px solid lightgrey;
+                "
+                @click="toggle"
+              >
+                <div
+                  v-if="!isDiff"
+                  class="card-title-container d-flex justify-space-between align-center px-1 pb-1"
+                >
+                  <div class="d-flex align-center justify-end w-100">
+                    <p
+                      style="text-align: right"
+                      class="text-red card-title-right"
+                    >
+                      {{ item.distanceText }}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  style="
+                    background: #16b85f;
+                    color: #ffffff;
+                    position: absolute;
+                    top: 30px;
+                    left: 15px;
+                    padding: 10px 15px;
+                    font-size: 12px;
+                    font-weight: 500;
+                    border-radius: 10px;
+                    z-index: 3;
+                  "
+                >
+                  12 Promotions
+                </div>
+                <div
+                  v-if="item?.featured === 'Y'"
+                  style="
+                    background: #f26525;
+                    color: white;
+                    position: absolute;
+                    top: 35px;
+                    right: -35px;
+                    rotate: 40deg;
+                    padding: 5px 70px;
+                    font-size: 14px;
+                    z-index: 3;
+                  "
+                >
+                  Featured
+                </div>
+                <div class="featured-card-img-cont-3">
+                  <v-img
+                    class="featured-card-img"
+                    :src="$fileURL + item?.location_image"
+                    transition="fade-transition"
+                    height="230"
+                  >
+                    <template #placeholder>
+                      <div class="skeleton" />
+                    </template>
+                  </v-img>
+                </div>
+
+                <div
+                  class="card-btn-container d-flex justify-space-between"
+                  :class="{
+                    'card-btn-container-1-malls': !isDiff,
+                    'card-btn-container-2': isDiff,
+                  }"
+                >
+                  <v-btn
+                    variant="outlined"
+                    color="black"
+                    class="card-btn"
+                    width="40"
+                    height="40"
+                    icon="mdi-share-variant-outline"
+                  >
+                    <v-icon color="black" size="30">
+                      mdi-share-variant-outline
+                    </v-icon>
+                    <v-menu activator="parent">
+                      <v-list>
+                        <v-list-item @click="console.log('share')">
+                          <v-list-item-title>
+                            <v-icon class="mr-4" color="black" size="18">
+                              mdi-email-outline </v-icon
+                            >Email
+                          </v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="console.log('share')">
+                          <v-list-item-title>
+                            <v-icon class="mr-4" size="18">
+                              <i class="fa-brands fa-facebook-f" /> </v-icon
+                            >Facebook
+                          </v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="console.log('share')">
+                          <v-list-item-title>
+                            <v-icon class="mr-4" color="black" size="18">
+                              mdi-twitter </v-icon
+                            >Twitter
+                          </v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="console.log('share')">
+                          <v-list-item-title>
+                            <v-icon class="mr-4" size="18">
+                              <i class="fa-brands fa-linkedin-in" /> </v-icon
+                            >Linkedin
+                          </v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </v-btn>
+                  <v-btn
+                    class="card-btn"
+                    variant="outlined"
+                    color="black"
+                    icon="mdi-heart"
+                    width="40"
+                    height="40"
+                  >
+                    <v-icon color="red" size="30"> mdi-heart </v-icon>
+                  </v-btn>
+                </div>
+
+                <div
+                  v-if="!isDiff"
+                  class="card-title-container d-flex justify-space-between align-center px-1 pt-2 pb-4"
+                >
+                  <div class="w-25 pr-2">
+                    <div
+                      class="mx-auto"
+                      style="
+                        border-radius: 100%;
+                        width: 50px;
+                        height: 50px;
+                        border: 1px solid lightgray;
+                      "
+                    >
+                      <v-img
+                        style="
+                          width: 100%;
+                          height: 100%;
+                          border-radius: 100%;
+                          object-fit: cover;
+                        "
+                        :src="$fileURL + item?.logo"
+                        height="50"
+                      />
+                    </div>
+                  </div>
+                  <div class="w-75 d-flex align-center justify-space-between">
+                    <div class="card-title">
+                      <h4 class="text-no-wrap">
+                        {{ item?.partner_name }}
+                      </h4>
+                      <span class="text-no-wrap text-blue"
+                        >{{ item?.mall_name }}, {{ item?.unit_number }}</span
+                      >
+                      <br />
+                      <div class="d-flex justify-space-between">
+                        <span class="text-primary">{{ item?.town_name }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div
+                  v-if="!isDiff"
+                  style="font-weight: 400; font-size: 14px; position: relative"
+                  class="px-2 pt-5 pb-12"
+                >
+                  15 Merchants | 12 Promotions
+                </div> -->
+
+                <!-- <div
+                  v-if="item.featured == 'Y'"
+                  class="card-tag w-50"
+                  :class="{
+                    'card-tag-1': isDiff,
+                    'card-tag-2': !isDiff,
+                  }"
+                >
+                  Featured
+                </div> -->
+
+                <!-- <div
+                  v-if="isDiff"
+                  class="card-distance"
+                >
+                  <v-icon color="#808080">
+                    mdi-map-marker
+                  </v-icon>
+                  <span class="text-red ml-2">10.20 kms</span><span class="text-muted"> away</span>
+                </div> -->
+              </v-card>
+            </v-lazy>
+          </v-col>
+          <v-col v-if="!isAll" cols="10">
+            <v-btn
+              class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 mt-6 text-white d-flex align-center py-6 px-13"
+              style="
+                background-color: #008d00;
+                border-color: #008d00;
+                font-weight: 700;
+                font-size: 18px;
+                border-radius: 50px;
+              "
+            >
+              <span>View All Promotions</span>
+            </v-btn>
+          </v-col>
+        </v-row>
+        <!-- </v-slide-group-item>
+        </v-slide-group> -->
+      </v-sheet>
+
       <v-sheet v-if="title == 'Featured Promotions'" elevation="0">
         <!-- <v-slide-group
           v-if="title == 'Featured Malls'"
@@ -268,7 +512,7 @@
           class="d-flex align-center justify-center flex-column w-100"
         >
           <v-col
-            v-for="(item, i) in mallPromotions?.slice(0, 2)"
+            v-for="(item, i) in mallPromotions?.slice(0, 5)"
             :key="i"
             cols="12"
             class="mb-2"
@@ -477,7 +721,7 @@
 
       <v-sheet class="ml-n6 mr-n4 mt-4" elevation="0">
         <v-slide-group
-          v-if="title == 'Featured Merchants'"
+          v-if="title == 'Featured Merchants' && isAll"
           v-model="model2"
           class="py-2 px-6 mt-n8"
         >
@@ -986,7 +1230,7 @@ export default {
   right: 30px;
 }
 .card-btn-container-1-malls {
-  bottom: 55px;
+  bottom: 95px;
   right: 30px;
 }
 .card-btn-container-2 {

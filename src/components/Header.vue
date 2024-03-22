@@ -58,7 +58,7 @@
             >
               <div class="d-flex align-center w-100">
                 <div class="w-25 py-1">
-                  <div style="width: 100px">
+                  <div style="width: 60px">
                     <v-img height="40" :src="item?.raw?.mainImage">
                       <template #placeholder>
                         <div class="skeleton" />
