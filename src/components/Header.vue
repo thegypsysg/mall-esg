@@ -187,8 +187,8 @@
                 {{
                   itemSelectedComplete?.count == "1" ||
                   itemSelectedComplete?.count == "0"
-                    ? "Job"
-                    : "Jobs"
+                    ? "Mall"
+                    : "Malls"
                 }})</span
               >
             </template>
@@ -207,7 +207,7 @@
               ><span class="text-red">
                 ({{ item.count }}
                 {{
-                  item.count == "1" || item.count == "0" ? "Job" : "Jobs"
+                  item.count == "1" || item.count == "0" ? "Mall" : "Malls"
                 }})</span
               >
             </v-list-item-title>
@@ -242,8 +242,8 @@
                 {{
                   itemSelected2Complete?.count == "1" ||
                   itemSelected2Complete?.count == "0"
-                    ? "Job"
-                    : "Jobs"
+                    ? "Mall"
+                    : "Malls"
                 }})</span
               >
             </template>
@@ -262,7 +262,7 @@
               ><span class="text-black">
                 ({{ item.count }}
                 {{
-                  item.count == "1" || item.count == "0" ? "Job" : "Jobs"
+                  item.count == "1" || item.count == "0" ? "Mall" : "Malls"
                 }})</span
               >
             </v-list-item-title>
@@ -316,8 +316,8 @@
                     {{
                       itemSelectedComplete?.count == "1" ||
                       itemSelectedComplete?.count == "0"
-                        ? "Job"
-                        : "Jobs"
+                        ? "Mall"
+                        : "Malls"
                     }})</span
                   >
                 </template>
@@ -336,7 +336,7 @@
                   ><span class="text-red">
                     ({{ item.count }}
                     {{
-                      item.count == "1" || item.count == "0" ? "Job" : "Jobs"
+                      item.count == "1" || item.count == "0" ? "Mall" : "Malls"
                     }})</span
                   >
                 </v-list-item-title>
@@ -366,8 +366,8 @@
                     {{
                       itemSelected2Complete?.count == "1" ||
                       itemSelected2Complete?.count == "0"
-                        ? "Job"
-                        : "Jobs"
+                        ? "Mall"
+                        : "Malls"
                     }})</span
                   >
                 </template>
@@ -386,7 +386,7 @@
                   ><span class="text-black">
                     ({{ item.count }}
                     {{
-                      item.count == "1" || item.count == "0" ? "Job" : "Jobs"
+                      item.count == "1" || item.count == "0" ? "Mall" : "Malls"
                     }})</span
                   >
                 </v-list-item-title>

@@ -34,9 +34,9 @@
                 @click="toggle"
               >
                 <div class="d-flex fill-height align-center justify-start">
-                  <div style="border-radius: 50%; width: 50px; height: 50px">
+                  <div style="border-radius: 100%; width: 50px; height: 50px">
                     <v-img
-                      style="border-radius: 50%; width: 100%; height: 100%"
+                      style="border-radius: 100%; width: 100%; height: 100%"
                       :src="card.img"
                       transition="fade-transition"
                       height="40"
@@ -160,13 +160,13 @@
                 <v-card-text class="w-100 d-flex justify-center align-center">
                   <div
                     class="mx-auto"
-                    style="border-radius: 50%; width: 80px; height: 80px"
+                    style="border-radius: 100%; width: 80px; height: 80px"
                   >
                     <v-img
                       style="
                         width: 100%;
                         height: 100%;
-                        border-radius: 50%;
+                        border-radius: 100%;
                         object-fit: cover;
                       "
                       :src="card.img"
@@ -285,10 +285,10 @@ export default {
 }
 
 .skeleton-discount {
-  width: 40px !important;
+  width: 100% !important;
 }
 .skeleton-category {
-  width: 80px !important;
+  width: 100% !important;
 }
 
 @keyframes skeleton {

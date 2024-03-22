@@ -9,7 +9,7 @@
       <Promotions title="Meals" :promo-two="promoMeals" />
       <Promotions title="People" :promo-two="promoPeople" />
       <Promotions title="Preference" :promo-two="promoPreference" />
-      <Promotions title="Other Types" :promo-two="promoOher" />
+      <Promotions title="Other Types" :promo-two="promoOther" />
       <Promotions title="Days" :promo-two="promoDays" />
       <Promotions title="Vouchers" :promo-two="promoVoucher" />
       <!-- <OtherPromotion :items="otherPromotionDataFinal[0]" /> -->
@@ -67,7 +67,7 @@ export default {
       promoMeals: [],
       promoPeople: [],
       promoPreference: [],
-      promoOher: [],
+      promoOther: [],
       promoDays: [],
       promoVoucher: [],
       activeMallItems: [],
@@ -91,12 +91,15 @@ export default {
     this.getMallMerchantsData();
     this.getMallPromotionsData();
     Promise.all([
-      this.getAppDetails1(),
-      this.getPromo(),
+      this.getPromoDiscount(),
       this.getPromoMeals(),
       this.getPromoCategory(),
       this.getPromoPeople(),
+      this.getPreferencePromo(),
       this.getOtherPromo(),
+      this.getDaysPromo(),
+      this.getVoucherPromo(),
+      this.getAppDetails1(),
     ])
       .then(() => {
         this.otherPromotionDataFinal.push(this.otherPromotionData);
@@ -121,19 +124,19 @@ export default {
           console.log(error);
         });
     },
-    getPromo() {
+    getPromoDiscount() {
       axios
-        .get(`/categories/app/${this.$appId}/type/PD`)
+        .get(`/list-tags-by-tag-header/tag-header-short/DT`)
         .then((response) => {
           const data = response.data.data;
 
-          this.promo = data.map((item, index) => {
+          this.promo = data.map((item) => {
             return {
-              id: index + 1,
-              img: this.$fileURL + item.image || "",
-              title: item.category_name || "",
+              id: item.tag_id || 1,
+              title: item.tag_name || "",
+              img: this.$fileURL + item.tag_image || "",
+              path: "",
               desc: "32 Promotions",
-              path: item.slug || "",
             };
           });
         })
@@ -144,17 +147,17 @@ export default {
     },
     getPromoCategory() {
       axios
-        .get(`/categories/app/${this.$appId}/type/PC`)
+        .get(`/list-tags-by-tag-header/tag-header-short/CAT`)
         .then((response) => {
           const data = response.data.data;
 
-          this.promoCategory = data.map((item, index) => {
+          this.promoCategory = data.map((item) => {
             return {
-              id: index + 1,
-              img: this.$fileURL + item.image || "",
-              title: item.category_name || "",
+              id: item.tag_id || 1,
+              title: item.tag_name || "",
+              img: this.$fileURL + item.tag_image || "",
+              path: "",
               desc: "32 Promos",
-              path: item.slug || "",
             };
           });
         })
@@ -165,17 +168,17 @@ export default {
     },
     getPromoMeals() {
       axios
-        .get(`/categories/app/${this.$appId}/type/PM`)
+        .get(`/list-tags-by-tag-header/tag-header-short/MT`)
         .then((response) => {
           const data = response.data.data;
 
-          this.promoMeals = data.map((item, index) => {
+          this.promoMeals = data.map((item) => {
             return {
-              id: index + 1,
-              img: this.$fileURL + item.image || "",
-              title: item.category_name || "",
+              id: item.tag_id || 1,
+              title: item.tag_name || "",
+              img: this.$fileURL + item.tag_image || "",
+              path: "",
               quantity: 32,
-              path: item.slug || "",
             };
           });
         })
@@ -187,17 +190,40 @@ export default {
     },
     getPromoPeople() {
       axios
-        .get(`/categories/app/${this.$appId}/type/PBP`)
+        .get(`/list-tags-by-tag-header/tag-header-short/PPLT`)
         .then((response) => {
           const data = response.data.data;
 
-          this.promoPeople = data.map((item, index) => {
+          this.promoPeople = data.map((item) => {
             return {
-              id: index + 1,
-              img: this.$fileURL + item.image || "",
-              title: item.category_name || "",
+              id: item.tag_id || 1,
+              title: item.tag_name || "",
+              img: this.$fileURL + item.tag_image || "",
+              path: "",
               quantity: 32,
-              path: item.slug || "",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+          throw error;
+        });
+    },
+    getPreferencePromo() {
+      axios
+        .get(`/list-tags-by-tag-header/tag-header-short/PT`)
+        .then((response) => {
+          const data = response.data.data;
+
+          // let itemFinal = [];
+          this.promoPreference = data.map((item) => {
+            return {
+              id: item.tag_id || 1,
+              title: item.tag_name || "",
+              img: this.$fileURL + item.tag_image || "",
+              path: "",
+              quantity: 32,
             };
           });
         })
@@ -209,168 +235,66 @@ export default {
     },
     getOtherPromo() {
       axios
-        .get(`/categories/app/${this.$appId}/type/PP`)
+        .get(`/list-tags-by-tag-header/tag-header-short/OPT`)
         .then((response) => {
           const data = response.data.data;
 
           // let itemFinal = [];
-          this.promoPreference = data.map((item, index) => {
+          this.promoOther = data.map((item) => {
             return {
-              id: index + 1,
-              img: this.$fileURL + item.image || "",
-              title: item.category_name || "",
+              id: item.tag_id || 1,
+              title: item.tag_name || "",
+              img: this.$fileURL + item.tag_image || "",
+              path: "",
               quantity: 32,
-              path: item.slug || "",
             };
           });
-          this.promoDays = [
-            {
-              title: "Monday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Tuesday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Wednesday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Monday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Tuesday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Wednesday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Monday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Tuesday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Wednesday",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-          ];
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+          throw error;
+        });
+    },
+    getDaysPromo() {
+      axios
+        .get(`/list-tags-by-tag-header/tag-header-short/DAYST`)
+        .then((response) => {
+          const data = response.data.data;
 
-          this.promoOher = [
-            {
-              title: "1 for 1",
-              img: "assets/other-img-1.png",
+          // let itemFinal = [];
+          this.promoDays = data.map((item) => {
+            return {
+              id: item.tag_id || 1,
+              title: item.tag_name || "",
+              img: this.$fileURL + item.tag_image || "",
+              path: "",
               quantity: 32,
-            },
-            {
-              title: "Buy 2 Get 1",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Free with Buy",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "1 for 1",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 2 Get 1",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Free with Buy",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "1 for 1",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 2 Get 1",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Free with Buy",
-              img: "assets/other-img-1.png",
-              quantity: 32,
-            },
-          ];
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+          throw error;
+        });
+    },
+    getVoucherPromo() {
+      axios
+        .get(`/list-tags-by-tag-header/tag-header-short/VT`)
+        .then((response) => {
+          const data = response.data.data;
 
-          this.promoVoucher = [
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-1.png",
+          // let itemFinal = [];
+          this.promoVoucher = data.map((item) => {
+            return {
+              id: item.tag_id || 1,
+              title: item.tag_name || "",
+              img: this.$fileURL + item.tag_image || "",
+              path: "",
               quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-2.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-3.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-4.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-5.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-1.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-2.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-3.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-4.png",
-              quantity: 32,
-            },
-            {
-              title: "Buy 1 Get 1 Free",
-              img: "assets/other-voucher-img-5.png",
-              quantity: 32,
-            },
-          ];
+            };
+          });
         })
         .catch((error) => {
           // eslint-disable-next-line
