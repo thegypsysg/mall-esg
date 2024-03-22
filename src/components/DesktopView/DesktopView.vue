@@ -102,7 +102,6 @@ export default {
       this.getAppDetails1(),
     ])
       .then(() => {
-        this.otherPromotionDataFinal.push(this.otherPromotionData);
         this.isLoading = false;
       })
       .catch((error) => {

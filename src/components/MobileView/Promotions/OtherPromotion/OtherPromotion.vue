@@ -20,6 +20,7 @@
               v-if="
                 item.title === 'Other Types of ' || item.title === 'Voucher '
               "
+              style="max-width: 70%"
             >
               {{ item.title }}Promotions
             </h1>
