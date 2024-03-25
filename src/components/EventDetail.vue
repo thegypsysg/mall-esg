@@ -54,18 +54,18 @@
         </div>
       </div>
       <img
-        :src="$fileURL + promoData?.main_image"
+        :src="eventData?.mainImage"
         alt="redeem image"
         transition="fade-transition"
         class="main-image"
       />
-      <!-- <div v-if="promoData?.promo_featured === 'Y'" class="card-tag">
+      <!-- <div v-if="eventData?.promo_featured === 'Y'" class="card-tag">
         Featured
       </div> -->
     </div>
     <v-container style="padding-top: 230px; padding-bottom: 100px">
       <h3 class="text-blue-accent-4">
-        {{ promoData?.promo_name }}
+        {{ eventData?.promo_name }}
       </h3>
       <p class="mt-6" style="font-size: 12px">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, labore?
@@ -83,25 +83,25 @@
           <v-icon> mdi-calendar </v-icon>
           <div>
             <p style="font-size: 14px" class="ml-1">
-              Starts {{ promoData?.promo_starts_on }}
+              Starts {{ eventData?.promo_starts_on }}
             </p>
             <p style="font-size: 12px" class="ml-1">
-              ({{ dateComparisonStart(promoData?.promo_starts_on) }})
+              ({{ dateComparisonStart(eventData?.promo_starts_on) }})
             </p>
           </div>
         </div>
         <div
-          v-if="promoData?.promo_ends_on"
+          v-if="eventData?.promo_ends_on"
           class="card-time d-flex"
           style="gap: 10px"
         >
           <v-icon> mdi-calendar </v-icon>
           <div>
             <p style="font-size: 14px" class="ml-1">
-              Ends {{ promoData?.promo_ends_on }}
+              Ends {{ eventData?.promo_ends_on }}
             </p>
             <p style="font-size: 12px" class="ml-1">
-              ({{ dateComparisonEnd(promoData?.promo_ends_on) }})
+              ({{ dateComparisonEnd(eventData?.promo_ends_on) }})
             </p>
           </div>
         </div>
@@ -142,7 +142,7 @@
           </h3>
           <div>
             <span style="font-size: 10px" class="text-red">{{
-              promoData?.distanceText
+              eventData?.distanceText
             }}</span
             ><span style="font-size: 10px" class="text-muted"> away</span>
           </div>
@@ -152,7 +152,7 @@
             <div style="width: 20%">
               <img
                 class="logo-img"
-                :src="$fileURL + promoData?.logo"
+                :src="$fileURL + eventData?.logo"
                 height="28"
               />
             </div>
@@ -160,10 +160,10 @@
               class="card-address-info"
               style="font-size: 12px; font-weight: 600"
             >
-              <h5>{{ promoData?.partner_name }}</h5>
+              <h5>{{ eventData?.partner_name }}</h5>
               <h5>
-                {{ promoData?.mall_name }} - {{ promoData?.unit_number }},
-                {{ promoData?.town_name }}
+                {{ eventData?.mall_name }} - {{ eventData?.unit_number }},
+                {{ eventData?.town_name }}
               </h5>
             </div>
           </div>
@@ -199,11 +199,11 @@
       "
     >
       <span style="color: #0197d5; font-weight: 600"
-        >S$ {{ promoData?.amount?.toFixed(2) }}</span
+        >S$ {{ eventData?.amount?.toFixed(2) }}</span
       >
-      <!-- :to="`/pre-redeem/${promoData?.promo_id}`" -->
+      <!-- :to="`/pre-redeem/${eventData?.promo_id}`" -->
       <v-btn
-        :to="`/redeem-location/${promoData?.promo_id}`"
+        :to="`/redeem-location/${eventData?.promo_id}`"
         class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 text-white d-flex align-center pa-4"
         style="
           background: #e99820;
@@ -227,13 +227,13 @@ export default {
   name: "PreRedeem",
   data() {
     return {
-      promoData: null,
+      eventData: null,
       currentDate: moment().format("DD/MM/YYYY"),
     };
   },
   mounted() {
-    this.promoData = JSON.parse(localStorage.getItem("preRedeemItem"));
-    console.log(this.promoData);
+    this.eventData = JSON.parse(localStorage.getItem("eventDetailItem"));
+    console.log(this.eventData);
   },
   methods: {
     dateComparisonStart(startDate) {

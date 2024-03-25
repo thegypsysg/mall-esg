@@ -86,7 +86,7 @@
                   box-shadow: none !important;
                   border-bottom: 1px solid lightgrey;
                 "
-                @click="goToDetail(item.id)"
+                @click="goToDetail(item)"
               >
                 <div
                   class="card-title-container d-flex justify-space-between px-1 pb-1"
@@ -312,8 +312,9 @@ export default {
     };
   },
   methods: {
-    goToDetail(id) {
-      this.$router.push(`/event-id/${id}`);
+    goToDetail(item) {
+      localStorage.setItem("eventDetailItem", JSON.stringify(item));
+      this.$router.push(`/event-id/${item.id}`);
     },
     selectTag(tag) {
       this.activeTag = tag;

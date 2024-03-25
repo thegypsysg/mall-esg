@@ -113,17 +113,21 @@ export default {
       });
 
     app.config.globalProperties.$eventBus.$on(
-      "getMallsActive",
-      this.getActiveMallData
+      "getActiveDataByCountryCity",
+      this.getActiveDataByCountryCity
     );
   },
   beforeUnmount() {
     app.config.globalProperties.$eventBus.$off(
-      "getMallsActive",
-      this.getActiveMallData
+      "getActiveDataByCountryCity",
+      this.getActiveDataByCountryCity
     );
   },
   methods: {
+    getActiveDataByCountryCity() {
+      this.getActiveMallData();
+      this.getMallMerchantsData();
+    },
     getAppDetails1() {
       axios
         .get(`/app/details/${this.$appId}`)
@@ -414,8 +418,27 @@ export default {
     },
     getMallMerchantsData() {
       axios
+        // .get(
+        //   `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${this.longitude}`
+        // )
         .get(
-          `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${this.longitude}`
+          this.itemSelectedComplete?.id != 1 && this.itemSelected2Complete?.id
+            ? `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${
+                this.longitude
+              }/${this.itemSelectedComplete?.id || 1}/${
+                this.itemSelected2Complete?.id || 1
+              }`
+            : this.itemSelectedComplete?.id == 1 &&
+              !this.itemSelected2Complete?.id
+            ? `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${
+                this.longitude
+              }/${this.itemSelectedComplete?.id || 1}/1`
+            : this.itemSelectedComplete?.id != 1 &&
+              !this.itemSelected2Complete?.id
+            ? `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${
+                this.longitude
+              }/${this.itemSelectedComplete?.id || 1}`
+            : `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${this.longitude}/1/1`
         )
         .then((response) => {
           const data = response.data.data;
