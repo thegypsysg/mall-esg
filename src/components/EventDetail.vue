@@ -6,7 +6,7 @@
         style="height: 50px; top: 0"
       >
         <v-btn
-          to="/"
+          to="/all-events"
           variant="flat"
           color="black"
           class="card-btn"

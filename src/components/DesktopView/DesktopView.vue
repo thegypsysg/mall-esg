@@ -332,9 +332,21 @@ export default {
     getActiveMallData() {
       axios
         .get(
-          `/malls/active-list/${this.latitude}/${this.longitude}/featured/${
-            this.itemSelectedComplete?.id || 1
-          }/${this.itemSelected2Complete?.id || 1}`
+          this.itemSelectedComplete?.id != 1 && this.itemSelected2Complete?.id
+            ? `/malls/active-list/${this.latitude}/${this.longitude}/featured/${
+                this.itemSelectedComplete?.id || 1
+              }/${this.itemSelected2Complete?.id || 1}`
+            : this.itemSelectedComplete?.id == 1 &&
+              !this.itemSelected2Complete?.id
+            ? `/malls/active-list/${this.latitude}/${this.longitude}/featured/${
+                this.itemSelectedComplete?.id || 1
+              }/1`
+            : this.itemSelectedComplete?.id != 1 &&
+              !this.itemSelected2Complete?.id
+            ? `/malls/active-list/${this.latitude}/${this.longitude}/featured/${
+                this.itemSelectedComplete?.id || 1
+              }`
+            : `/malls/active-list/${this.latitude}/${this.longitude}/featured/1/1`
         )
         .then((response) => {
           const data = response.data.data;
