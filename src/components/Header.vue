@@ -728,9 +728,9 @@
             </a> -->
             <a
               style="text-decoration: none; font-size: 10px"
-              :href="`https://api.whatsapp.com/send?phone=8589102000&text=Hello!`"
+              :href="`https://api.whatsapp.com/send?phone=+6589102000&text=Hello pls send me your resume`"
             >
-              +65.89102000
+              +6589102000
             </a>
           </div>
           <div>
@@ -772,6 +772,7 @@ import { mapState, mapMutations } from "vuex";
 // import app from "@/util/eventBus";
 import axios from "@/util/axios";
 import moment from "moment-timezone";
+import app from "@/util/eventBus";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names, vue/no-reserved-component-names
   name: "Header",
@@ -805,6 +806,9 @@ export default {
     },
     longitude() {
       return localStorage.getItem("longitude");
+    },
+    countryDevice() {
+      return localStorage.getItem("countryDevice");
     },
     isSmall() {
       return this.screenWidth < 640;
@@ -924,12 +928,17 @@ export default {
             return {
               id: country.country_id,
               title: country.country_name,
-              count: 1,
+              count: country.mall_count,
               oneCity: country.one_city == "Y" ? true : false,
               path: "#",
             };
           });
-          this.setItemSelectedComplete(this.country[0]);
+          const defaultCountry = this.country.filter(
+            (c) => c.title === this.countryDevice
+          );
+          this.setItemSelectedComplete(
+            defaultCountry.length > 0 ? defaultCountry[0] : this.country[0]
+          );
           this.setItemSelected(this.country[0].title);
         })
         .catch((error) => {
@@ -955,7 +964,7 @@ export default {
             return {
               id: city.city_id,
               title: city.city_name,
-              count: 1,
+              count: city.mall_count,
               countryId: city.country_id,
               path: "#",
             };
@@ -975,10 +984,12 @@ export default {
       this.setItemSelected2("---Select City---");
       this.setItemSelected2Complete(null);
       this.getCityMall();
+      app.config.globalProperties.$eventBus.$emit("getMallsActive");
     },
     changeItemSelected2(item) {
       this.setItemSelected2(item.title);
       this.setItemSelected2Complete(item);
+      app.config.globalProperties.$eventBus.$emit("getMallsActive");
     },
   },
 };

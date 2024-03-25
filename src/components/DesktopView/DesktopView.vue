@@ -52,6 +52,8 @@ import Happening from "./Happening/Happening.vue";
 </script>
 
 <script>
+import { mapState } from "vuex";
+import app from "@/util/eventBus";
 import axios from "@/util/axios";
 // import OtherPromotion from "@/components/DesktopView/Promotions/OtherPromotion/OtherPromotion.vue";
 export default {
@@ -79,6 +81,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(["itemSelectedComplete", "itemSelected2Complete"]),
     latitude() {
       return localStorage.getItem("latitude");
     },
@@ -108,6 +111,17 @@ export default {
         console.log(error);
         this.isLoading = false;
       });
+
+    app.config.globalProperties.$eventBus.$on(
+      "getMallsActive",
+      this.getActiveMallData
+    );
+  },
+  beforeUnmount() {
+    app.config.globalProperties.$eventBus.$off(
+      "getMallsActive",
+      this.getActiveMallData
+    );
   },
   methods: {
     getAppDetails1() {
@@ -317,7 +331,11 @@ export default {
     },
     getActiveMallData() {
       axios
-        .get(`/malls/active-list/${this.latitude}/${this.longitude}/featured`)
+        .get(
+          `/malls/active-list/${this.latitude}/${this.longitude}/featured/${
+            this.itemSelectedComplete?.id || 1
+          }/${this.itemSelected2Complete?.id || 1}`
+        )
         .then((response) => {
           const data = response.data.data;
           console.log(data);

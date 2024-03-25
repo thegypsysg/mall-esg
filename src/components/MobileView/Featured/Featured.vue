@@ -468,6 +468,7 @@
           </v-col>
           <v-col v-if="!isAll" cols="10">
             <v-btn
+              to="/all-merchants"
               class="btn-primary v-btn v-btn--has-bg theme--light elevation-0 mt-6 text-white d-flex align-center py-6 px-13"
               style="
                 background-color: #008d00;
@@ -477,7 +478,7 @@
                 border-radius: 50px;
               "
             >
-              <span>View All Promotions</span>
+              <span>View All Merchants</span>
             </v-btn>
           </v-col>
         </v-row>

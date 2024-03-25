@@ -5,79 +5,116 @@
         <h1>Mall Happenings</h1>
         <div class="line-divider my-4 mx-auto" />
         <p class="text-left">
-          Discover all Events, Promotions & Parking in a specific Mall around
-          you.
+          Discover all Events , Parking info , Mall Offers in a malls around you
+          .
         </p>
       </div>
 
-      <v-lazy :options="{ threshold: 0.5 }" min-height="80">
-        <v-card class="happening-item d-flex ml-n4 mb-1" elevation="0">
-          <div class="happening-item-img-cont">
-            <v-img
-              class="happening-item-img"
-              transition="fade-transition"
-              src="@/assets/happening-mobile-img-1.png"
-            >
-              <template #placeholder>
-                <div class="skeleton" />
-              </template>
-            </v-img>
+      <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+        <v-card
+          class="happening-item d-flex align-center ml-n4 mb-1 w-100"
+          height="100"
+          elevation="0"
+          @click="goTo('/all-events')"
+        >
+          <div style="width: 40%">
+            <div class="happening-item-img-cont">
+              <v-img
+                class="happening-item-img"
+                transition="fade-transition"
+                height="100"
+                src="@/assets/happening-mobile-img-1.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
+            </div>
           </div>
-          <div class="happening-item-info d-flex flex-column">
+          <div
+            class="happening-item-info d-flex flex-column justify-space-between"
+            style="font-weight: 600; width: 60%"
+          >
             <h2>Events</h2>
-            <p>Explore all the Events that are currently happening in Malls</p>
+            <p>
+              Explore all Events that are happening in Specific Malls around you
+              .
+            </p>
             <div>
-              <span class="text-red">2</span> Events
-              <span class="text-muted">&#x2022;</span>
-              <span class="text-red"> 5</span> Malls
+              <span class="text-red">23</span> Events in
+              <!-- <span class="text-muted">&#x2022;</span> -->
+              <span class="text-red"> 4</span> Malls
             </div>
           </div>
         </v-card>
       </v-lazy>
-      <v-lazy :options="{ threshold: 0.5 }" min-height="80">
-        <v-card class="happening-item d-flex ml-n4" elevation="0">
-          <div class="happening-item-img-cont">
-            <v-img
-              class="happening-item-img"
-              transition="fade-transition"
-              src="@/assets/happening-mobile-img-2.png"
-            >
-              <template #placeholder>
-                <div class="skeleton" />
-              </template>
-            </v-img>
+      <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+        <v-card
+          class="happening-item d-flex align-center ml-n4 mb-1 w-100"
+          height="100"
+          elevation="0"
+        >
+          <div style="width: 40%">
+            <div class="happening-item-img-cont">
+              <v-img
+                class="happening-item-img"
+                transition="fade-transition"
+                height="100"
+                src="@/assets/happening-mobile-img-2.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
+            </div>
           </div>
-          <div class="happening-item-info d-flex flex-column">
-            <h2>Events</h2>
-            <p>Explore all the Events that are currently happening in Malls</p>
+          <div
+            class="happening-item-info d-flex flex-column justify-space-between"
+            style="font-weight: 600; width: 60%"
+          >
+            <h2>Parking Info</h2>
+            <p>
+              Get Real time Parking Info on the available lots for specific
+              Malls around you .
+            </p>
             <div>
-              <span class="text-red">2</span> Events
-              <span class="text-muted">&#x2022;</span>
-              <span class="text-red"> 5</span> Malls
+              <span class="text-red">12</span> Parking Info in
+              <!-- <span class="text-muted">&#x2022;</span> -->
+              <span class="text-red"> 3</span> Malls
             </div>
           </div>
         </v-card>
       </v-lazy>
-      <v-lazy :options="{ threshold: 0.5 }" min-height="80">
-        <v-card class="happening-item d-flex ml-n4" elevation="0">
-          <div class="happening-item-img-cont">
-            <v-img
-              class="happening-item-img"
-              transition="fade-transition"
-              src="@/assets/happening-mobile-img-3.png"
-            >
-              <template #placeholder>
-                <div class="skeleton" />
-              </template>
-            </v-img>
+      <v-lazy :options="{ threshold: 0.5 }" min-height="100">
+        <v-card
+          class="happening-item d-flex align-center ml-n4 mb-1 w-100"
+          height="100"
+          elevation="0"
+        >
+          <div style="width: 40%">
+            <div class="happening-item-img-cont">
+              <v-img
+                class="happening-item-img"
+                transition="fade-transition"
+                height="100"
+                src="@/assets/happening-mobile-img-3.png"
+              >
+                <template #placeholder>
+                  <div class="skeleton" />
+                </template>
+              </v-img>
+            </div>
           </div>
-          <div class="happening-item-info d-flex flex-column">
-            <h2>Events</h2>
-            <p>Explore all the Events that are currently happening in Malls</p>
+          <div
+            class="happening-item-info d-flex flex-column justify-space-between"
+            style="font-weight: 600; width: 60%"
+          >
+            <h2>Mall Offers</h2>
+            <p>Browse thru various offers given by Malls around you .</p>
             <div>
-              <span class="text-red">2</span> Events
-              <span class="text-muted">&#x2022;</span>
-              <span class="text-red"> 5</span> Malls
+              <span class="text-red">12</span> Mall Offers in
+              <!-- <span class="text-muted">&#x2022;</span> -->
+              <span class="text-red"> 3</span> Malls
             </div>
           </div>
         </v-card>
@@ -90,6 +127,11 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Happening",
+  methods: {
+    goTo(route) {
+      this.$router.push(`${route}`);
+    },
+  },
 };
 </script>
 
@@ -123,38 +165,36 @@ export default {
 }
 
 .happening-item-img-cont {
-  width: 135px;
-  height: 80px;
+  height: 95px;
   overflow: hidden;
   border-radius: 5px !important;
 }
 
 .happening-item-img {
   transition: all 0.3s;
-  display: block;
+  transform: scale(1.4);
   object-fit: cover;
   object-position: center;
   width: 100%;
   height: 100%;
-  transform: scale(1);
 }
 
 .happening-item-img-cont:hover .happening-item-img {
-  transform: scale(1.1);
+  transform: scale(1.5);
 }
 
 .happening-item-info {
-  height: 80px;
+  height: 100px;
 }
 
 .happening-item-info h2 {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 20px;
   margin-bottom: 7px;
 }
 
 .happening-item-info p {
-  font-weight: 400;
+  font-weight: 600;
   font-size: 11px;
   line-height: 12px;
   margin-bottom: 5px;
@@ -162,7 +202,7 @@ export default {
   color: #bababa;
 }
 .happening-item-info div {
-  font-weight: 400;
+  font-weight: 600;
   font-size: 11px;
 }
 
