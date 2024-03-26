@@ -17,6 +17,8 @@ import RedeemLocation from "@/components/RedeemLocation.vue";
 import RedeemDetail from "@/components/RedeemDetail.vue";
 import ViewAllParkingInfo from "@/components/ViewAllParkingInfo.vue";
 import ParkingInfoDetail from "@/components/ParkingInfoDetail.vue";
+import ViewAllMallOffers from "@/components/ViewAllMallOffers.vue";
+import MallOffersDetail from "@/components/MallOffersDetail.vue";
 
 const routes = [
   {
@@ -92,6 +94,16 @@ const routes = [
     path: "/parking-info-id/:id",
     name: "Parking Info Detail",
     component: ParkingInfoDetail,
+  },
+  {
+    path: "/all-mall-offers",
+    name: "All Mall Offers",
+    component: ViewAllMallOffers,
+  },
+  {
+    path: "/mall-offers-id/:id",
+    name: "Mall Offers Detail",
+    component: MallOffersDetail,
   },
   {
     path: "/pre-redeem/:id",

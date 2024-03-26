@@ -18,9 +18,11 @@
           currentRoute.includes('redeem') ||
           currentRoute.includes('event') ||
           currentRoute.includes('parking-info') ||
+          currentRoute.includes('mall-offers') ||
           (currentRoute === '/all-merchants' && !isDesktop) ||
           (currentRoute === '/all-events' && !isDesktop) ||
           (currentRoute === '/all-parking-info' && !isDesktop) ||
+          (currentRoute === '/all-mall-offers' && !isDesktop) ||
           (currentRoute === '/all-malls' && !isDesktop)
             ? true
             : false

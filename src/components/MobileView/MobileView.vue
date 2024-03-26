@@ -155,7 +155,7 @@ export default {
               title: item.tag_name || "",
               img: this.$fileURL + item.tag_image || "",
               path: "",
-              desc: "32 Promotions",
+              quantity: item.promotion_count || 0,
             };
           });
         })
@@ -176,7 +176,7 @@ export default {
               title: item.tag_name || "",
               img: this.$fileURL + item.tag_image || "",
               path: "",
-              desc: "32 Promos",
+              quantity: item.promotion_count || 0,
             };
           });
         })
@@ -197,7 +197,7 @@ export default {
               title: item.tag_name || "",
               img: this.$fileURL + item.tag_image || "",
               path: "",
-              quantity: 2,
+              quantity: item.promotion_count || 0,
             };
           });
           this.otherPromotionData.push({
@@ -225,7 +225,7 @@ export default {
               title: item.tag_name || "",
               img: this.$fileURL + item.tag_image || "",
               path: "",
-              quantity: 10,
+              quantity: item.promotion_count || 0,
             };
           });
           this.otherPromotionData.push({
@@ -254,7 +254,7 @@ export default {
               title: item.tag_name || "",
               img: this.$fileURL + item.tag_image || "",
               path: "",
-              quantity: 5,
+              quantity: item.promotion_count || 0,
             };
           });
           this.otherPromotionData.push({
@@ -283,7 +283,7 @@ export default {
               title: item.tag_name || "",
               img: this.$fileURL + item.tag_image || "",
               path: "",
-              quantity: 5,
+              quantity: item.promotion_count || 0,
             };
           });
           this.otherPromotionData.push({
@@ -312,7 +312,7 @@ export default {
               title: item.tag_name || "",
               img: this.$fileURL + item.tag_image || "",
               path: "",
-              quantity: 5,
+              quantity: item.promotion_count || 0,
             };
           });
           this.otherPromotionData.push({
@@ -341,7 +341,7 @@ export default {
               title: item.tag_name || "",
               img: this.$fileURL + item.tag_image || "",
               path: "",
-              quantity: 5,
+              quantity: item.promotion_count || 0,
             };
           });
 

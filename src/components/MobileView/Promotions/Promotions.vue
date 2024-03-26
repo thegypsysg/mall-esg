@@ -63,7 +63,7 @@
                 class="text-center"
                 style="font-weight: 600; font-size: 12px"
               >
-                {{ card.desc }}
+                {{ card.quantity }} Promotions
               </div>
             </div>
           </v-lazy>
@@ -190,7 +190,7 @@
                   style="font-weight: 600; font-size: 12px"
                   class="d-flex justify-center pb-6"
                 >
-                  {{ card.desc }}
+                  {{ card.quantity }} Promos
                 </v-card-actions>
               </v-card>
             </v-lazy>

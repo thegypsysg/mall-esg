@@ -55,7 +55,7 @@
                 class="text-center"
                 style="font-weight: 600; font-size: 14px"
               >
-                {{ card.desc }}
+                {{ card.quantity }} Promotions
               </div>
             </div>
           </v-lazy>
@@ -189,7 +189,7 @@
                       line-height: 16.94px;
                     "
                   >
-                    {{ card.desc }}
+                    {{ card.quantity }} Promos
                   </div>
                   <div
                     v-else
