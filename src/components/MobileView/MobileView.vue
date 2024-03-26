@@ -127,6 +127,7 @@ export default {
     getActiveDataByCountryCity() {
       this.getActiveMallData();
       this.getMallMerchantsData();
+      this.getMallPromotionsData();
     },
     getAppDetails1() {
       axios
@@ -495,13 +496,25 @@ export default {
     },
     getMallPromotionsData() {
       axios
-        .get(`/mall-promotions/featured`, {
-          params: {
-            userLatitude: this.latitude,
-            userLongitude: this.longitude,
-            limit: 6,
-          },
-        })
+        .get(
+          this.itemSelectedComplete?.id != 1 && this.itemSelected2Complete?.id
+            ? `/mall-promotions/featured/${this.latitude}/${
+                this.longitude
+              }/featured/${this.itemSelectedComplete?.id || 1}/${
+                this.itemSelected2Complete?.id || 1
+              }`
+            : this.itemSelectedComplete?.id == 1 &&
+              !this.itemSelected2Complete?.id
+            ? `/mall-promotions/featured/${this.latitude}/${
+                this.longitude
+              }/featured/${this.itemSelectedComplete?.id || 1}/1`
+            : this.itemSelectedComplete?.id != 1 &&
+              !this.itemSelected2Complete?.id
+            ? `/mall-promotions/featured/${this.latitude}/${
+                this.longitude
+              }/featured/${this.itemSelectedComplete?.id || 1}`
+            : `/mall-promotions/featured/${this.latitude}/${this.longitude}/featured/1/1`
+        )
         .then((response) => {
           const data = response.data.data;
           this.mallPromotions = data.map((item) => {

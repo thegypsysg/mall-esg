@@ -53,6 +53,7 @@
           class="happening-item d-flex align-center ml-n4 mb-1 w-100"
           height="100"
           elevation="0"
+          @click="goTo('/all-parking-info')"
         >
           <div style="width: 40%">
             <div class="happening-item-img-cont">

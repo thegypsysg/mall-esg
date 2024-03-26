@@ -15,6 +15,8 @@ import EventDetail from "@/components/EventDetail.vue";
 import PreRedeem from "@/components/PreRedeem.vue";
 import RedeemLocation from "@/components/RedeemLocation.vue";
 import RedeemDetail from "@/components/RedeemDetail.vue";
+import ViewAllParkingInfo from "@/components/ViewAllParkingInfo.vue";
+import ParkingInfoDetail from "@/components/ParkingInfoDetail.vue";
 
 const routes = [
   {
@@ -80,6 +82,16 @@ const routes = [
     path: "/event-id/:id",
     name: "Event Detail",
     component: EventDetail,
+  },
+  {
+    path: "/all-parking-info",
+    name: "All Parking Info",
+    component: ViewAllParkingInfo,
+  },
+  {
+    path: "/parking-info-id/:id",
+    name: "Parking Info Detail",
+    component: ParkingInfoDetail,
   },
   {
     path: "/pre-redeem/:id",
