@@ -383,9 +383,9 @@
               Malls)
             </h4>
 
-            <v-slide-group class="">
+            <v-slide-group v-if="town.length > 0" class="">
               <v-slide-group-item
-                v-for="item in city"
+                v-for="item in town"
                 :key="item.id"
                 class="mx-4"
               >
@@ -458,6 +458,7 @@ export default {
       activeMallItems: [],
       activeMallCards: [],
       city: [],
+      town: [],
 
       selectedCity: null,
       selectedMall: null,
@@ -506,6 +507,7 @@ export default {
     changeSelectedCity(item) {
       this.selectedCity = item;
       this.getActiveMallData(item);
+      this.getTownMall();
       console.log(item);
     },
     getCityMall() {
@@ -534,6 +536,28 @@ export default {
         })
         .finally(() => {
           this.isLoading = false;
+        });
+    },
+    getTownMall() {
+      axios
+        .get(`/mall-town-list/mall-city/${this.selectedCity?.id || 1}`)
+        .then((response) => {
+          const data = response.data.data;
+          //console.log(data);
+          this.town = data.map((town) => {
+            return {
+              id: town.town_id,
+              title: town.town_name,
+              count: town.mall_count,
+              image: town?.town_image || "",
+              cityId: town.city_id,
+              path: "#",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
         });
     },
     handleResize() {
