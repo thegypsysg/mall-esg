@@ -222,274 +222,92 @@
         <Footer />
       </template>
       <template v-if="isSmall">
-        <v-container>
-          <v-row class="my-4 d-flex align-center">
-            <v-col cols="3">
-              <router-link to="/">
-                <div class="logo-img-container">
-                  <v-img
-                    class="logo-img"
-                    src="https://admin1.the-gypsy.sg/img/app/42673768d2b7cadf2fb0b3f8589a5c16.jpg"
-                    height="200"
-                    cover
-                    transition="fade-transition"
-                  >
-                    <template #placeholder>
-                      <div class="skeleton" />
-                    </template>
-                  </v-img>
-                </div>
-              </router-link>
-            </v-col>
-            <v-col cols="9">
-              Malls in Singapore (<span class="text-blue-darken-4"
-                >214 Malls</span
-              >)
-            </v-col>
-          </v-row>
-          <v-row class="mb-4 d-flex justify-center">
-            <v-col cols="12">
-              <form class="navbar__search navbar__search__mobile">
-                <v-autocomplete
-                  clearable
-                  label="Type a Mall"
-                  variant="outlined"
-                />
-                <button class="btn btn--search" type="submit">
-                  <v-icon color="white"> mdi-magnify </v-icon>
-                </button>
-              </form>
-            </v-col>
-            <v-col cols="6">
-              <v-autocomplete
-                clearable
-                label="Search By Town"
-                variant="outlined"
+        <div class="position-fixed w-100 bg-white" style="z-index: 100">
+          <div
+            class="app-bar w-100 d-flex align-center px-2"
+            style="height: 50px; background: #f3f3f3"
+          >
+            <v-btn variant="text" to="/" icon="mdi-arrow-left">
+              <v-icon color="black" size="20"> mdi-arrow-left </v-icon>
+            </v-btn>
+            <div class="d-flex align-center ml-2" style="gap: 20px">
+              <!-- <img :src="$fileURL + promoData?.main_image" width="45" height="35" /> -->
+              <img
+                src="@/assets/happening-mobile-img-1.png"
+                width="45"
+                height="35"
               />
-            </v-col>
-          </v-row>
-          <v-slide-group class="py-2 px-6">
-            <v-slide-group-item v-for="n in 5" :key="n" class="mx-4">
-              <div class="card-container d-flex flex-column">
-                <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
-                <v-card
-                  class="my-4 mx-3 featured-card"
-                  width="120"
-                  height="130"
-                  elevation="0"
-                >
-                  <div style="font-size: 12px" class="card-title-container">
-                    <p class="mb-2">Great World City</p>
-                    <v-img src="@/assets/gypsi-1.png" cover height="80" />
-                    <!-- <div class="card-title d-flex flex-column">
-                      <span>River Valley</span>
-                    </div> -->
-                    <span>1 Malls</span>
+              <h3>
+                All Malls (
+                <span class="text-red">{{ activeMallCards.length }}</span> )
+              </h3>
+            </div>
+          </div>
+          <div
+            class="d-flex flex-column align-center justify-center pt-2"
+            style="height: 240px"
+          >
+            <form
+              class="navbar__search navbar__search__mobile mt-4"
+              style="border-left: 8px solid brown !important"
+            >
+              <v-autocomplete
+                v-model="selectedMall"
+                class="mt-n1"
+                clearable
+                placeholder="Type a Mall's Name"
+                :items="activeMallItems"
+                variant="outlined"
+                density="compact"
+              />
+              <button
+                class="btn btn--search"
+                style="background-color: brown !important"
+                type="submit"
+              >
+                <v-icon color="white"> mdi-magnify </v-icon>
+              </button>
+            </form>
+            <v-container class="pa-0 ma-0">
+              <v-slide-group class="mt-4">
+                <v-slide-group-item v-for="n in 5" :key="n" class="mx-4">
+                  <div
+                    style="width: 130px !important"
+                    class="card-container d-flex flex-column"
+                  >
+                    <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
+                    <v-card
+                      class="my-4 mx-3 featured-card"
+                      width="120"
+                      height="130"
+                      elevation="0"
+                    >
+                      <div style="font-size: 12px" class="card-title-container">
+                        <p class="mb-2">Great World City</p>
+                        <v-img src="@/assets/gypsi-1.png" cover height="80" />
+                        <!-- <div class="card-title d-flex flex-column">
+                        <span>River Valley</span>
+                      </div> -->
+                        <p><span class="text-red">1</span> Malls</p>
+                      </div>
+                    </v-card>
+                    <!-- </v-lazy> -->
                   </div>
-                </v-card>
-                <!-- </v-lazy> -->
-              </div>
-            </v-slide-group-item>
-          </v-slide-group>
+                </v-slide-group-item>
+              </v-slide-group>
+            </v-container>
+          </div>
+        </div>
+        <div style="padding-top: 270px">
           <Featured2
             title="Featured Malls"
             desc="Check out promotions that are happening in malls around you"
             :is-diff="false"
             :is-slide="false"
             :active-mall-items="activeMallItems"
-            :active-mall-cards="activeMallCards"
+            :active-mall-cards="filteredMalls"
           />
-          <div class="mt-n4">
-            <div class="promotion-container">
-              <v-row class="mb-4">
-                <v-col cols="12">
-                  <h1>All Malls <span>(212 Malls)</span></h1>
-                </v-col>
-              </v-row>
-              <v-row
-                class="d-flex justify-space-between flex-wrap"
-                elevation="0"
-              >
-                <v-col cols="6" v-for="n in 8" :key="n">
-                  <v-lazy :options="{ threshold: 0.5 }" min-height="100">
-                    <v-card
-                      class="my-4 card-cont"
-                      :class="{
-                        'mx-3 pa-2 text-center': !isSmall,
-                        'mx-1': isSmall,
-                      }"
-                      :height="!isSmall ? 290 : 220"
-                      width="100%"
-                      elevation="0"
-                      @click="toggle"
-                    >
-                      <!-- <div
-                v-if="isSmall"
-                style="
-                  font-size: 16px;
-                  font-weight: 600;
-                  margin-bottom: 10px;
-                  line-height: 19.36px;
-                "
-                class="pt-2"
-              >
-                {{
-                  card.text.length >= 28
-                    ? card.text.substring(0, 28) + '..'
-                    : card.text
-                }}
-              </div> -->
-                      <!-- <div
-                v-if="!isSmall"
-                style="
-                  font-size: 16px;
-                  font-weight: 600;
-                  margin-bottom: 10px;
-                  line-height: 19.36px;
-                "
-                class="pt-2 text-left"
-              >
-                Parkway Parade
-              </div> -->
-                      <div
-                        class="card-description d-flex flex-column mb-2"
-                        style="position: relative; gap: 10px"
-                      >
-                        <div
-                          style="gap: 5px"
-                          class="card-address d-flex align-center"
-                        >
-                          <div style="width: 25%">
-                            <v-img
-                              src="https://admin1.the-gypsy.sg/img/app/20ceddeed08eb7cb435367d83a9446e5.jpg"
-                              height="35"
-                            >
-                              <template #placeholder>
-                                <div class="skeleton" />
-                              </template>
-                            </v-img>
-                          </div>
-                          <div
-                            style="width: 75%"
-                            class="card-address-info text-left"
-                          >
-                            <h4 class="mt-4" style="font-weight: 600">
-                              Parkway Parade
-                            </h4>
-
-                            <div class="mt-2" style="font-weight: 400">
-                              <p>Raffles Place (Central), Singapore City</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="trending__app"
-                        :class="{
-                          'card-image-cont-1': !isSmall,
-                          'card-image-cont-2': isSmall,
-                        }"
-                      >
-                        <v-img
-                          src="https://admin1.the-gypsy.sg/img/app/453d9f4812f4e609d9261c07cf3bc5f9.jpg"
-                          class="card-image"
-                          :height="isSmall ? 170 : 220"
-                          cover
-                          transition="fade-transition"
-                        >
-                          <template #placeholder>
-                            <div class="skeleton skeleton-category ml-2" />
-                          </template>
-                        </v-img>
-                      </div>
-                      <v-btn
-                        elevation="1"
-                        to="#"
-                        size="small"
-                        style="
-                          position: absolute;
-                          bottom: 40px;
-                          left: 15px;
-                          background-color: #fa2964;
-                          border-radius: 5px;
-                          padding-left: 8px;
-                          padding-right: 6px;
-                          padding-top: 2px;
-                          padding-bottom: 2px;
-                          font-weight: 600;
-                          font-size: 10px;
-                        "
-                      >
-                        <span class="text-white" style="">View Jobs</span>
-                      </v-btn>
-                      <!-- <div
-                v-if="card.featured == 'Y'"
-                style="
-                  position: absolute;
-                  top: 50px;
-                  right: 15px;
-                  background-color: #f69400;
-                  border-radius: 5px;
-                  padding-left: 10px;
-                  padding-right: 6px;
-                  padding-top: 4px;
-                  padding-bottom: 4px;
-                  font-weight: 600;
-                  font-size: 12px;
-                  width: 120px;
-                  text-align: left !important;
-                "
-              >
-                <span class="text-white text-left" style="">Featured</span>
-              </div> -->
-
-                      <div
-                        class="card-description d-flex flex-column mt-6"
-                        style="position: relative; gap: 10px"
-                      >
-                        <div
-                          class="card-address-info text-left mt-n4 mb-n2"
-                          style="font-weight: 400"
-                        >
-                          <p>
-                            <span class="text-red">100 kms</span
-                            ><span class="text-muted"> away</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        class="card-btn-container-2 d-flex justify-space-between"
-                      >
-                        <v-btn
-                          color="white"
-                          class="card-btn"
-                          :width="isSmall ? 25 : 32"
-                          :height="isSmall ? 25 : 32"
-                          icon="mdi-share-variant-outline"
-                        >
-                          <v-icon size="15" color="red">
-                            mdi-share-variant-outline
-                          </v-icon>
-                        </v-btn>
-                        <v-btn
-                          class="card-btn"
-                          color="white"
-                          icon="mdi-heart-outline"
-                          :width="isSmall ? 25 : 32"
-                          :height="isSmall ? 25 : 32"
-                        >
-                          <v-icon size="15" color="red">
-                            mdi-heart-outline
-                          </v-icon>
-                        </v-btn>
-                      </div>
-                    </v-card>
-                  </v-lazy>
-                </v-col>
-              </v-row>
-            </div>
-          </div>
-        </v-container>
+        </div>
       </template>
     </div>
   </div>
@@ -520,6 +338,8 @@ export default {
       activeMallItems: [],
       activeMallCards: [],
 
+      selectedMall: null,
+
       otherPromotionData: [],
       otherPromotionDataFinal: [],
     };
@@ -533,6 +353,15 @@ export default {
     },
     longitude() {
       return localStorage.getItem("longitude");
+    },
+    filteredMalls() {
+      if (!this.selectedMall) {
+        return this.activeMallCards;
+      } else {
+        return this.activeMallCards.filter(
+          (mall) => mall.name === this.selectedMall
+        );
+      }
     },
   },
   created() {
@@ -580,8 +409,8 @@ export default {
         return distance.toFixed(1) + " kms";
       }
     },
+
     getActiveMallData() {
-      this.isLoading = true;
       axios
         .get(`/malls/active-list/${this.latitude}/${this.longitude}/featured`)
         .then((response) => {
@@ -592,6 +421,7 @@ export default {
             .sort((a, b) => a.distance - b.distance)
             .map((item) => item.partner_name);
           this.activeMallCards = data
+            // .filter((item) => item.active === "Y")
             .sort((a, b) => a.distance - b.distance)
             .map((item) => {
               return {
@@ -633,20 +463,19 @@ export default {
                 latitude: item.latitude || "",
                 longitude: item.longitude || "",
                 logo: this.$fileURL + item.logo || "",
+                mainImage: this.$fileURL + item.main_image || "",
                 oneCity: item.one_city || "N",
                 partnerId: item.partner_id || 0,
                 name: item.partner_name || "",
                 subIndustryName: item.sub_industry_name || "",
               };
             });
+          console.log(this.activeMallCards);
         })
         .catch((error) => {
           // eslint-disable-next-line
           console.log(error);
           throw error;
-        })
-        .finally(() => {
-          this.isLoading = false;
         });
     },
   },

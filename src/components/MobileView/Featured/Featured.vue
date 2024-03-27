@@ -22,10 +22,7 @@
       </h2>
     </div>
     <div
-      v-if="
-        (title == 'Featured Malls' && isAll) ||
-        (title == 'Featured Merchants' && isAll)
-      "
+      v-if="title == 'Featured Merchants' && isAll"
       class="section-title text-h6 d-flex justify-space-between mx-auto"
     >
       <div>
@@ -38,6 +35,11 @@
       >
         <h1 class="view-all">View all</h1>
       </router-link>
+    </div>
+    <div v-if="title == 'Featured Malls' && isAll">
+      <p class="my-4" style="color: gray">
+        {{ desc }}
+      </p>
     </div>
     <div class="section-content">
       <!-- <h1 class="my-n3">
@@ -70,7 +72,9 @@
           class="d-flex align-center justify-center flex-column w-100"
         >
           <v-col
-            v-for="(item, i) in activeMallCards?.slice(0, 5)"
+            v-for="(item, i) in isAll
+              ? activeMallCards
+              : activeMallCards?.slice(0, 5)"
             :key="i"
             cols="12"
             class="mb-2"
@@ -109,6 +113,22 @@
                   "
                 >
                   12 Promotions
+                </div>
+                <div
+                  v-if="item?.featured === 'Y' && isAll"
+                  style="
+                    background: #f26525;
+                    color: white;
+                    position: absolute;
+                    top: 35px;
+                    right: -35px;
+                    rotate: 40deg;
+                    padding: 5px 70px;
+                    font-size: 14px;
+                    z-index: 3;
+                  "
+                >
+                  Featured
                 </div>
                 <div class="featured-card-img-cont-3">
                   <v-img
@@ -1061,6 +1081,9 @@ export default {
       return (
         this.$route.path == "/all-malls" || this.$route.path == "/all-merchants"
       );
+    },
+    isSmall() {
+      return this.screenWidth < 640;
     },
     filteredActiveMalls() {
       if (!this.selectedMalls) {
