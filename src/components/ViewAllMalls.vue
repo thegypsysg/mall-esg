@@ -237,58 +237,129 @@
                 width="45"
                 height="35"
               />
-              <h3>
-                All Malls (
-                <span class="text-red">{{ activeMallCards.length }}</span> )
-              </h3>
+              <h3>All Malls</h3>
             </div>
           </div>
           <div
             class="d-flex flex-column align-center justify-center pt-2"
-            style="height: 240px"
+            :style="{
+              height: itemSelectedComplete?.id == 1 ? '70px' : '240px',
+            }"
           >
-            <form
-              class="navbar__search navbar__search__mobile mt-4"
-              style="border-left: 8px solid brown !important"
-            >
-              <v-autocomplete
-                v-model="selectedMall"
-                class="mt-n1"
-                clearable
-                placeholder="Type a Mall's Name"
-                :items="activeMallItems"
-                variant="outlined"
-                density="compact"
-              />
-              <button
-                class="btn btn--search"
-                style="background-color: brown !important"
-                type="submit"
-              >
-                <v-icon color="white"> mdi-magnify </v-icon>
-              </button>
-            </form>
-            <v-container class="pa-0 ma-0">
-              <v-slide-group class="mt-4">
-                <v-slide-group-item v-for="n in 5" :key="n" class="mx-4">
+            <div style="margin-top: 10px" class="d-flex flex-column w-100">
+              <v-menu>
+                <template #activator="{ props }">
+                  <v-btn
+                    style="font-size: 15px; color: #494949"
+                    v-bind="props"
+                    variant="text"
+                  >
+                    <template
+                      v-if="
+                        !itemSelectedComplete || itemSelectedComplete == null
+                      "
+                    >
+                      <span>{{ itemSelected }}</span>
+                    </template>
+                    <template
+                      v-if="
+                        itemSelectedComplete || itemSelectedComplete != null
+                      "
+                    >
+                      <span class="text-blue-darken-4">{{
+                        itemSelectedComplete?.title
+                      }}</span
+                      ><span class="text-red">
+                        ({{ itemSelectedComplete?.count }}
+                        {{
+                          itemSelectedComplete?.count == "1" ||
+                          itemSelectedComplete?.count == "0"
+                            ? "Mall"
+                            : "Malls"
+                        }})</span
+                      >
+                    </template>
+                    <v-icon right dark> mdi-menu-down </v-icon>
+                  </v-btn>
+                </template>
+              </v-menu>
+              <v-menu v-if="itemSelectedComplete?.oneCity != true">
+                <template #activator="{ props }">
+                  <v-btn
+                    style="font-size: 15px; color: #494949"
+                    v-bind="props"
+                    variant="text"
+                  >
+                    <template v-if="selectedCity == null">
+                      <span>---Select City---</span>
+                    </template>
+                    <template v-if="selectedCity != null">
+                      <span class="text-blue-darken-4">
+                        {{ selectedCity?.title }}</span
+                      ><span class="text-black">
+                        ({{ selectedCity?.count }}
+                        {{
+                          selectedCity?.count == "1" ||
+                          selectedCity?.count == "0"
+                            ? "Mall"
+                            : "Malls"
+                        }})</span
+                      >
+                    </template>
+                    <v-icon right dark> mdi-menu-down </v-icon>
+                  </v-btn>
+                </template>
+                <v-list style="max-height: 50vh">
+                  <v-list-item
+                    v-for="(item, index) in city"
+                    :key="index"
+                    :value="index"
+                    @click="changeSelectedCity(item)"
+                  >
+                    <v-list-item-title>
+                      <span class="text-blue-darken-4">{{ item.title }}</span
+                      ><span class="text-black">
+                        ({{ item.count }}
+                        {{
+                          item.count == "1" || item.count == "0"
+                            ? "Mall"
+                            : "Malls"
+                        }})</span
+                      >
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+            <v-container v-if="itemSelectedComplete?.id != 1" class="pa-0 ma-0">
+              <v-slide-group class="">
+                <v-slide-group-item
+                  v-for="item in city"
+                  :key="item.id"
+                  class="mx-4"
+                >
                   <div
                     style="width: 130px !important"
                     class="card-container d-flex flex-column"
                   >
                     <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
                     <v-card
-                      class="my-4 mx-3 featured-card"
+                      class="mt-4 mx-3 featured-card"
                       width="120"
                       height="130"
                       elevation="0"
                     >
                       <div style="font-size: 12px" class="card-title-container">
-                        <p class="mb-2">Great World City</p>
+                        <p class="mb-2">
+                          {{ item?.title }}
+                        </p>
                         <v-img src="@/assets/gypsi-1.png" cover height="80" />
                         <!-- <div class="card-title d-flex flex-column">
                         <span>River Valley</span>
                       </div> -->
-                        <p><span class="text-red">1</span> Malls</p>
+                        <p>
+                          <span class="text-red">{{ item?.count }}</span> Malls
+                        </p>
                       </div>
                     </v-card>
                     <!-- </v-lazy> -->
@@ -298,7 +369,55 @@
             </v-container>
           </div>
         </div>
-        <div style="padding-top: 270px">
+        <div
+          :style="{
+            paddingTop: itemSelectedComplete?.id == 1 ? '100px' : '270px',
+          }"
+        >
+          <v-container class="mt-4 mb-n4">
+            <h4>
+              Malls in {{ itemSelectedComplete?.title }} (<span
+                class="text-red"
+                >{{ mallCount }}</span
+              >
+              Malls)
+            </h4>
+
+            <v-slide-group class="">
+              <v-slide-group-item
+                v-for="item in city"
+                :key="item.id"
+                class="mx-4"
+              >
+                <div
+                  style="width: 130px !important"
+                  class="card-container d-flex flex-column"
+                >
+                  <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
+                  <v-card
+                    class="mt-2 mx-3 featured-card"
+                    width="120"
+                    height="130"
+                    elevation="0"
+                  >
+                    <div style="font-size: 12px" class="card-title-container">
+                      <p class="mb-2">
+                        {{ item?.title }}
+                      </p>
+                      <v-img src="@/assets/gypsi-1.png" cover height="80" />
+                      <!-- <div class="card-title d-flex flex-column">
+                      <span>River Valley</span>
+                    </div> -->
+                      <p>
+                        <span class="text-red">{{ item?.count }}</span> Malls
+                      </p>
+                    </div>
+                  </v-card>
+                  <!-- </v-lazy> -->
+                </div>
+              </v-slide-group-item>
+            </v-slide-group>
+          </v-container>
           <Featured2
             title="Featured Malls"
             desc="Check out promotions that are happening in malls around you"
@@ -321,6 +440,7 @@ import Featured2 from "@/components/MobileView/Featured/Featured.vue";
 </script>
 
 <script>
+import { mapState } from "vuex";
 import axios from "@/util/axios";
 export default {
   name: "DesktopView",
@@ -337,7 +457,9 @@ export default {
       otherCard3: [],
       activeMallItems: [],
       activeMallCards: [],
+      city: [],
 
+      selectedCity: null,
       selectedMall: null,
 
       otherPromotionData: [],
@@ -345,11 +467,16 @@ export default {
     };
   },
   computed: {
+    ...mapState(["itemSelected"]),
+    ...mapState(["itemSelectedComplete"]),
     isSmall() {
       return this.screenWidth < 640;
     },
     latitude() {
       return localStorage.getItem("latitude");
+    },
+    mallCount() {
+      return localStorage.getItem("mallCount");
     },
     longitude() {
       return localStorage.getItem("longitude");
@@ -372,9 +499,43 @@ export default {
   },
   mounted() {
     this.getActiveMallData();
+    this.getCityMall();
     this.getAppDetails1();
   },
   methods: {
+    changeSelectedCity(item) {
+      this.selectedCity = item;
+      this.getActiveMallData(item);
+      console.log(item);
+    },
+    getCityMall() {
+      this.isLoading = true;
+      axios
+        .get(
+          `/mall-city-list/mall-country/${this.itemSelectedComplete?.id || 1}`
+        )
+        .then((response) => {
+          const data = response.data.data;
+          //console.log(data);
+          this.city = data.map((city) => {
+            return {
+              id: city.city_id,
+              title: city.city_name,
+              count: city.mall_count,
+              image: city?.city_image || "",
+              countryId: city.country_id,
+              path: "#",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
@@ -410,9 +571,23 @@ export default {
       }
     },
 
-    getActiveMallData() {
+    getActiveMallData(selectedCity) {
       axios
-        .get(`/malls/active-list/${this.latitude}/${this.longitude}/featured`)
+        .get(
+          this.itemSelectedComplete?.id != 1 && selectedCity?.id
+            ? `/malls/active-list/${this.latitude}/${this.longitude}/all/${
+                this.itemSelectedComplete?.id || 1
+              }/${selectedCity?.id || 1}`
+            : this.itemSelectedComplete?.id == 1 && !selectedCity?.id
+            ? `/malls/active-list/${this.latitude}/${this.longitude}/all/${
+                this.itemSelectedComplete?.id || 1
+              }/1`
+            : this.itemSelectedComplete?.id != 1 && !selectedCity?.id
+            ? `/malls/active-list/${this.latitude}/${this.longitude}/all/${
+                this.itemSelectedComplete?.id || 1
+              }`
+            : `/malls/active-list/${this.latitude}/${this.longitude}/all/1/1`
+        )
         .then((response) => {
           const data = response.data.data;
           console.log(data);

@@ -29,10 +29,7 @@
       class="ml-6 d-flex flex-row navbar-header"
       :class="{ 'navbar-header-mobile': !isDesktop && isProfile }"
     >
-      <div
-        class="divider"
-        :class="{ 'd-none': !isDesktop && isProfile }"
-      />
+      <div class="divider" :class="{ 'd-none': !isDesktop && isProfile }" />
       <h1>{{ titleHeader }}</h1>
     </div>
     <!-- </div> -->
@@ -54,10 +51,7 @@
         color="blue-grey-lighten-2"
       >
         <template #item="{ props, item }">
-          <div
-            class="mb-2"
-            v-bind="props"
-          >
+          <div class="mb-2" v-bind="props">
             <router-link
               class="text-decoration-none text-black font-weight-bold"
               to="#"
@@ -65,27 +59,22 @@
               <div class="d-flex align-center w-100">
                 <div class="w-25 py-1">
                   <div style="width: 60px">
-                    <v-img
-                      height="40"
-                      :src="item?.raw?.mainImage"
-                    >
+                    <v-img height="40" :src="item?.raw?.mainImage">
                       <template #placeholder>
                         <div class="skeleton" />
                       </template>
                     </v-img>
                   </div>
                 </div>
-                <div
-                  class="w-75"
-                  style="font-size: 12px"
-                >
+                <div class="w-75" style="font-size: 12px">
                   <p class="mb-1">
                     {{ `${item?.raw?.name} (${item?.raw?.subIndustryName})` }}
                   </p>
                   <p class="text-grey">
                     <span>{{ `${item?.raw?.town}` }}</span> (<span
                       class="text-red"
-                    >{{ `${item?.raw?.distanceText}` }}</span><span class="text-black"> away</span>)
+                      >{{ `${item?.raw?.distanceText}` }}</span
+                    ><span class="text-black"> away</span>)
                   </p>
                 </div>
               </div>
@@ -93,19 +82,11 @@
           </div>
         </template>
       </v-autocomplete>
-      <button
-        class="btn btn--search"
-        type="submit"
-      >
-        <v-icon color="white">
-          mdi-magnify
-        </v-icon>
+      <button class="btn btn--search" type="submit">
+        <v-icon color="white"> mdi-magnify </v-icon>
       </button>
     </form>
-    <div
-      v-if="!isHeader && !isProfile"
-      class="text-center desktop__app"
-    >
+    <div v-if="!isHeader && !isProfile" class="text-center desktop__app">
       <v-btn
         style="background: #f4f5f7; color: black"
         variant="text"
@@ -115,54 +96,35 @@
         height="40"
         class="mr-2"
       >
-        <v-icon
-          color="rgb(38, 38, 38)"
-          size="22"
-        >
-          mdi-share-outline
-        </v-icon>
+        <v-icon color="rgb(38, 38, 38)" size="22"> mdi-share-outline </v-icon>
         <v-menu activator="parent">
           <v-list>
             <v-list-item @click="console.log('share')">
               <v-list-item-title>
-                <v-icon
-                  class="mr-4"
-                  color="black"
-                  size="18"
-                >
-                  mdi-email-outline
-                </v-icon>Email
+                <v-icon class="mr-4" color="black" size="18">
+                  mdi-email-outline </v-icon
+                >Email
               </v-list-item-title>
             </v-list-item>
             <v-list-item @click="console.log('share')">
               <v-list-item-title>
-                <v-icon
-                  class="mr-4"
-                  size="18"
-                >
-                  <i class="fa-brands fa-facebook-f" />
-                </v-icon>Facebook
+                <v-icon class="mr-4" size="18">
+                  <i class="fa-brands fa-facebook-f" /> </v-icon
+                >Facebook
               </v-list-item-title>
             </v-list-item>
             <v-list-item @click="console.log('share')">
               <v-list-item-title>
-                <v-icon
-                  class="mr-4"
-                  color="black"
-                  size="18"
-                >
-                  mdi-twitter
-                </v-icon>Twitter
+                <v-icon class="mr-4" color="black" size="18">
+                  mdi-twitter </v-icon
+                >Twitter
               </v-list-item-title>
             </v-list-item>
             <v-list-item @click="console.log('share')">
               <v-list-item-title>
-                <v-icon
-                  class="mr-4"
-                  size="18"
-                >
-                  <i class="fa-brands fa-linkedin-in" />
-                </v-icon>Linkedin
+                <v-icon class="mr-4" size="18">
+                  <i class="fa-brands fa-linkedin-in" /> </v-icon
+                >Linkedin
               </v-list-item-title>
             </v-list-item>
           </v-list>
@@ -219,21 +181,18 @@
             >
               <span class="text-blue-darken-4">{{
                 itemSelectedComplete?.title
-              }}</span><span class="text-red">
+              }}</span
+              ><span class="text-red">
                 ({{ itemSelectedComplete?.count }}
                 {{
                   itemSelectedComplete?.count == "1" ||
-                    itemSelectedComplete?.count == "0"
+                  itemSelectedComplete?.count == "0"
                     ? "Mall"
                     : "Malls"
-                }})</span>
+                }})</span
+              >
             </template>
-            <v-icon
-              right
-              dark
-            >
-              mdi-menu-down
-            </v-icon>
+            <v-icon right dark> mdi-menu-down </v-icon>
           </v-btn>
         </template>
         <v-list>
@@ -244,11 +203,13 @@
             @click="changeItemSelected(item)"
           >
             <v-list-item-title v-if="isSpecific">
-              <span class="text-blue-darken-4">{{ item.title }}</span><span class="text-red">
+              <span class="text-blue-darken-4">{{ item.title }}</span
+              ><span class="text-red">
                 ({{ item.count }}
                 {{
                   item.count == "1" || item.count == "0" ? "Mall" : "Malls"
-                }})</span>
+                }})</span
+              >
             </v-list-item-title>
             <v-list-item-title v-else>
               {{ item.title }}
@@ -275,21 +236,18 @@
             </template>
             <template v-if="!isLoading && itemSelected2Complete != null">
               <span class="text-blue-darken-4">
-                {{ itemSelected2Complete?.title }}</span><span class="text-black">
+                {{ itemSelected2Complete?.title }}</span
+              ><span class="text-black">
                 ({{ itemSelected2Complete?.count }}
                 {{
                   itemSelected2Complete?.count == "1" ||
-                    itemSelected2Complete?.count == "0"
+                  itemSelected2Complete?.count == "0"
                     ? "Mall"
                     : "Malls"
-                }})</span>
+                }})</span
+              >
             </template>
-            <v-icon
-              right
-              dark
-            >
-              mdi-menu-down
-            </v-icon>
+            <v-icon right dark> mdi-menu-down </v-icon>
           </v-btn>
         </template>
         <v-list>
@@ -300,11 +258,13 @@
             @click="changeItemSelected2(item)"
           >
             <v-list-item-title v-if="isSpecific">
-              <span class="text-blue-darken-4">{{ item.title }}</span><span class="text-black">
+              <span class="text-blue-darken-4">{{ item.title }}</span
+              ><span class="text-black">
                 ({{ item.count }}
                 {{
                   item.count == "1" || item.count == "0" ? "Mall" : "Malls"
-                }})</span>
+                }})</span
+              >
             </v-list-item-title>
             <v-list-item-title v-else>
               {{ item.title }}
@@ -313,32 +273,20 @@
         </v-list>
       </v-menu>
     </div>
-    <div
-      v-if="!isHeader && !isProfile"
-      class="btn_sign__up-cont"
-    >
-      <v-btn
-        elevation="0"
-        class="btn_sign__up"
-      >
+    <div v-if="!isHeader && !isProfile" class="btn_sign__up-cont">
+      <v-btn elevation="0" class="btn_sign__up">
         <span> Sign up / Register</span>
       </v-btn>
       <div class="btn_sign__up-hover" />
     </div>
-    <v-btn
-      icon
-      @click="drawer = !drawer"
-    >
+    <v-btn icon @click="drawer = !drawer">
       <img
         src="@/assets/images/icons/user_icon.png"
         style="height: 48px; width: auto"
-      >
+      />
     </v-btn>
 
-    <template
-      v-if="!isProfile"
-      #extension
-    >
+    <template v-if="!isProfile" #extension>
       <div class="mobile__app text-center">
         <div
           style="margin-top: -50px; margin-bottom: 10px"
@@ -362,21 +310,18 @@
                 >
                   <span class="text-blue-darken-4">{{
                     itemSelectedComplete?.title
-                  }}</span><span class="text-red">
+                  }}</span
+                  ><span class="text-red">
                     ({{ itemSelectedComplete?.count }}
                     {{
                       itemSelectedComplete?.count == "1" ||
-                        itemSelectedComplete?.count == "0"
+                      itemSelectedComplete?.count == "0"
                         ? "Mall"
                         : "Malls"
-                    }})</span>
+                    }})</span
+                  >
                 </template>
-                <v-icon
-                  right
-                  dark
-                >
-                  mdi-menu-down
-                </v-icon>
+                <v-icon right dark> mdi-menu-down </v-icon>
               </v-btn>
             </template>
             <v-list style="max-height: 50vh">
@@ -387,11 +332,13 @@
                 @click="changeItemSelected(item)"
               >
                 <v-list-item-title v-if="isSpecific">
-                  <span class="text-blue-darken-4">{{ item.title }}</span><span class="text-red">
+                  <span class="text-blue-darken-4">{{ item.title }}</span
+                  ><span class="text-red">
                     ({{ item.count }}
                     {{
                       item.count == "1" || item.count == "0" ? "Mall" : "Malls"
-                    }})</span>
+                    }})</span
+                  >
                 </v-list-item-title>
                 <v-list-item-title v-else>
                   {{ item.title }}
@@ -413,21 +360,18 @@
                 </template>
                 <template v-if="!isLoading && itemSelected2Complete != null">
                   <span class="text-blue-darken-4">
-                    {{ itemSelected2Complete?.title }}</span><span class="text-black">
+                    {{ itemSelected2Complete?.title }}</span
+                  ><span class="text-black">
                     ({{ itemSelected2Complete?.count }}
                     {{
                       itemSelected2Complete?.count == "1" ||
-                        itemSelected2Complete?.count == "0"
+                      itemSelected2Complete?.count == "0"
                         ? "Mall"
                         : "Malls"
-                    }})</span>
+                    }})</span
+                  >
                 </template>
-                <v-icon
-                  right
-                  dark
-                >
-                  mdi-menu-down
-                </v-icon>
+                <v-icon right dark> mdi-menu-down </v-icon>
               </v-btn>
             </template>
             <v-list style="max-height: 50vh">
@@ -438,11 +382,13 @@
                 @click="changeItemSelected2(item)"
               >
                 <v-list-item-title v-if="isSpecific">
-                  <span class="text-blue-darken-4">{{ item.title }}</span><span class="text-black">
+                  <span class="text-blue-darken-4">{{ item.title }}</span
+                  ><span class="text-black">
                     ({{ item.count }}
                     {{
                       item.count == "1" || item.count == "0" ? "Mall" : "Malls"
-                    }})</span>
+                    }})</span
+                  >
                 </v-list-item-title>
                 <v-list-item-title v-else>
                   {{ item.title }}
@@ -465,38 +411,23 @@
             color="blue-grey-lighten-2"
           >
             <template #item="{ props, item }">
-              <div
-                class="mb-2"
-                v-bind="props"
-              >
+              <div class="mb-2" v-bind="props">
                 <router-link
                   class="text-decoration-none text-black font-weight-bold"
                   style="font-size: 12px"
                   to="#"
                 >
-                  <div
-                    class="d-flex align-center"
-                    style="width: 100%"
-                  >
-                    <div
-                      style="width: 30% !important"
-                      class="py-1"
-                    >
+                  <div class="d-flex align-center" style="width: 100%">
+                    <div style="width: 30% !important" class="py-1">
                       <div style="width: 100px">
-                        <v-img
-                          height="40"
-                          :src="item?.raw?.mainImage"
-                        >
+                        <v-img height="40" :src="item?.raw?.mainImage">
                           <template #placeholder>
                             <div class="skeleton" />
                           </template>
                         </v-img>
                       </div>
                     </div>
-                    <div
-                      style="width: 70% !important"
-                      class="pl-2"
-                    >
+                    <div style="width: 70% !important" class="pl-2">
                       <p class="mb-1">
                         {{
                           `${item?.raw?.name} (${item?.raw?.subIndustryName})`
@@ -505,7 +436,8 @@
                       <p class="text-grey">
                         <span>{{ `${item?.raw?.town}` }}</span> (<span
                           class="text-red"
-                        >{{ `${item?.raw?.distanceText}` }}</span><span class="text-black"> away</span>)
+                          >{{ `${item?.raw?.distanceText}` }}</span
+                        ><span class="text-black"> away</span>)
                       </p>
                     </div>
                   </div>
@@ -513,13 +445,8 @@
               </div>
             </template>
           </v-autocomplete>
-          <button
-            class="btn btn--search"
-            type="submit"
-          >
-            <v-icon color="white">
-              mdi-magnify
-            </v-icon>
+          <button class="btn btn--search" type="submit">
+            <v-icon color="white"> mdi-magnify </v-icon>
           </button>
         </form>
       </div>
@@ -542,10 +469,7 @@
       >
         <span style="font-size: 1.125rem; color: white">Sign up / Sign In</span>
       </router-link>
-      <div
-        v-else
-        class="d-flex align-center"
-      >
+      <div v-else class="d-flex align-center">
         <div style="width: 55px; height: 55px; border-radius: 50%">
           <v-img
             cover
@@ -567,10 +491,7 @@
             <v-list-item-title style="font-size: 14px">
               {{ userName }}
             </v-list-item-title>
-            <v-list-item-subtitle
-              style="font-size: 10px"
-              class="mt-1"
-            >
+            <v-list-item-subtitle style="font-size: 10px" class="mt-1">
               Last Login: {{ userDated }}
             </v-list-item-subtitle>
             <div
@@ -586,16 +507,9 @@
     </div>
     <div class="drawer__heading">
       <div class="drawer-logo">
-        <v-img
-          height="35"
-          width="80"
-          :src="$fileURL + logo"
-        />
+        <v-img height="35" width="80" :src="$fileURL + logo" />
       </div>
-      <v-menu
-        contained
-        style="z-index: 1000"
-      >
+      <v-menu contained style="z-index: 1000">
         <template #activator="{ props }">
           <v-btn
             style="background: #f4f5f7; color: black"
@@ -607,10 +521,7 @@
             class="mx-4"
             v-bind="props"
           >
-            <v-icon
-              color="rgb(38, 38, 38)"
-              size="15"
-            >
+            <v-icon color="rgb(38, 38, 38)" size="15">
               mdi-share-outline
             </v-icon>
           </v-btn>
@@ -618,130 +529,72 @@
         <v-list style="z-index: 1000">
           <v-list-item @click="console.log('share')">
             <v-list-item-title>
-              <v-icon
-                class="mr-4"
-                color="black"
-                size="18"
-              >
-                mdi-email-outline
-              </v-icon>Email
+              <v-icon class="mr-4" color="black" size="18">
+                mdi-email-outline </v-icon
+              >Email
             </v-list-item-title>
           </v-list-item>
           <v-list-item @click="console.log('share')">
             <v-list-item-title>
-              <v-icon
-                class="mr-4"
-                size="18"
-              >
-                <i class="fa-brands fa-facebook-f" />
-              </v-icon>Facebook
+              <v-icon class="mr-4" size="18">
+                <i class="fa-brands fa-facebook-f" /> </v-icon
+              >Facebook
             </v-list-item-title>
           </v-list-item>
           <v-list-item @click="console.log('share')">
             <v-list-item-title>
-              <v-icon
-                class="mr-4"
-                color="black"
-                size="18"
-              >
-                mdi-twitter
-              </v-icon>Twitter
+              <v-icon class="mr-4" color="black" size="18"> mdi-twitter </v-icon
+              >Twitter
             </v-list-item-title>
           </v-list-item>
           <v-list-item @click="console.log('share')">
             <v-list-item-title>
-              <v-icon
-                class="mr-4"
-                size="18"
-              >
-                <i class="fa-brands fa-linkedin-in" />
-              </v-icon>Linkedin
+              <v-icon class="mr-4" size="18">
+                <i class="fa-brands fa-linkedin-in" /> </v-icon
+              >Linkedin
             </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
-      <div
-        class="text-muted"
-        style="font-size: 10px"
-      >
-        Version 1.0
-      </div>
+      <div class="text-muted" style="font-size: 10px">Version 1.0</div>
     </div>
     <v-divider />
-    <ul
-      class="pt-1"
-      nav
-      dense
-    >
+    <ul class="pt-1" nav dense>
       <li class="v-list-item">
         <div class="v-list-item__icon">
-          <v-img
-            height="20"
-            width="30"
-            src="@/assets/images/icons/home.png"
-          />
+          <v-img height="20" width="30" src="@/assets/images/icons/home.png" />
         </div>
-        <v-list-item-title style="font-size: 12px">
-          Home
-        </v-list-item-title>
+        <v-list-item-title style="font-size: 12px"> Home </v-list-item-title>
       </li>
       <li class="v-list-item mt-n2">
         <div class="v-list-item__icon">
-          <v-img
-            height="18"
-            width="25"
-            src="@/assets/links-arrow.svg"
-          />
+          <v-img height="18" width="25" src="@/assets/links-arrow.svg" />
         </div>
-        <v-list-item-title
-          class="text-blue-accent-4"
-          style="font-size: 12px"
-        >
+        <v-list-item-title class="text-blue-accent-4" style="font-size: 12px">
           Merchants - Send Inquiry
         </v-list-item-title>
       </li>
       <li class="v-list-item mt-n2">
         <div class="v-list-item__icon">
-          <v-img
-            height="18"
-            width="25"
-            src="@/assets/links-arrow.svg"
-          />
+          <v-img height="18" width="25" src="@/assets/links-arrow.svg" />
         </div>
-        <v-list-item-title
-          class="text-blue-accent-4"
-          style="font-size: 12px"
-        >
+        <v-list-item-title class="text-blue-accent-4" style="font-size: 12px">
           Driver Partners - Deliver for us
         </v-list-item-title>
       </li>
       <li class="v-list-item mt-n2">
         <div class="v-list-item__icon">
-          <v-img
-            height="18"
-            width="25"
-            src="@/assets/links-arrow.svg"
-          />
+          <v-img height="18" width="25" src="@/assets/links-arrow.svg" />
         </div>
-        <v-list-item-title
-          class="text-blue-accent-4"
-          style="font-size: 12px"
-        >
+        <v-list-item-title class="text-blue-accent-4" style="font-size: 12px">
           All Promotions
         </v-list-item-title>
       </li>
       <li class="v-list-item mt-n2">
         <div class="v-list-item__icon">
-          <v-img
-            height="18"
-            width="25"
-            src="@/assets/links-arrow.svg"
-          />
+          <v-img height="18" width="25" src="@/assets/links-arrow.svg" />
         </div>
-        <v-list-item-title
-          class="text-blue-accent-4"
-          style="font-size: 12px"
-        >
+        <v-list-item-title class="text-blue-accent-4" style="font-size: 12px">
           All Malls
         </v-list-item-title>
       </li>
@@ -818,47 +671,28 @@
       </li> -->
     </ul>
     <div class="drawer__bottom">
-      <div
-        class="text-center"
-        style="width: 100%"
-      >
-        <p
-          style="font-size: 13px"
-          class="mb-1"
-        >
-          Made in Singapore
-        </p>
-        <h3 style="font-size: 13px">
-          Get connected
-        </h3>
+      <div class="text-center" style="width: 100%">
+        <p style="font-size: 13px" class="mb-1">Made in Singapore</p>
+        <h3 style="font-size: 13px">Get connected</h3>
         <v-row
           class="d-flex justify-center mt-1"
           :class="{ 'mb-2': userName == null }"
         >
-          <v-col
-            cols="3"
-            class="d-flex justify-end"
-          >
+          <v-col cols="3" class="d-flex justify-end">
             <v-img
               src="@/assets/images/icons/facebook.png"
               height="40"
               width="32"
             />
           </v-col>
-          <v-col
-            class="d-flex justify-center"
-            cols="3"
-          >
+          <v-col class="d-flex justify-center" cols="3">
             <v-img
               src="@/assets/images/icons/insta.png"
               height="40"
               width="32"
             />
           </v-col>
-          <v-col
-            class="d-flex justify-start"
-            cols="3"
-          >
+          <v-col class="d-flex justify-start" cols="3">
             <v-img
               src="@/assets/images/icons/tiktok.png"
               class="mt-1"
@@ -879,17 +713,11 @@
             Privacy
           </router-link>
           |
-          <router-link
-            class="text-decoration-none text-grey"
-            to="/our-terms"
-          >
+          <router-link class="text-decoration-none text-grey" to="/our-terms">
             Terms
           </router-link>
         </div>
-        <div
-          class="drawer-social d-flex"
-          style="width: 100%; gap: 10px"
-        >
+        <div class="drawer-social d-flex" style="width: 100%; gap: 10px">
           <div>
             <h5>WhatsApp</h5>
             <!-- <a
@@ -910,7 +738,8 @@
             <a
               style="text-decoration: none; font-size: 10px"
               :href="`mailto:support@mall-e.in`"
-            >support@mall-e.in</a>
+              >support@mall-e.in</a
+            >
             <!-- <a
               style="text-decoration: none; font-size: 10px"
               :href="`mailto:${footerData?.email_id}`"
@@ -927,11 +756,8 @@
               style="max-width: 40px; border: 1px solid black"
               src="data:image/png;base64,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"
               alt="Singapore"
-            >
-            <div
-              id="footerCurrentTime"
-              style="font-size: 0.7rem"
-            >
+            />
+            <div id="footerCurrentTime" style="font-size: 0.7rem">
               {{ currentTime }}
             </div>
           </div>
@@ -1113,6 +939,12 @@ export default {
           this.setItemSelectedComplete(
             defaultCountry.length > 0 ? defaultCountry[0] : this.country[0]
           );
+          localStorage.setItem(
+            "mallCount",
+            defaultCountry.length > 0
+              ? defaultCountry[0].count
+              : this.country[0].count
+          );
           this.setItemSelected(this.country[0].title);
         })
         .catch((error) => {
@@ -1127,9 +959,7 @@ export default {
       this.isLoading = true;
       axios
         .get(
-          `/mall-city-list/mall-country/${
-            this.itemSelectedComplete?.id || this.countryId
-          }`
+          `/mall-city-list/mall-country/${this.itemSelectedComplete?.id || 1}`
         )
         .then((response) => {
           const data = response.data.data;
@@ -1139,6 +969,7 @@ export default {
               id: city.city_id,
               title: city.city_name,
               count: city.mall_count,
+              image: city?.city_image || "",
               countryId: city.country_id,
               path: "#",
             };
@@ -1155,6 +986,7 @@ export default {
     changeItemSelected(item) {
       this.setItemSelected(item.title);
       this.setItemSelectedComplete(item);
+      localStorage.setItem("mallCount", this.itemSelectedComplete?.count);
       this.setItemSelected2("---Select City---");
       this.setItemSelected2Complete(null);
       this.getCityMall();
