@@ -243,7 +243,12 @@
           <div
             class="d-flex flex-column align-center justify-center pt-2"
             :style="{
-              height: itemSelectedComplete?.id == 1 ? '70px' : '240px',
+              height:
+                itemSelectedComplete?.id == 1 && town.length == 0
+                  ? '70px'
+                  : itemSelectedComplete?.id != 1 && town.length == 0
+                  ? '120px'
+                  : '240px',
             }"
           >
             <div style="margin-top: 10px" class="d-flex flex-column w-100">
@@ -331,8 +336,8 @@
                 </v-list>
               </v-menu>
             </div>
-            <v-container v-if="itemSelectedComplete?.id != 1" class="pa-0 ma-0">
-              <v-slide-group class="">
+            <v-container class="pa-0 ma-0 d-flex justify-start">
+              <!-- <v-slide-group class="">
                 <v-slide-group-item
                   v-for="item in city"
                   :key="item.id"
@@ -342,7 +347,6 @@
                     style="width: 130px !important"
                     class="card-container d-flex flex-column"
                   >
-                    <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
                     <v-card
                       class="mt-4 mx-3 featured-card"
                       width="120"
@@ -353,6 +357,39 @@
                         <p class="mb-2">
                           {{ item?.title }}
                         </p>
+                        <v-img src="@/assets/gypsi-1.png" cover height="80" />
+                        <p>
+                          <span class="text-red">{{ item?.count }}</span> Malls
+                        </p>
+                      </div>
+                    </v-card>
+                  </div>
+                </v-slide-group-item>
+              </v-slide-group> -->
+              <v-slide-group v-if="town.length > 0">
+                <v-slide-group-item
+                  v-for="item in town"
+                  :key="item.id"
+                  class="mx-4"
+                >
+                  <div style="width: 130px !important" class="card-container">
+                    <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
+                    <v-card
+                      class="mt-2 mx-3 featured-card"
+                      width="120"
+                      height="130"
+                      elevation="0"
+                    >
+                      <div style="font-size: 12px" class="card-title-container">
+                        <p class="mb-2">
+                          {{ item?.title }}
+                        </p>
+                        <!-- <v-img
+                          v-if="item.image != null"
+                          :src="$fileURL + item.image"
+                          cover
+                          height="80"
+                        /> -->
                         <v-img src="@/assets/gypsi-1.png" cover height="80" />
                         <!-- <div class="card-title d-flex flex-column">
                         <span>River Valley</span>
@@ -371,52 +408,28 @@
         </div>
         <div
           :style="{
-            paddingTop: itemSelectedComplete?.id == 1 ? '100px' : '270px',
+            paddingTop:
+              itemSelectedComplete?.id == 1 && town.length == 0
+                ? '100px'
+                : itemSelectedComplete?.id != 1 && town.length == 0
+                ? '150px'
+                : '270px',
           }"
         >
           <v-container class="mt-4 mb-n4">
-            <h4>
+            <h4 v-if="selectedCity == null">
               Malls in {{ itemSelectedComplete?.title }} (<span
                 class="text-red"
                 >{{ mallCount }}</span
               >
               Malls)
             </h4>
-
-            <v-slide-group v-if="town.length > 0" class="">
-              <v-slide-group-item
-                v-for="item in town"
-                :key="item.id"
-                class="mx-4"
-              >
-                <div
-                  style="width: 130px !important"
-                  class="card-container d-flex flex-column"
-                >
-                  <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
-                  <v-card
-                    class="mt-2 mx-3 featured-card"
-                    width="120"
-                    height="130"
-                    elevation="0"
-                  >
-                    <div style="font-size: 12px" class="card-title-container">
-                      <p class="mb-2">
-                        {{ item?.title }}
-                      </p>
-                      <v-img src="@/assets/gypsi-1.png" cover height="80" />
-                      <!-- <div class="card-title d-flex flex-column">
-                      <span>River Valley</span>
-                    </div> -->
-                      <p>
-                        <span class="text-red">{{ item?.count }}</span> Malls
-                      </p>
-                    </div>
-                  </v-card>
-                  <!-- </v-lazy> -->
-                </div>
-              </v-slide-group-item>
-            </v-slide-group>
+            <h4 v-else>
+              Malls in {{ selectedCity?.title }} (<span class="text-red">{{
+                filteredMalls.length
+              }}</span>
+              {{ filteredMalls.length > 1 ? "Malls" : "Mall" }})
+            </h4>
           </v-container>
           <Featured2
             title="Featured Malls"
@@ -540,7 +553,11 @@ export default {
     },
     getTownMall() {
       axios
-        .get(`/mall-town-list/mall-city/${this.selectedCity?.id || 1}`)
+        .get(
+          `/mall-town-list/mall-city/${
+            this.selectedCity != null ? this.selectedCity.id : 1
+          }`
+        )
         .then((response) => {
           const data = response.data.data;
           //console.log(data);
@@ -571,6 +588,9 @@ export default {
           const data = response.data.data;
           // console.log(data);
           this.appDetails1 = data;
+          if (this.itemSelectedComplete?.id == 1) {
+            this.getTownMall();
+          }
         })
         .catch((error) => {
           // eslint-disable-next-line

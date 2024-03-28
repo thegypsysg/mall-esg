@@ -303,191 +303,213 @@
         <Footer />
       </template>
       <template v-if="isSmall">
-        <v-container>
-          <v-row class="my-4 d-flex align-center">
-            <v-col cols="3">
-              <router-link to="/">
-                <div class="logo-img-container">
-                  <v-img
-                    class="logo-img"
-                    src="https://admin1.the-gypsy.sg/img/app/42673768d2b7cadf2fb0b3f8589a5c16.jpg"
-                    height="200"
-                    cover
-                    transition="fade-transition"
-                  >
-                    <template #placeholder>
-                      <div class="skeleton" />
-                    </template>
-                  </v-img>
-                </div>
-              </router-link>
-            </v-col>
-            <v-col cols="9">
-              Merchants in Singapore (<span class="text-blue-darken-4"
-                >114 Merchants</span
-              >)
-            </v-col>
-          </v-row>
-          <v-row class="mb-4 d-flex justify-center">
-            <v-col cols="12">
-              <form class="navbar__search navbar__search__mobile">
-                <v-autocomplete
-                  clearable
-                  label="Type a Merchant"
-                  variant="outlined"
-                />
-                <button class="btn btn--search" type="submit">
-                  <v-icon color="white"> mdi-magnify </v-icon>
-                </button>
-              </form>
-            </v-col>
-            <v-col cols="12">
-              <v-autocomplete
-                clearable
-                label="Search By Town"
-                variant="outlined"
+        <div class="position-fixed w-100 bg-white" style="z-index: 100">
+          <div
+            class="app-bar w-100 d-flex align-center px-2"
+            style="height: 50px; background: #f3f3f3"
+          >
+            <v-btn variant="text" to="/" icon="mdi-arrow-left">
+              <v-icon color="black" size="20"> mdi-arrow-left </v-icon>
+            </v-btn>
+            <div class="d-flex align-center ml-2" style="gap: 20px">
+              <!-- <img :src="$fileURL + promoData?.main_image" width="45" height="35" /> -->
+              <img
+                src="@/assets/happening-mobile-img-1.png"
+                width="45"
+                height="35"
               />
-            </v-col>
-          </v-row>
-          <v-slide-group class="py-2 px-6">
-            <v-slide-group-item v-for="n in 5" :key="n" class="mx-4">
-              <div class="card-container d-flex flex-column">
-                <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
-                <v-card
-                  class="my-4 mx-3 featured-card"
-                  width="120"
-                  height="130"
-                  elevation="0"
-                >
-                  <div style="font-size: 12px" class="card-title-container">
-                    <p class="mb-2">Great World City</p>
-                    <v-img src="@/assets/gypsi-1.png" cover height="80" />
-                    <!-- <div class="card-title d-flex flex-column">
-                      <span>River Valley</span>
-                    </div> -->
-                    <span>1 Merchants</span>
-                  </div>
-                </v-card>
-                <!-- </v-lazy> -->
-              </div>
-            </v-slide-group-item>
-          </v-slide-group>
-          <Featured2
-            title="Featured Merchants"
-            desc="Check out promotions that are happening in merchants around you"
-            :is-diff="false"
-            :is-slide="true"
-            :is-all-merchants="true"
-            :is-featured-merchants="true"
-            :active-mall-items="activeMerchantItems"
-            :mall-merchants="mallMerchants"
-          />
-          <div class="mt-n4">
-            <div class="promotion-container">
-              <v-row class="mb-4">
-                <v-col cols="12">
-                  <h1>
-                    All Other Merchants
-                    <span>({{ allMallMerchants.length }} Merchants)</span>
-                  </h1>
-                </v-col>
-              </v-row>
-
-              <v-sheet class="d-flex justify-center flex-wrap" elevation="0">
-                <template
-                  v-for="(item, index) in allMallMerchants"
-                  :key="index"
-                >
-                  <div class="mx-1">
-                    <v-lazy :options="{ threshold: 0.5 }" min-height="370">
-                      <v-card
-                        class="my-4 mx-3 featured-card"
-                        style="position: relative"
-                        width="270"
-                        elevation="1"
-                        @click="toggle"
-                      >
-                        <div
-                          v-if="!isDiff"
-                          class="card-title-container d-flex justify-space-between align-center px-1 py-4"
-                        >
-                          <div class="w-25 pr-2">
-                            <v-img :src="$fileURL + item?.logo" height="30" />
-                          </div>
-                          <div
-                            class="w-75 d-flex align-center justify-space-between"
-                          >
-                            <div class="card-title-mobile w-75">
-                              <h4 class="text-no-wrap">
-                                {{ item?.partner_name }}
-                              </h4>
-                              <span class="text-no-wrap text-blue"
-                                >{{ item?.mall_name }},
-                                {{ item?.unit_number }}</span
-                              >
-                              <br />
-                              <span class="text-primary">{{
-                                item?.town_name
-                              }}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="featured-card-img-cont-mobile"
-                          :class="{ 'featured-card-img-cont-2': isDiff }"
-                        >
-                          <v-img
-                            class="featured-card-img"
-                            :src="$fileURL + item?.location_image"
-                            transition="fade-transition"
-                            :height="isDiff ? 154 : 180"
-                          >
-                            <template #placeholder>
-                              <div class="skeleton" />
-                            </template>
-                          </v-img>
-                        </div>
-                        <div
-                          v-if="!isDiff"
-                          style="
-                            font-weight: 400;
-                            font-size: 14px;
-                            position: relative;
-                          "
-                          class="px-2 pt-5 pb-4"
-                        >
-                          {{ item?.outlet_count }} Outlets |
-                          {{ item?.promotion_count }} Promotions
-                          <!-- <br />
-                        <span
-                          class="text-red card-title-rightd"
-                          style="font-size: 9px"
-                          >{{ item?.distance }}</span
-                        >
-                        <span
-                          class="card-title-right text-gray"
-                          style="font-size: 9px"
-                        >
-                          away</span
-                        > -->
-                        </div>
-                        <div
-                          v-if="item?.featured === 'Y'"
-                          class="card-tag"
-                          :class="{
-                            'card-tag-1': isDiff,
-                            'card-tag-2': !isDiff,
-                          }"
-                          style="top: 120px"
-                        >
-                          Featured
-                        </div>
-                      </v-card>
-                    </v-lazy>
-                  </div>
-                </template>
-              </v-sheet>
+              <h3>All Malls</h3>
             </div>
+          </div>
+          <div
+            class="d-flex flex-column align-center justify-center pt-2"
+            :style="{
+              height: itemSelectedComplete?.id == 1 ? '70px' : '240px',
+            }"
+          >
+            <div style="margin-top: 10px" class="d-flex flex-column w-100">
+              <v-menu>
+                <template #activator="{ props }">
+                  <v-btn
+                    style="font-size: 15px; color: #494949"
+                    v-bind="props"
+                    variant="text"
+                  >
+                    <template
+                      v-if="
+                        !itemSelectedComplete || itemSelectedComplete == null
+                      "
+                    >
+                      <span>{{ itemSelected }}</span>
+                    </template>
+                    <template
+                      v-if="
+                        itemSelectedComplete || itemSelectedComplete != null
+                      "
+                    >
+                      <span class="text-blue-darken-4">{{
+                        itemSelectedComplete?.title
+                      }}</span
+                      ><span class="text-red">
+                        ({{ itemSelectedComplete?.count }}
+                        {{
+                          itemSelectedComplete?.count == "1" ||
+                          itemSelectedComplete?.count == "0"
+                            ? "Mall"
+                            : "Malls"
+                        }})</span
+                      >
+                    </template>
+                    <v-icon right dark> mdi-menu-down </v-icon>
+                  </v-btn>
+                </template>
+              </v-menu>
+              <v-menu v-if="itemSelectedComplete?.oneCity != true">
+                <template #activator="{ props }">
+                  <v-btn
+                    style="font-size: 15px; color: #494949"
+                    v-bind="props"
+                    variant="text"
+                  >
+                    <template v-if="selectedCity == null">
+                      <span>---Select City---</span>
+                    </template>
+                    <template v-if="selectedCity != null">
+                      <span class="text-blue-darken-4">
+                        {{ selectedCity?.title }}</span
+                      ><span class="text-black">
+                        ({{ selectedCity?.count }}
+                        {{
+                          selectedCity?.count == "1" ||
+                          selectedCity?.count == "0"
+                            ? "Mall"
+                            : "Malls"
+                        }})</span
+                      >
+                    </template>
+                    <v-icon right dark> mdi-menu-down </v-icon>
+                  </v-btn>
+                </template>
+                <v-list style="max-height: 50vh">
+                  <v-list-item
+                    v-for="(item, index) in city"
+                    :key="index"
+                    :value="index"
+                    @click="changeSelectedCity(item)"
+                  >
+                    <v-list-item-title>
+                      <span class="text-blue-darken-4">{{ item.title }}</span
+                      ><span class="text-black">
+                        ({{ item.count }}
+                        {{
+                          item.count == "1" || item.count == "0"
+                            ? "Mall"
+                            : "Malls"
+                        }})</span
+                      >
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+            <v-container v-if="itemSelectedComplete?.id != 1" class="pa-0 ma-0">
+              <v-slide-group class="">
+                <v-slide-group-item
+                  v-for="item in city"
+                  :key="item.id"
+                  class="mx-4"
+                >
+                  <div
+                    style="width: 130px !important"
+                    class="card-container d-flex flex-column"
+                  >
+                    <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
+                    <v-card
+                      class="mt-4 mx-3 featured-card"
+                      width="120"
+                      height="130"
+                      elevation="0"
+                    >
+                      <div style="font-size: 12px" class="card-title-container">
+                        <p class="mb-2">
+                          {{ item?.title }}
+                        </p>
+                        <v-img src="@/assets/gypsi-1.png" cover height="80" />
+                        <!-- <div class="card-title d-flex flex-column">
+                        <span>River Valley</span>
+                      </div> -->
+                        <p>
+                          <span class="text-red">{{ item?.count }}</span> Malls
+                        </p>
+                      </div>
+                    </v-card>
+                    <!-- </v-lazy> -->
+                  </div>
+                </v-slide-group-item>
+              </v-slide-group>
+            </v-container>
+          </div>
+        </div>
+        <v-container>
+          <div
+            :style="{
+              paddingTop: itemSelectedComplete?.id == 1 ? '100px' : '270px',
+            }"
+          >
+            <v-container class="mt-4 mb-n4">
+              <h4>
+                Malls in {{ itemSelectedComplete?.title }} (<span
+                  class="text-red"
+                  >{{ mallCount }}</span
+                >
+                Malls)
+              </h4>
+
+              <v-slide-group v-if="town.length > 0" class="">
+                <v-slide-group-item
+                  v-for="item in town"
+                  :key="item.id"
+                  class="mx-4"
+                >
+                  <div
+                    style="width: 130px !important"
+                    class="card-container d-flex flex-column"
+                  >
+                    <!-- <v-lazy :options="{ threshold: 0.5 }" min-height="270"> -->
+                    <v-card
+                      class="mt-2 mx-3 featured-card"
+                      width="120"
+                      height="130"
+                      elevation="0"
+                    >
+                      <div style="font-size: 12px" class="card-title-container">
+                        <p class="mb-2">
+                          {{ item?.title }}
+                        </p>
+                        <v-img src="@/assets/gypsi-1.png" cover height="80" />
+                        <!-- <div class="card-title d-flex flex-column">
+                    <span>River Valley</span>
+                  </div> -->
+                        <p>
+                          <span class="text-red">{{ item?.count }}</span> Malls
+                        </p>
+                      </div>
+                    </v-card>
+                    <!-- </v-lazy> -->
+                  </div>
+                </v-slide-group-item>
+              </v-slide-group>
+            </v-container>
+            <Featured2
+              title="Featured Merchants"
+              desc="Check out promotions that are happening in merchants around you"
+              :is-diff="false"
+              :is-slide="true"
+              :is-all-merchants="true"
+              :is-featured-merchants="true"
+              :active-mall-items="activeMerchantItems"
+              :mall-merchants="mallMerchants"
+            />
           </div>
         </v-container>
       </template>
@@ -503,6 +525,7 @@ import Featured2 from "@/components/MobileView/Featured/Featured.vue";
 </script>
 
 <script>
+import { mapState } from "vuex";
 import axios from "@/util/axios";
 export default {
   name: "ViewAllMerchantsVue",
@@ -520,14 +543,24 @@ export default {
       activeMerchantItems: [],
       mallMerchants: [],
       allMallMerchants: [],
+      city: [],
+      town: [],
+
+      selectedCity: null,
+      selectedMall: null,
 
       otherPromotionData: [],
       otherPromotionDataFinal: [],
     };
   },
   computed: {
+    ...mapState(["itemSelected"]),
+    ...mapState(["itemSelectedComplete"]),
     isSmall() {
       return this.screenWidth < 640;
+    },
+    mallCount() {
+      return localStorage.getItem("mallCount");
     },
     latitude() {
       return localStorage.getItem("latitude");
@@ -544,9 +577,66 @@ export default {
   },
   mounted() {
     this.getMallMerchantsData();
+    this.getCityMall();
     this.getAppDetails1();
   },
   methods: {
+    changeSelectedCity(item) {
+      this.selectedCity = item;
+      this.getMallMerchantsData(item);
+      this.getTownMall();
+      console.log(item);
+    },
+    getCityMall() {
+      this.isLoading = true;
+      axios
+        .get(
+          `/mall-city-list/mall-country/${this.itemSelectedComplete?.id || 1}`
+        )
+        .then((response) => {
+          const data = response.data.data;
+          //console.log(data);
+          this.city = data.map((city) => {
+            return {
+              id: city.city_id,
+              title: city.city_name,
+              count: city.mall_count,
+              image: city?.city_image || "",
+              countryId: city.country_id,
+              path: "#",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    getTownMall() {
+      axios
+        .get(`/mall-town-list/mall-city/${this.selectedCity?.id || 1}`)
+        .then((response) => {
+          const data = response.data.data;
+          //console.log(data);
+          this.town = data.map((town) => {
+            return {
+              id: town.town_id,
+              title: town.town_name,
+              count: town.mall_count,
+              image: town?.town_image || "",
+              cityId: town.city_id,
+              path: "#",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+    },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
@@ -582,10 +672,22 @@ export default {
       }
     },
 
-    getMallMerchantsData() {
+    getMallMerchantsData(selectedCity) {
       axios
         .get(
-          `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${this.longitude}`
+          this.itemSelectedComplete?.id != 1 && selectedCity?.id
+            ? `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${
+                this.longitude
+              }/${this.itemSelectedComplete?.id || 1}/${selectedCity?.id || 1}`
+            : this.itemSelectedComplete?.id == 1 && !selectedCity?.id
+            ? `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${
+                this.longitude
+              }/${this.itemSelectedComplete?.id || 1}/1`
+            : this.itemSelectedComplete?.id != 1 && !selectedCity?.id
+            ? `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${
+                this.longitude
+              }/${this.itemSelectedComplete?.id || 1}`
+            : `/mall-merchant-outlets/list-by-status/all/${this.latitude}/${this.longitude}/1/1`
         )
         .then((response) => {
           const data = response.data.data;

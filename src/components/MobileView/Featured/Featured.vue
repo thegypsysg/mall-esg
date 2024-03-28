@@ -21,7 +21,7 @@
         Featured <span style="color: #16b85f">Promotions</span>
       </h2>
     </div>
-    <div
+    <!-- <div
       v-if="title == 'Featured Merchants' && isAll"
       class="section-title text-h6 d-flex justify-space-between mx-auto"
     >
@@ -35,8 +35,8 @@
       >
         <h1 class="view-all">View all</h1>
       </router-link>
-    </div>
-    <div v-if="title == 'Featured Malls' && isAll">
+    </div> -->
+    <div v-if="isAll">
       <p class="my-4" style="color: gray">
         {{ desc }}
       </p>
@@ -270,7 +270,7 @@
         </v-slide-group> -->
       </v-sheet>
 
-      <v-sheet v-if="title == 'Featured Merchants' && !isAll" elevation="0">
+      <v-sheet v-if="title == 'Featured Merchants'" elevation="0">
         <v-row
           dense
           class="d-flex align-center justify-center flex-column w-100"
@@ -742,7 +742,7 @@
 
       <v-sheet class="ml-n6 mr-n4 mt-4" elevation="0">
         <v-slide-group
-          v-if="title == 'Featured Merchants' && isAll"
+          v-if="title == 'temp2'"
           v-model="model2"
           class="py-2 px-6 mt-n8"
         >
@@ -840,7 +840,7 @@
         </v-slide-group>
 
         <v-slide-group
-          v-if="title === 'Temp'"
+          v-if="title === 'Temp1'"
           v-model="model2"
           class="py-2 px-6"
         >
