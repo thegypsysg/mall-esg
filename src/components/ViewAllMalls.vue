@@ -436,9 +436,9 @@
             </h4>
             <h4 v-else-if="selectedMall?.title">
               Malls in {{ selectedMall?.title }} (<span class="text-red">{{
-                selectedMall?.count
+                filteredMalls.length
               }}</span>
-              {{ selectedMall?.count > 1 ? "Malls" : "Mall" }})
+              {{ filteredMalls.length > 1 ? "Malls" : "Mall" }})
             </h4>
             <h4 v-else-if="selectedCity != null && selectedMall == null">
               Malls in {{ selectedCity?.title }} (<span class="text-red">{{

@@ -460,6 +460,7 @@
                       width="120"
                       height="130"
                       elevation="0"
+                      @click="handleSelectMerchant(item)"
                     >
                       <div style="font-size: 12px" class="card-title-container">
                         <p class="mb-2">
@@ -501,21 +502,27 @@
             }"
           >
             <v-container class="mt-4 mb-n4">
-              <h4 v-if="selectedCity == null">
+              <h4 v-if="selectedCity == null && selectedMerchant == null">
                 Malls in {{ itemSelectedComplete?.title }} (<span
                   class="text-red"
                   >{{ mallCount }}</span
                 >
                 {{ mallCount > 1 ? "Malls" : "Mall" }})
               </h4>
-              <h4 v-else>
+              <h4 v-else-if="selectedMerchant?.title">
+                Malls in {{ selectedMerchant?.title }} (<span
+                  class="text-red"
+                  >{{ filteredMerchants.length }}</span
+                >
+                {{ filteredMerchants.length > 1 ? "Malls" : "Mall" }})
+              </h4>
+              <h4 v-else-if="selectedCity != null && selectedMerchant == null">
                 Malls in {{ selectedCity?.title }} (<span class="text-red">{{
                   filteredMerchants.length
                 }}</span>
                 {{ filteredMerchants.length > 1 ? "Malls" : "Mall" }})
               </h4>
               <v-autocomplete
-                v-model="selectedMerchants"
                 class="mt-4"
                 :items="mallMerchantsItems"
                 item-title="name"
@@ -573,7 +580,7 @@ export default {
       town: [],
 
       selectedCity: null,
-      selectedMerchants: null,
+      selectedMerchant: null,
 
       otherPromotionData: [],
       otherPromotionDataFinal: [],
@@ -595,11 +602,11 @@ export default {
       return localStorage.getItem("longitude");
     },
     filteredMerchants() {
-      if (!this.selectedMerchants) {
+      if (this.selectedMerchant == null) {
         return this.allMallMerchants;
       } else {
         return this.allMallMerchants.filter(
-          (mall) => mall.mall_name === this.selectedMerchants
+          (mall) => mall.town_name === this.selectedMerchant?.title
         );
       }
     },
@@ -617,9 +624,13 @@ export default {
     this.getAppDetails1();
   },
   methods: {
+    handleSelectMerchant(data) {
+      this.selectedMerchant = data;
+    },
     changeSelectedCity(item) {
       this.selectedCity = item;
       this.getMallMerchantsData(item);
+      this.selectedMerchant = null;
       this.getTownMall();
       console.log(item);
     },
@@ -649,6 +660,30 @@ export default {
         })
         .finally(() => {
           this.isLoading = false;
+        });
+    },
+    getTownMallCountry() {
+      axios
+        .get(
+          `/mall-town-list/mall-country/${this.itemSelectedComplete?.id || 1}`
+        )
+        .then((response) => {
+          const data = response.data.data;
+          //console.log(data);
+          this.town = data.map((town) => {
+            return {
+              id: town.town_id,
+              title: town.town_name,
+              count: town.mall_count,
+              image: town?.town_image || "",
+              cityId: town.city_id,
+              path: "#",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
         });
     },
     getTownMall() {
@@ -689,12 +724,12 @@ export default {
           // console.log(data);
           this.appDetails1 = data;
 
-          if (
-            this.itemSelectedComplete?.id == 1 ||
-            !this.itemSelectedComplete
-          ) {
-            this.getTownMall();
-          }
+          // if (
+          //   this.itemSelectedComplete?.id == 1 ||
+          //   !this.itemSelectedComplete
+          // ) {
+          this.getTownMallCountry();
+          // }
         })
         .catch((error) => {
           // eslint-disable-next-line
