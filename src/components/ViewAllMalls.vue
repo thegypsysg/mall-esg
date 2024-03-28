@@ -422,7 +422,7 @@
                 class="text-red"
                 >{{ mallCount }}</span
               >
-              Malls)
+              {{ mallCount > 1 ? "Malls" : "Mall" }})
             </h4>
             <h4 v-else>
               Malls in {{ selectedCity?.title }} (<span class="text-red">{{
@@ -456,7 +456,7 @@ import Featured2 from "@/components/MobileView/Featured/Featured.vue";
 import { mapState } from "vuex";
 import axios from "@/util/axios";
 export default {
-  name: "DesktopView",
+  name: "ViewAllMalls",
   data() {
     return {
       screenWidth: window.innerWidth,
@@ -588,7 +588,10 @@ export default {
           const data = response.data.data;
           // console.log(data);
           this.appDetails1 = data;
-          if (this.itemSelectedComplete?.id == 1) {
+          if (
+            this.itemSelectedComplete?.id == 1 ||
+            !this.itemSelectedComplete
+          ) {
             this.getTownMall();
           }
         })
