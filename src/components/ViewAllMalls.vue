@@ -379,6 +379,7 @@
                       width="120"
                       height="130"
                       elevation="0"
+                      @click="handleSelectMall(item)"
                     >
                       <div style="font-size: 12px" class="card-title-container">
                         <p class="mb-2">
@@ -390,7 +391,16 @@
                           cover
                           height="80"
                         /> -->
-                        <v-img src="@/assets/gypsi-1.png" cover height="80" />
+
+                        <v-img
+                          :src="
+                            item.image
+                              ? $fileURL + item.image
+                              : 'https://img.freepik.com/free-vector/urban-street-landscape-with-cafe-beauty-salon_107791-1892.jpg'
+                          "
+                          cover
+                          height="80"
+                        />
                         <!-- <div class="card-title d-flex flex-column">
                         <span>River Valley</span>
                       </div> -->
@@ -417,14 +427,20 @@
           }"
         >
           <v-container class="mt-4 mb-n4">
-            <h4 v-if="selectedCity == null">
+            <h4 v-if="selectedCity == null && selectedMall == null">
               Malls in {{ itemSelectedComplete?.title }} (<span
                 class="text-red"
                 >{{ mallCount }}</span
               >
               {{ mallCount > 1 ? "Malls" : "Mall" }})
             </h4>
-            <h4 v-else>
+            <h4 v-else-if="selectedMall?.title">
+              Malls in {{ selectedMall?.title }} (<span class="text-red">{{
+                selectedMall?.count
+              }}</span>
+              {{ selectedMall?.count > 1 ? "Malls" : "Mall" }})
+            </h4>
+            <h4 v-else-if="selectedCity != null && selectedMall == null">
               Malls in {{ selectedCity?.title }} (<span class="text-red">{{
                 filteredMalls.length
               }}</span>
@@ -496,11 +512,11 @@ export default {
       return localStorage.getItem("longitude");
     },
     filteredMalls() {
-      if (!this.selectedMall) {
+      if (this.selectedMall == null) {
         return this.activeMallCards;
       } else {
         return this.activeMallCards.filter(
-          (mall) => mall.name === this.selectedMall
+          (mall) => mall.town === this.selectedMall?.title
         );
       }
     },
@@ -517,8 +533,12 @@ export default {
     this.getAppDetails1();
   },
   methods: {
+    handleSelectMall(data) {
+      this.selectedMall = data;
+    },
     changeSelectedCity(item) {
       this.selectedCity = item;
+      this.selectedMall = null;
       this.getActiveMallData(item);
       this.getTownMall();
       console.log(item);
@@ -577,6 +597,30 @@ export default {
           console.log(error);
         });
     },
+    getTownMallCountry() {
+      axios
+        .get(
+          `/mall-town-list/mall-country/${this.itemSelectedComplete?.id || 1}`
+        )
+        .then((response) => {
+          const data = response.data.data;
+          //console.log(data);
+          this.town = data.map((town) => {
+            return {
+              id: town.town_id,
+              title: town.town_name,
+              count: town.mall_count,
+              image: town?.town_image || "",
+              cityId: town.city_id,
+              path: "#",
+            };
+          });
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
+    },
     handleResize() {
       this.screenWidth = window.innerWidth;
     },
@@ -588,12 +632,12 @@ export default {
           const data = response.data.data;
           // console.log(data);
           this.appDetails1 = data;
-          if (
-            this.itemSelectedComplete?.id == 1 ||
-            !this.itemSelectedComplete
-          ) {
-            this.getTownMall();
-          }
+          // if (
+          //   this.itemSelectedComplete?.id == 1 ||
+          //   !this.itemSelectedComplete
+          // ) {
+          this.getTownMallCountry();
+          // }
         })
         .catch((error) => {
           // eslint-disable-next-line

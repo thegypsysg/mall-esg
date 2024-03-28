@@ -465,13 +465,15 @@
                         <p class="mb-2">
                           {{ item?.title }}
                         </p>
-                        <!-- <v-img
-                          v-if="item.image != null"
-                          :src="$fileURL + item.image"
+                        <v-img
+                          :src="
+                            item.image
+                              ? $fileURL + item.image
+                              : 'https://img.freepik.com/free-vector/urban-street-landscape-with-cafe-beauty-salon_107791-1892.jpg'
+                          "
                           cover
                           height="80"
-                        /> -->
-                        <v-img src="@/assets/gypsi-1.png" cover height="80" />
+                        />
                         <!-- <div class="card-title d-flex flex-column">
                         <span>River Valley</span>
                       </div> -->
